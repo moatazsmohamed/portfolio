@@ -1,4 +1,4 @@
-﻿﻿﻿/* ============================================================================
+﻿﻿/* ============================================================================
    PORTFOLIO — M & M · Moataz Mohamed
    الملف: 11.css  (ملف التنسيقات الرئيسي والوحيد)
    ============================================================================
@@ -6157,5 +6157,1642 @@ body.light-mode .social-tile:hover {
 @media (max-width: 340px) {
     .socials-grid {
         grid-template-columns: 1fr;
+    }
+}/* ============================================================================
+   زر العودة لأول الصفحة (Back to Top)
+   ----------------------------------------------------------------------------
+   زر دائري ذهبي ثابت في الركن، بيفضل مخفي (opacity: 0) لحد ما الزائر ينزل
+   مسافة معينة، وبعدها بيظهر بنعومة جوه كلاس .is-visible (بيتضاف من script.js).
+
+   ملاحظة: الزرار بيتقلب للركن التاني تلقائيًا في الوضع العربي (RTL) لأننا
+   بنستخدم خصائص منطقية (inset-inline-end).
+   ============================================================================ */
+.backToTopBtn {
+    position: fixed;
+    inset-inline-end: 26px;
+    bottom: 26px;
+    z-index: 900;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+
+    color: #f7d774;
+    font-size: 1rem;
+    cursor: pointer;
+
+    background: linear-gradient(135deg, rgba(20, 17, 15, 0.94), rgba(10, 9, 12, 0.86));
+    border: 1px solid rgba(212, 175, 55, 0.42);
+    border-radius: 50%;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.48);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    /* مخفي ومزحلق لتحت لحد ما يظهر */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(14px) scale(0.92);
+    transition: opacity 0.28s ease, transform 0.28s ease,
+                visibility 0.28s ease, background 0.28s ease, color 0.28s ease;
+}
+
+/* بتتضاف من script.js لما الزائر ينزل */
+.backToTopBtn.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.backToTopBtn:hover {
+    color: #0a090c;
+    background: linear-gradient(135deg, #f7d774, #d4af37 55%, #bf8f28);
+    transform: translateY(-2px) scale(1.05);
+}
+
+.backToTopBtn:active {
+    transform: translateY(0) scale(0.95);
+}
+
+.backToTopBtn:focus-visible {
+    outline: 2px solid #f7d774;
+    outline-offset: 3px;
+}
+
+/* في الوضع الأبيض نستخدم حدود وتوهج أهدى */
+body.light-mode .backToTopBtn {
+    color: #a97c17;
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(191, 143, 40, 0.55);
+    box-shadow: 0 12px 26px rgba(120, 96, 32, 0.22);
+}
+
+body.light-mode .backToTopBtn:hover {
+    color: #0a090c;
+    background: linear-gradient(135deg, #f7d774, #d4af37 55%, #bf8f28);
+}
+
+/* على الشاشات الصغيرة نصغّر الزرار شوية ونقرّبه من الحافة */
+@media (max-width: 600px) {
+    .backToTopBtn {
+        inset-inline-end: 16px;
+        bottom: 16px;
+        width: 42px;
+        height: 42px;
+    }
+}
+
+/* احترام إعداد "تقليل الحركة" — منع الحركة مع الحفاظ على الوظيفة */
+@media (prefers-reduced-motion: reduce) {
+    .backToTopBtn {
+        transform: none;
+        transition: opacity 0.15s ease, visibility 0.15s ease;
+    }
+
+    .backToTopBtn.is-visible {
+        transform: none;
+    }
+}
+/* ============================================================================
+   ✨ ثيم الوضع النهاري الجديد — "Porcelain & Bronze"
+   ============================================================================
+   الفكرة: بدل البيج المغسول، الصفحة النهارية بقت بورسلين فاتح (أبيض مائل
+   للرمادي الدافئ) مع لمسة برونزية هادئة، ونص بنّي غامق واضح (تباين عالي).
+
+   التركيب:
+     • لوحة الألوان متعرّفة مرة واحدة كمتغيّرات CSS على body.light-mode،
+       وكل عنصر في الموقع بياخد لونه منها — فالتعديل كله من مكان واحد.
+     • ده آخر الملف، فأي قاعدة هنا بتغلب قواعد light-mode القديمة
+       لأنها في نفس الخصوصية واسمها واحد.
+     • ⚠️ الوضع الداكن (body من غير light-mode) مش متلمس نهائيًا.
+     • ⚠️ المقاسات (padding/width/font) مش متغيّرة — ألوان فقط.
+   ============================================================================ */
+
+body.light-mode {
+    /* ---- لوحة الألوان ---- */
+    --lm-bg-a: #fdfbf6;          /* أفتح درجة في الخلفية */
+    --lm-bg-b: #f4ede1;          /* درجة وسطى دافئة */
+    --lm-bg-c: #efe6d6;          /* أغمق درجة — بنهاية الصفحة */
+
+    --lm-ink: #241b10;           /* النص الأساسي (بني غامق واضح) */
+    --lm-ink-soft: #57493a;      /* النصوص الثانوية */
+    --lm-ink-mute: #8a7c68;      /* النصوص tertiary / placeholder */
+
+    --lm-bronze: #9c6f1c;        /* لون التمييز الأساسي (برونزي) */
+    --lm-bronze-soft: #c39a4d;   /* درجة أفتح للعناصر الصغيرة */
+    --lm-bronze-ink: #6d4d10;    /* لون النص فوق الأسطح الذهبية */
+
+    --lm-surface: rgba(255, 253, 249, 0.86);
+    --lm-surface-solid: #fffdf9;
+    --lm-surface-tint: rgba(245, 238, 226, 0.78);
+
+    --lm-border: rgba(120, 92, 32, 0.20);
+    --lm-border-strong: rgba(120, 92, 32, 0.38);
+    --lm-hairline: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+
+    --lm-shadow: 0 14px 34px rgba(72, 56, 24, 0.10);
+    --lm-shadow-soft: 0 6px 18px rgba(72, 56, 24, 0.07);
+    --lm-shadow-gold: 0 12px 26px rgba(156, 111, 28, 0.20);
+
+    /* ---- الخلفية: تدرّج بورسلين + شبكة خفيفة + هالات دافئة ---- */
+    background:
+        radial-gradient(58% 46% at 12% 6%, rgba(214, 176, 108, 0.20), transparent 62%),
+        radial-gradient(50% 40% at 88% 12%, rgba(233, 214, 178, 0.30), transparent 60%),
+        radial-gradient(64% 46% at 50% 102%, rgba(196, 168, 118, 0.16), transparent 66%),
+        linear-gradient(168deg, var(--lm-bg-a) 0%, var(--lm-bg-b) 46%, var(--lm-bg-c) 100%),
+        linear-gradient(rgba(120, 92, 32, 0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(120, 92, 32, 0.04) 1px, transparent 1px);
+    background-size: auto, auto, auto, 100% 100%, 40px 40px, 40px 40px;
+    background-position: center, center, center, center, top left, top left;
+    background-attachment: fixed;
+    color: var(--lm-ink);
+}
+
+/* هالة الخلفية المتحركة (body::after) تبقى أخف في النهار */
+body.light-mode::after {
+    background:
+        radial-gradient(60% 60% at 22% 18%, rgba(203, 168, 100, 0.14), transparent 62%),
+        radial-gradient(50% 50% at 82% 26%, rgba(226, 205, 162, 0.16), transparent 60%),
+        radial-gradient(48% 48% at 62% 88%, rgba(236, 221, 190, 0.14), transparent 62%);
+}
+
+/* خطوط الماسحة والـ cursor تاخد سعرات أفتح فوق الخلفية البيضاء */
+body.light-mode .bg-scanlines {
+    opacity: 0.32;
+    background: repeating-linear-gradient(
+        180deg,
+        rgba(120, 92, 32, 0.035),
+        rgba(120, 92, 32, 0.035) 1px,
+        transparent 1px,
+        transparent 28px
+    );
+}
+
+body.light-mode .bg-grid-glow {
+    background-image:
+        linear-gradient(rgba(156, 111, 28, 0.30) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(156, 111, 28, 0.30) 1px, transparent 1px);
+}
+
+body.light-mode .cursor-ring {
+    border-color: rgba(156, 111, 28, 0.55);
+}
+
+body.light-mode.is-hovering-target .cursor-ring {
+    border-color: rgba(156, 111, 28, 0.85);
+    background-color: rgba(196, 160, 92, 0.14);
+}
+
+body.light-mode .cursor-aura {
+    background: radial-gradient(
+        circle,
+        rgba(206, 172, 106, 0.20) 0%,
+        rgba(156, 111, 28, 0.10) 36%,
+        rgba(156, 111, 28, 0.03) 60%,
+        transparent 76%
+    );
+}
+
+/* ----------------------------------------------------------------------------
+   🧭 الشريط العلوي — زجاج بورسلين شفاف بحافة برونزية رفيعة
+   ---------------------------------------------------------------------------- */
+body.light-mode .header {
+    background: rgba(255, 253, 249, 0.82);
+    border: 1px solid var(--lm-border);
+    box-shadow: var(--lm-shadow-soft), var(--lm-hairline);
+}
+
+body.light-mode .header.scrolled {
+    background: rgba(255, 253, 249, 0.92);
+    border-color: var(--lm-border-strong);
+    box-shadow: 0 10px 30px rgba(72, 56, 24, 0.13), var(--lm-hairline);
+}
+
+body.light-mode .logo-container img {
+    border-color: var(--lm-bronze);
+    box-shadow: 0 0 10px rgba(156, 111, 28, 0.30);
+}
+
+body.light-mode .logo-container .logo-text {
+    color: var(--lm-ink);
+    letter-spacing: 1px;
+}
+
+/* ----------------------------------------------------------------------------
+   🔗 روابط التنقل — رمادي دافئ، والبرونزي لما تكون نشطة
+   ---------------------------------------------------------------------------- */
+body.light-mode .nav-links {
+    background: rgba(255, 253, 249, 0.55);
+    border: 1px solid var(--lm-border);
+    border-radius: 18px;
+    padding: 6px 10px;
+    box-shadow: var(--lm-hairline);
+}
+
+body.light-mode .nav-links a {
+    color: var(--lm-ink-soft);
+    border-radius: 10px;
+}
+
+body.light-mode .nav-links a::after {
+    background-color: var(--lm-bronze);
+}
+
+body.light-mode .nav-links a:hover {
+    color: var(--lm-ink);
+}
+
+body.light-mode .nav-links a.active {
+    color: var(--lm-bronze-ink);
+    background: rgba(203, 168, 100, 0.16);
+    border-color: var(--lm-border-strong);
+    box-shadow: var(--lm-hairline);
+}
+
+body.light-mode .nav-links a:hover,
+body.light-mode .settings-pill:hover,
+body.light-mode .search-btn:hover,
+body.light-mode .signin-btn:hover {
+    box-shadow: 0 0 0 2px rgba(156, 111, 28, 0.18), 0 8px 18px rgba(156, 111, 28, 0.14);
+    transform: translateY(-1px);
+}
+
+/* ----------------------------------------------------------------------------
+   🔍 مربع البحث واللغة والإعدادات
+   ---------------------------------------------------------------------------- */
+body.light-mode .search-box {
+    background: rgba(255, 255, 255, 0.70);
+    border-color: var(--lm-border);
+    box-shadow: var(--lm-hairline);
+}
+
+body.light-mode .search-box:focus-within {
+    background: #fffdf9;
+    border-color: var(--lm-bronze);
+    box-shadow: 0 0 0 3px rgba(156, 111, 28, 0.16);
+}
+
+body.light-mode .search-input {
+    color: var(--lm-ink);
+}
+
+body.light-mode .search-input::placeholder {
+    color: var(--lm-ink-mute);
+}
+
+body.light-mode .search-btn {
+    color: var(--lm-bronze);
+    background: rgba(245, 238, 226, 0.7);
+    border-radius: 12px;
+}
+
+body.light-mode .search-match {
+    background: rgba(203, 168, 100, 0.30);
+    box-shadow: inset 0 0 0 1px rgba(156, 111, 28, 0.45);
+}
+
+body.light-mode .settings-dropdown {
+    background: rgba(255, 253, 249, 0.98);
+    border-color: var(--lm-border-strong);
+    box-shadow: var(--lm-shadow), var(--lm-hairline);
+}
+
+body.light-mode .settings-pill {
+    background: rgba(203, 168, 100, 0.14);
+    border-color: var(--lm-border-strong);
+    color: var(--lm-bronze-ink);
+    box-shadow: var(--lm-hairline);
+}
+
+body.light-mode .lang-switcher {
+    background: rgba(245, 238, 226, 0.8);
+    border-color: var(--lm-border);
+    box-shadow: var(--lm-hairline);
+}
+
+body.light-mode .lang-btn {
+    color: var(--lm-ink-soft);
+}
+
+body.light-mode .lang-btn:hover {
+    color: var(--lm-ink);
+}
+
+body.light-mode .lang-btn.active {
+    background: linear-gradient(135deg, #f0dcae, #c39a4d);
+    color: #2b1f08;
+    box-shadow: 0 4px 12px rgba(156, 111, 28, 0.28);
+}
+
+body.light-mode .settings-action-btn {
+    background: rgba(245, 238, 226, 0.75);
+    border-color: var(--lm-border);
+    color: var(--lm-ink);
+}
+
+body.light-mode .settings-action-btn.is-active {
+    background: rgba(203, 168, 100, 0.18);
+    border-color: var(--lm-border-strong);
+    color: var(--lm-bronze-ink);
+}
+
+body.light-mode .signin-btn {
+    border-color: var(--lm-bronze);
+    color: var(--lm-bronze-ink);
+}
+
+body.light-mode .signin-btn:hover {
+    background: linear-gradient(135deg, #e8cf98, #c39a4d);
+    color: #2b1f08;
+    box-shadow: 0 10px 22px rgba(156, 111, 28, 0.30);
+}
+
+/* ----------------------------------------------------------------------------
+   🦸 الهيرو — نص واضح + كارت زجاجي دافئ
+   ---------------------------------------------------------------------------- */
+body.light-mode .main-title {
+    color: var(--lm-ink);
+}
+
+body.light-mode .description {
+    color: var(--lm-ink-soft);
+}
+
+body.light-mode .welcome-pill {
+    background: rgba(255, 253, 249, 0.75);
+    border-color: var(--lm-border-strong);
+    color: var(--lm-ink);
+    box-shadow: var(--lm-hairline);
+}
+
+body.light-mode .btn-primary {
+    background: linear-gradient(135deg, #f0dcae, #c39a4d 70%, #a97c26);
+    color: #2b1f08;
+    box-shadow: var(--lm-shadow-gold);
+}
+
+body.light-mode .btn-secondary {
+    background: rgba(255, 255, 255, 0.82);
+    border-color: var(--lm-border);
+    color: var(--lm-ink);
+    box-shadow: var(--lm-hairline);
+}
+
+body.light-mode .btn-secondary:hover {
+    background: #fffdf9;
+    border-color: var(--lm-border-strong);
+}
+
+body.light-mode .btn-socials {
+    background: rgba(203, 168, 100, 0.16);
+    border-color: var(--lm-border-strong);
+    color: var(--lm-bronze-ink);
+}
+
+body.light-mode .btn-socials:hover {
+    background: linear-gradient(135deg, #f0dcae, #c39a4d);
+    color: #2b1f08;
+    box-shadow: var(--lm-shadow-gold);
+}
+
+body.light-mode .hero-visual-card {
+    background: linear-gradient(150deg, rgba(255, 253, 249, 0.92), rgba(243, 234, 218, 0.86));
+    border-color: var(--lm-border);
+    box-shadow: var(--lm-shadow), var(--lm-hairline);
+}
+
+body.light-mode .badge-status {
+    background: rgba(203, 168, 100, 0.14);
+    border-color: var(--lm-border);
+    color: var(--lm-ink);
+}
+
+body.light-mode .skill-box {
+    background: rgba(255, 255, 255, 0.66);
+    border-color: var(--lm-border);
+    box-shadow: var(--lm-hairline);
+}
+
+body.light-mode .skill-box i,
+body.light-mode .laptop-icon,
+body.light-mode .about-card .icon,
+body.light-mode .certificate-icon {
+    color: var(--lm-bronze);
+}
+
+body.light-mode .card-footer-motto,
+body.light-mode .card-text {
+    color: var(--lm-ink-soft);
+}
+
+body.light-mode .hero-visual-card h2 {
+    color: var(--lm-ink);
+}
+
+/* ----------------------------------------------------------------------------
+   📌 عني + سلايدر التقنيات + الشهادات
+   ---------------------------------------------------------------------------- */
+body.light-mode .section-title {
+    color: var(--lm-ink);
+}
+
+body.light-mode .about-card {
+    background: var(--lm-surface);
+    border-color: var(--lm-border);
+    box-shadow: var(--lm-shadow-soft), var(--lm-hairline);
+}
+
+body.light-mode .about-card::before,
+body.light-mode .about-card.certificates-card::before {
+    background: radial-gradient(circle at top right, rgba(203, 168, 100, 0.22), transparent 58%);
+}
+
+body.light-mode .about-card h3 {
+    color: var(--lm-ink);
+}
+
+body.light-mode .about-card p {
+    color: var(--lm-ink-soft);
+}
+
+body.light-mode .about-card:hover {
+    border-color: var(--lm-border-strong);
+    box-shadow: var(--lm-shadow);
+}
+
+body.light-mode .about-card.certificates-card {
+    background: linear-gradient(150deg, rgba(255, 253, 249, 0.96), rgba(243, 234, 218, 0.92));
+}
+
+body.light-mode .tech-card-slim {
+    background: rgba(255, 253, 249, 0.82);
+    border-color: var(--lm-border);
+    box-shadow: var(--lm-hairline);
+}
+
+body.light-mode .tech-name {
+    color: var(--lm-ink-soft);
+}
+
+body.light-mode .slider-btn {
+    background: rgba(255, 253, 249, 0.92);
+    border-color: var(--lm-border-strong);
+    color: var(--lm-bronze-ink);
+    box-shadow: var(--lm-shadow-soft);
+}
+
+body.light-mode .scroll-btn {
+    background: rgba(255, 253, 249, 0.94);
+    border-color: var(--lm-border-strong);
+    color: var(--lm-bronze-ink);
+    box-shadow: var(--lm-shadow-soft);
+}
+
+body.light-mode .scroll-btn:hover,
+body.light-mode .project-nav-btn:hover {
+    background: linear-gradient(135deg, #f4e6c4, #ddc188);
+    color: #2b1f08;
+    box-shadow: var(--lm-shadow-gold);
+}
+
+/* الشهادات: بدل التدرّجات الذهبية الكثيفة → بطاقات بيضاء هادئة */
+body.light-mode .certificate-item {
+    background: var(--lm-surface);
+    border-color: var(--lm-border);
+    box-shadow: var(--lm-shadow-soft), var(--lm-hairline);
+}
+
+body.light-mode .certificate-item:nth-child(1),
+body.light-mode .certificate-item:nth-child(2),
+body.light-mode .certificate-item:nth-child(3) {
+    background: var(--lm-surface);
+}
+
+body.light-mode .certificate-item:hover {
+    border-color: var(--lm-border-strong);
+    box-shadow: var(--lm-shadow);
+}
+
+body.light-mode .certificate-thumb {
+    background: rgba(245, 238, 226, 0.9);
+    border-color: var(--lm-border);
+}
+
+body.light-mode .certificate-item.certificate-placeholder .certificate-thumb {
+    background: rgba(245, 238, 226, 0.45);
+    border-color: var(--lm-border-strong);
+}
+
+body.light-mode .certificate-text h4 {
+    color: var(--lm-ink);
+}
+
+body.light-mode .certificate-text span {
+    background: var(--lm-surface-tint);
+    border-color: var(--lm-border);
+    color: var(--lm-ink-mute);
+}
+
+body.light-mode .certificate-number {
+    background: linear-gradient(135deg, #f0dcae, #c39a4d);
+    border-color: var(--lm-border-strong);
+    color: #2b1f08;
+}
+
+body.light-mode .certificate-btn.view {
+    background: rgba(203, 168, 100, 0.18);
+    border-color: var(--lm-border-strong);
+    color: var(--lm-bronze-ink);
+}
+
+body.light-mode .certificate-btn.download {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: var(--lm-border);
+    color: var(--lm-ink-soft);
+}
+
+body.light-mode .certificate-btn.view:hover {
+    background: rgba(203, 168, 100, 0.3);
+}
+
+body.light-mode .certificate-btn.download:hover {
+    background: rgba(203, 168, 100, 0.18);
+    color: var(--lm-bronze-ink);
+}
+
+/* ----------------------------------------------------------------------------
+   💼 النبذة + الخبرات + المهارات + الدورات
+   ---------------------------------------------------------------------------- */
+body.light-mode .summary-card,
+body.light-mode .timeline-card,
+body.light-mode .skills-group,
+body.light-mode .course-card {
+    background: var(--lm-surface);
+    border-color: var(--lm-border);
+    box-shadow: var(--lm-shadow-soft), var(--lm-hairline);
+}
+
+body.light-mode .summary-title,
+body.light-mode .timeline-top h3,
+body.light-mode .skills-group-head h3,
+body.light-mode .course-card h3,
+body.light-mode .project-info h3,
+body.light-mode .footer-info h3 {
+    color: var(--lm-ink);
+}
+
+body.light-mode .summary-text,
+body.light-mode .timeline-text,
+body.light-mode .course-text,
+body.light-mode .section-lead,
+body.light-mode .project-info p,
+body.light-mode .about-card p {
+    color: var(--lm-ink-soft);
+}
+
+body.light-mode .timeline-company {
+    color: var(--lm-ink-mute);
+}
+
+body.light-mode .timeline-item::before {
+    background: linear-gradient(180deg, rgba(156, 111, 28, 0.45), rgba(156, 111, 28, 0.04));
+}
+
+body.light-mode .timeline-marker {
+    background: var(--lm-surface-solid);
+    border-color: var(--lm-border-strong);
+    color: var(--lm-bronze);
+    box-shadow: var(--lm-shadow-soft);
+}
+
+body.light-mode .timeline-item.is-latest .timeline-marker {
+    background: linear-gradient(135deg, #f0dcae, #c39a4d 55%, #a97c26);
+    color: #2b1f08;
+    box-shadow: 0 6px 16px rgba(156, 111, 28, 0.28);
+}
+
+body.light-mode .timeline-badge,
+body.light-mode .project-tag,
+body.light-mode .summary-goal,
+body.light-mode .course-meta {
+    background: rgba(203, 168, 100, 0.16);
+    border-color: var(--lm-border-strong);
+    color: var(--lm-bronze-ink);
+}
+
+body.light-mode .skill-pill {
+    background: rgba(255, 255, 255, 0.78);
+    border-color: var(--lm-border);
+    color: var(--lm-ink-soft);
+}
+
+body.light-mode .skill-pill:hover {
+    background: rgba(203, 168, 100, 0.18);
+    border-color: var(--lm-border-strong);
+    color: var(--lm-bronze-ink);
+}
+
+body.light-mode .course-status {
+    background: rgba(22, 163, 74, 0.10);
+    border-color: rgba(22, 163, 74, 0.28);
+    color: #15803d;
+}
+
+body.light-mode .course-status.is-progress {
+    background: rgba(203, 168, 100, 0.16);
+    border-color: var(--lm-border-strong);
+    color: var(--lm-bronze-ink);
+}
+
+/* ----------------------------------------------------------------------------
+   🧩 المشروع
+   ---------------------------------------------------------------------------- */
+body.light-mode .project-card {
+    background: var(--lm-surface);
+    border-color: var(--lm-border);
+    box-shadow: var(--lm-shadow), var(--lm-hairline);
+}
+
+body.light-mode .project-nav-btn {
+    background: rgba(255, 253, 249, 0.95);
+    border-color: var(--lm-border-strong);
+    color: var(--lm-bronze-ink);
+    box-shadow: var(--lm-shadow-soft);
+}
+
+body.light-mode .project-btn.primary {
+    background: linear-gradient(135deg, #f0dcae, #c39a4d 70%, #a97c26);
+    color: #2b1f08;
+    box-shadow: var(--lm-shadow-gold);
+}
+
+body.light-mode .project-btn.secondary {
+    background: rgba(255, 255, 255, 0.82);
+    border-color: var(--lm-border);
+    color: var(--lm-ink);
+}
+
+body.light-mode .project-btn.change {
+    background: rgba(203, 168, 100, 0.16);
+    border-color: var(--lm-border-strong);
+    color: var(--lm-bronze-ink);
+}
+
+body.light-mode .preview-window {
+    background: rgba(255, 253, 249, 0.94);
+    border-color: var(--lm-border);
+    box-shadow: var(--lm-shadow-soft), var(--lm-hairline);
+}
+
+body.light-mode .preview-sidebar {
+    background: linear-gradient(180deg, rgba(224, 200, 152, 0.55), rgba(196, 168, 118, 0.45));
+    border-color: var(--lm-border);
+}
+
+body.light-mode .preview-cards span {
+    background: linear-gradient(135deg, rgba(240, 220, 174, 0.6), rgba(203, 168, 100, 0.45));
+    border-color: var(--lm-border);
+}
+
+/* ----------------------------------------------------------------------------
+   ✉️ التواصل
+   ---------------------------------------------------------------------------- */
+body.light-mode .contact-item {
+    background: var(--lm-surface);
+    border-color: var(--lm-border);
+    color: var(--lm-ink);
+    box-shadow: var(--lm-shadow-soft), var(--lm-hairline);
+}
+
+body.light-mode .contact-item:hover {
+    background: linear-gradient(135deg, rgba(240, 220, 174, 0.5), rgba(203, 168, 100, 0.28));
+    border-color: var(--lm-border-strong);
+    color: var(--lm-bronze-ink);
+    box-shadow: 0 0 0 2px rgba(156, 111, 28, 0.10), var(--lm-shadow-gold);
+}
+
+body.light-mode .form-group input,
+body.light-mode .form-group textarea {
+    background: rgba(255, 255, 255, 0.80);
+    border-color: var(--lm-border);
+    color: var(--lm-ink);
+}
+
+body.light-mode .form-group input::placeholder,
+body.light-mode .form-group textarea::placeholder {
+    color: var(--lm-ink-mute);
+}
+
+body.light-mode .form-group input:focus,
+body.light-mode .form-group textarea:focus {
+    border-color: var(--lm-bronze);
+    box-shadow: 0 0 0 3px rgba(156, 111, 28, 0.16);
+}
+
+body.light-mode .btn-submit {
+    background: linear-gradient(135deg, #f0dcae, #c39a4d 70%, #a97c26);
+    color: #2b1f08;
+    box-shadow: var(--lm-shadow-gold);
+}
+
+/* ----------------------------------------------------------------------------
+   🦶 الفوتر
+   ---------------------------------------------------------------------------- */
+body.light-mode .footer-section {
+    background: linear-gradient(180deg, #f4ede1, #ebe0cd);
+    border-top-color: var(--lm-border);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+body.light-mode .footer-social-section {
+    background: linear-gradient(135deg, rgba(203, 168, 100, 0.16), rgba(240, 220, 174, 0.35));
+    border-color: var(--lm-border);
+}
+
+body.light-mode .footer-social-title {
+    color: var(--lm-ink);
+}
+
+body.light-mode .footer-social-subtitle,
+body.light-mode .footer-rights,
+body.light-mode .footer-signature,
+body.light-mode .footer-quote,
+body.light-mode .footer-bottom {
+    color: var(--lm-ink-soft);
+}
+
+body.light-mode .footer-credo {
+    color: var(--lm-bronze-ink);
+}
+
+body.light-mode .footer-socials .social-link {
+    background: rgba(255, 253, 249, 0.9);
+    border-color: var(--lm-border);
+    color: var(--lm-ink);
+    box-shadow: var(--lm-shadow-soft);
+}
+
+body.light-mode .footer-socials .social-link i,
+body.light-mode .footer-socials .social-link.github i {
+    color: var(--lm-ink);
+}
+
+body.light-mode .footer-socials .social-link:hover {
+    background: linear-gradient(135deg, #f0dcae, #c39a4d);
+    border-color: var(--lm-border-strong);
+    color: #2b1f08;
+    box-shadow: var(--lm-shadow-gold);
+}
+
+/* ----------------------------------------------------------------------------
+   🪟 النوافذ المنبثقة (تسجيل الدخول / المطور / مواقع التواصل / المساعد)
+   ---------------------------------------------------------------------------- */
+body.light-mode .signin-modal-content,
+body.light-mode .contact-modal-content,
+body.light-mode .socials-modal-content,
+body.light-mode .developer-panel-content,
+body.light-mode .ai-panel {
+    background: var(--lm-surface-solid);
+    border-color: var(--lm-border-strong);
+    box-shadow: 0 30px 70px rgba(58, 44, 16, 0.22), var(--lm-hairline);
+}
+
+body.light-mode .signin-modal-content h3,
+body.light-mode .contact-modal-content h3,
+body.light-mode .socials-modal-content h3,
+body.light-mode .developer-panel-header h3,
+body.light-mode .ai-header-text h3,
+body.light-mode .ai-close,
+body.light-mode .developer-close,
+body.light-mode .signin-close,
+body.light-mode .contact-modal-close,
+body.light-mode .socials-close {
+    color: var(--lm-ink);
+    background: rgba(245, 238, 226, 0.8);
+    border-color: var(--lm-border);
+}
+
+body.light-mode .signin-subtitle,
+body.light-mode .signin-field,
+body.light-mode .socials-subtitle,
+body.light-mode .developer-empty,
+body.light-mode .developer-item,
+body.light-mode .ai-header-text p {
+    color: var(--lm-ink-soft);
+}
+
+body.light-mode .signin-field input {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: var(--lm-border);
+    color: var(--lm-ink);
+}
+
+body.light-mode .signin-field input:focus {
+    border-color: var(--lm-bronze);
+    box-shadow: 0 0 0 3px rgba(156, 111, 28, 0.16);
+}
+
+body.light-mode .signin-submit,
+body.light-mode .ai-send-btn {
+    background: linear-gradient(135deg, #f0dcae, #c39a4d 70%, #a97c26);
+    color: #2b1f08;
+    box-shadow: var(--lm-shadow-gold);
+}
+
+body.light-mode .contact-modal-item,
+body.light-mode .social-tile {
+    background: var(--lm-surface-tint);
+    border-color: var(--lm-border);
+    color: var(--lm-ink);
+}
+
+body.light-mode .contact-modal-item i {
+    color: var(--lm-bronze);
+}
+
+body.light-mode .contact-modal-item:hover,
+body.light-mode .social-tile:hover {
+    background: rgba(203, 168, 100, 0.18);
+    border-color: var(--lm-border-strong);
+    color: var(--lm-bronze-ink);
+}
+
+body.light-mode .developer-list {
+    background: rgba(245, 238, 226, 0.8);
+    border-color: var(--lm-border);
+}
+
+body.light-mode .developer-item {
+    background: rgba(255, 253, 249, 0.8);
+    border-color: var(--lm-border);
+}
+
+body.light-mode .developer-action {
+    background: rgba(22, 163, 74, 0.10);
+    border-color: rgba(22, 163, 74, 0.30);
+    color: #15803d;
+}
+
+body.light-mode .ai-input {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: var(--lm-border);
+    color: var(--lm-ink);
+}
+
+body.light-mode .ai-input::placeholder {
+    color: var(--lm-ink-mute);
+}
+
+body.light-mode .ai-input:focus {
+    border-color: var(--lm-bronze);
+    box-shadow: 0 0 0 3px rgba(156, 111, 28, 0.16);
+}
+
+body.light-mode .response-box {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: var(--lm-border);
+    border-left-color: var(--lm-bronze);
+    color: var(--lm-ink-soft);
+}
+
+body.light-mode .ai-panel {
+    border-color: var(--lm-border-strong);
+}
+
+body.light-mode .ai-fab,
+body.light-mode .whatsapp-fab {
+    box-shadow: 0 12px 26px rgba(72, 56, 24, 0.18);
+}
+
+/* ----------------------------------------------------------------------------
+   ⬆️ زر العودة لأعلى
+   ---------------------------------------------------------------------------- */
+body.light-mode .backToTopBtn {
+    color: var(--lm-bronze-ink);
+    background: rgba(255, 253, 249, 0.92);
+    border-color: var(--lm-border-strong);
+    box-shadow: var(--lm-shadow-soft);
+}
+
+body.light-mode .backToTopBtn:hover {
+    color: #2b1f08;
+    background: linear-gradient(135deg, #f0dcae, #c39a4d 60%, #a97c26);
+    box-shadow: var(--lm-shadow-gold);
+}
+
+/* ----------------------------------------------------------------------------
+   🖥 شاشة الاسم (Name Intro)
+   ---------------------------------------------------------------------------- */
+body.light-mode .name-intro {
+    background: #fdfbf6;
+    background-image:
+        radial-gradient(circle at 50% 45%, rgba(203, 168, 100, 0.26), transparent 62%),
+        linear-gradient(160deg, #fdfbf6, #f2ebdd 55%, #fdfbf6);
+}
+
+body.light-mode .name-intro-kicker {
+    color: var(--lm-bronze-ink);
+}
+
+/* ============================================================================
+   🛠️ استكمال ثيم النهاري — شريط التواصل + نموذج التواصل + الفوتر
+   ============================================================================
+   القسم ده بيكمّل اللي فات من الثيم الجديد (contact-strip / contact-container
+   / social-link / footer-bottom) — كلها ألوان فقط، والمقاسات زي ما هي.
+   ============================================================================ */
+
+/* ----------------------------------------------------------------------------
+   📣 شريط التواصل السريع (الكارت الأفقي فوق النموذج)
+   ---------------------------------------------------------------------------- */
+body.light-mode .contact-strip {
+    background: linear-gradient(135deg, rgba(255, 253, 249, 0.94), rgba(240, 220, 174, 0.55));
+    border-color: var(--lm-border-strong);
+    box-shadow: var(--lm-shadow), var(--lm-hairline);
+}
+
+body.light-mode .contact-strip-kicker {
+    color: var(--lm-bronze-ink);
+    letter-spacing: 0.14em;
+}
+
+body.light-mode .contact-strip h3 {
+    color: var(--lm-ink);
+}
+
+body.light-mode .contact-strip-btn {
+    background: linear-gradient(135deg, #f0dcae, #c39a4d 70%, #a97c26);
+    color: #2b1f08;
+    box-shadow: var(--lm-shadow-soft);
+}
+
+body.light-mode .contact-strip-btn:hover {
+    background: linear-gradient(135deg, #f7e8c6, #d3aa62 60%, #b5852a);
+    box-shadow: var(--lm-shadow-gold);
+    transform: translateY(-2px);
+}
+
+/* ----------------------------------------------------------------------------
+   ✍️ كارت نموذج التواصل
+   ---------------------------------------------------------------------------- */
+body.light-mode .contact-container {
+    background: linear-gradient(155deg, rgba(255, 253, 249, 0.94), rgba(243, 234, 218, 0.88));
+    border-color: var(--lm-border);
+    box-shadow: var(--lm-shadow), var(--lm-hairline);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+body.light-mode .contact-header h2 {
+    color: var(--lm-ink);
+}
+
+body.light-mode .contact-header p {
+    color: var(--lm-ink-soft);
+}
+
+body.light-mode .form-group label {
+    color: var(--lm-ink);
+}
+
+body.light-mode .form-group input,
+body.light-mode .form-group textarea {
+    background: rgba(255, 255, 255, 0.80);
+    border-color: var(--lm-border);
+    color: var(--lm-ink);
+    box-shadow: var(--lm-hairline);
+}
+
+body.light-mode .form-group input:focus,
+body.light-mode .form-group textarea:focus {
+    background: #fffdf9;
+    border-color: var(--lm-bronze);
+    box-shadow: 0 0 0 3px rgba(156, 111, 28, 0.16);
+}
+
+body.light-mode .form-group input::placeholder,
+body.light-mode .form-group textarea::placeholder {
+    color: var(--lm-ink-mute);
+}
+
+body.light-mode .btn-submit {
+    background: linear-gradient(135deg, #f0dcae, #c39a4d 70%, #a97c26);
+    color: #2b1f08;
+    box-shadow: var(--lm-shadow-gold);
+}
+
+body.light-mode .btn-submit:hover {
+    opacity: 1;
+    background: linear-gradient(135deg, #f7e8c6, #d3aa62 55%, #b5852a);
+    box-shadow: 0 16px 32px rgba(156, 111, 28, 0.28);
+    transform: translateY(-2px);
+}
+
+/* ----------------------------------------------------------------------------
+   🔗 أيقونات التواصل في الفوتر — كل موقع بلونه الأصلي بس أغمق،
+   عشان يبان على الخلفية البيضاء (الألوان الفاتحة كانت بتضيع)
+   ---------------------------------------------------------------------------- */
+body.light-mode .footer-socials .social-link.linkedin i {
+    color: #0a66c2;
+}
+
+body.light-mode .footer-socials .social-link.facebook i {
+    color: #1877f2;
+}
+
+body.light-mode .footer-socials .social-link.instagram i {
+    color: #c62a63;
+}
+
+body.light-mode .footer-socials .social-link.github i {
+    color: var(--lm-ink);
+}
+
+/* ----------------------------------------------------------------------------
+   🦶 آخر سطر الفوتر
+   ---------------------------------------------------------------------------- */
+body.light-mode .footer-bottom {
+    border-top-color: var(--lm-border);
+    color: var(--lm-ink-mute);
+}
+
+body.light-mode .footer-credo {
+    color: var(--lm-bronze-ink);
+    letter-spacing: 0.4px;
+}
+
+body.light-mode .footer-rights,
+body.light-mode .footer-signature {
+    color: var(--lm-ink-soft);
+}
+
+/* أيقونات التواصل في الفوتر (الإيميل / التليفون / واتساب) */
+body.light-mode .contact-item i {
+    color: var(--lm-bronze);
+}
+
+body.light-mode .contact-item.whatsapp i {
+    color: #128c7e;
+}
+
+body.light-mode .footer-contact {
+    color: var(--lm-ink-soft);
+}
+
+/* ============================================================================
+   19) كارت رمز QR — التنسيقات
+   ============================================================================
+   الكارت جوه نفس نظام الحاوية الموحّد (--site-max / --site-pad-desktop)
+   عشان يبقى على نفس خط باقي الأقسام.
+
+   الألوان جاية كلها من متغيّرات الثيم:
+     • الداكن  → ألوان زجاجية داكنة + إطار أبيض حوالين الكود
+     • النهاري → قيم فاتحة من بلوك body.light-mode في آخر القسم
+   ============================================================================ */
+
+.qr-section {
+    width: 100%;
+    max-width: var(--site-max);
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    padding-top: 28px;
+}
+
+@media (min-width: 1024px) {
+    .qr-section {
+        padding-left: var(--site-pad-desktop);
+        padding-right: var(--site-pad-desktop);
+    }
+}
+
+.qr-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    /* حشو إضافي على الشمال: السهم + جملة «Scan the code» واقفين هناك */
+    padding: 26px 30px 26px 108px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(20, 17, 15, 0.94), rgba(10, 9, 12, 0.86));
+    border: 1px solid rgba(212, 175, 55, 0.22);
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.qr-copy {
+    flex: 1;
+    min-width: 0;
+}
+
+.qr-kicker {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 6px;
+    color: #e8c15a;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.qr-kicker i {
+    font-size: 0.95rem;
+    line-height: 1;
+}
+
+.qr-title {
+    margin: 0 0 8px;
+    color: #ffffff;
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+}
+
+.qr-text {
+    margin: 0;
+    color: #a9a49b;
+    font-size: 0.9rem;
+    line-height: 1.65;
+}
+
+/* إطار الكود: بادding أبيض + حد رفيع عشان الكود يتقري من أي كاميرا */
+.qr-frame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    padding: 14px;
+    border-radius: 16px;
+    background: #fffdf9;
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+.qr-code {
+    line-height: 0;
+    display: flex;
+}
+
+.qr-code img,
+.qr-code canvas {
+    display: block;
+}
+
+.qr-caption {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    color: #6b5a3c;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-align: center;
+    white-space: nowrap;
+    max-width: none;
+}
+
+.qr-caption i {
+    flex-shrink: 0;
+    font-size: 0.7rem;
+    opacity: 0.75;
+}
+
+.qr-frame {
+    width: fit-content;
+}
+
+/* --- الموبايل: الكارت يبقى عمودي والكود في النص --- */
+@media (max-width: 640px) {
+    .qr-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 24px 20px;
+    }
+}
+
+/* ============================================================================
+   19.1) الوضع النهاري — ألوان الكارت
+   ============================================================================ */
+body.light-mode .qr-card {
+    background: linear-gradient(135deg, rgba(255, 253, 249, 0.94), rgba(240, 220, 174, 0.5));
+    border-color: var(--lm-border-strong);
+    box-shadow: var(--lm-shadow), var(--lm-hairline);
+}
+
+body.light-mode .qr-kicker {
+    color: var(--lm-bronze-ink);
+    letter-spacing: 0.14em;
+}
+
+body.light-mode .qr-title {
+    color: var(--lm-ink);
+}
+
+body.light-mode .qr-text {
+    color: var(--lm-ink-soft);
+}
+
+body.light-mode .qr-frame {
+    background: #fffdf9;
+    border-color: var(--lm-border-strong);
+    box-shadow: var(--lm-shadow-soft);
+}
+
+body.light-mode .qr-caption {
+    color: var(--lm-bronze-ink);
+}
+
+body.light-mode .qr-kicker i {
+    color: var(--lm-bronze);
+}
+
+/* ============================================================================
+   19.2) كود QR — اللوحة المعدنية + روابط المحتوى
+   ============================================================================
+   البنية:
+     .qr-frame      → الحاوية الخارجية (لوحة)
+       .qr-plate    → اللوح نفسه (إطار معدني + محتوى)
+         .qr-plate-head → الشريط العلوي: الحرف M + العنوان
+         .qr-window  → النافذة البيضاء اللي جواها الكود
+         .qr-caption → شريط اللينك تحت الكود
+       .qr-scan      → سهم "امسح" (بره اللوح، على جنب)
+   ============================================================================ */
+
+/* --- اللوحة: إطار معدني داكن مقوّس + إضاءة ذهبية خفيفة --- */
+.qr-frame {
+    position: relative;
+    width: fit-content;
+    padding: 14px;
+    border-radius: 26px;
+    background: linear-gradient(150deg, #3a3a3f 0%, #16161a 42%, #0d0d10 100%);
+    border: 1px solid rgba(212, 175, 55, 0.45);
+    box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    isolation: isolate;
+}
+
+/* لمعة ذهبية بتمرّ على اللوحة من أعلى اليمين */
+.qr-frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(246, 195, 68, 0.16), transparent 45%);
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* --- اللوح الداخلي: مقعّر من كل الجهات (فتحات الكروت المعدنية) --- */
+.qr-plate {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 14px;
+    border-radius: 18px;
+    background: #101014;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.6);
+}
+
+/* --- الشريط العلوي: الحرف الذهبي + خط فاصل + عنوانين --- */
+.qr-plate-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+}
+
+.qr-mark {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    font-family: "Fira Code", monospace;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #2b1f08;
+    background: linear-gradient(145deg, #fbe6a8, #d4af37 55%, #a8801f);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.35);
+}
+
+.qr-plate-divider {
+    width: 1px;
+    align-self: stretch;
+    background: linear-gradient(to bottom, transparent, rgba(212, 175, 55, 0.5), transparent);
+}
+
+.qr-plate-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.qr-plate-text strong {
+    color: #e9e4d8;
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+}
+
+.qr-plate-text small {
+    color: rgba(212, 175, 55, 0.75);
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    line-height: 1.2;
+}
+
+/* --- النافذة البيضاء اللي جواها الكود (لازم تفضل بيضا في الوضعين) --- */
+.qr-window {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 14px;
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow:
+        inset 0 0 0 1px rgba(0, 0, 0, 0.08),
+        0 4px 14px rgba(0, 0, 0, 0.35);
+}
+
+.qr-window .qr-code {
+    line-height: 0;
+    display: flex;
+}
+
+.qr-window .qr-code img,
+.qr-window .qr-code canvas {
+    display: block;
+    width: 190px;
+    height: 190px;
+    image-rendering: pixelated;
+}
+
+/* --- شريط اللينك تحت الكود (لون غامق عشان يبان على الخلفية الغامقة) --- */
+.qr-plate .qr-caption {
+    color: rgba(233, 228, 216, 0.8);
+    justify-content: center;
+}
+
+.qr-plate .qr-caption i {
+    color: #d4af37;
+    opacity: 1;
+}
+
+/* --- سهم "امسح" (بره اللوح على الشمال، وبيشاور ناحية ال QR اللي على يمينه) --- */
+.qr-scan {
+    position: absolute;
+    top: 50%;
+    /* المسافة من حافة اللوحة: السهم واقف بره ويوصل لـ qr-window */
+    left: -86px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    /* عرض ضيّق إن الجملة تفضل سطر واحد وتسع في المسافة الفاضية */
+    width: 76px;
+    color: #d4af37;
+    font-family: "Fira Code", monospace;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1.3;
+    text-align: center;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 3;
+}
+
+/* السهم بينحني ناحية يمين — ناحية الـ QR مباشرة (من غير أي قلب) */
+.qr-scan svg {
+    width: 62px;
+    height: 40px;
+}
+
+/* --- قائمة روابط المحتوى (جوه نص الكارت) --- */
+.qr-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.qr-links li {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 13px;
+    border-radius: 999px;
+    color: #d8d3c8;
+    font-size: 0.82rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.18);
+    transition: all 0.25s ease;
+}
+
+.qr-links li:hover {
+    color: #ffffff;
+    background: rgba(212, 175, 55, 0.14);
+    border-color: rgba(212, 175, 55, 0.45);
+    transform: translateY(-2px);
+}
+
+.qr-links li i {
+    color: #d4af37;
+    font-size: 0.8rem;
+}
+
+/* ============================================================================
+   19.3) الوضع النهاري — ألوان اللوحة والروابط
+   ============================================================================ */
+
+body.light-mode .qr-frame {
+    background: linear-gradient(150deg, #2c2c31 0%, #16161a 45%, #0d0d10 100%);
+    border-color: var(--lm-bronze);
+    box-shadow:
+        0 18px 38px rgba(90, 62, 14, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* ============================================================================
+   19.4) أزرار المشاركة + رسالة التأكيد
+   ============================================================================ */
+
+/* --- صف الأزرار (شارك + نسخ) --- */
+.qr-share-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 18px 0 0;
+}
+
+/* --- زر المشاركة الأساسي (متدرّج ذهبي) --- */
+.qr-share-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 11px 22px;
+    border: none;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #2b1f08;
+    background: linear-gradient(135deg, #f7d774, #d4af37 70%, #bf8f28);
+    box-shadow: 0 10px 24px rgba(212, 175, 55, 0.32);
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.qr-share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 32px rgba(212, 175, 55, 0.42);
+    filter: brightness(1.06);
+}
+
+.qr-share-btn:active {
+    transform: translateY(0);
+}
+
+.qr-share-btn:focus-visible {
+    outline: 2px solid #f7d774;
+    outline-offset: 3px;
+}
+
+/* --- زر نسخ اللينك (زجاجي بحد ذهبي) --- */
+.qr-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 11px 20px;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #e8c15a;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(212, 175, 55, 0.32);
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.qr-copy-btn:hover {
+    color: #ffffff;
+    background: rgba(212, 175, 55, 0.12);
+    border-color: rgba(212, 175, 55, 0.55);
+    transform: translateY(-2px);
+}
+
+.qr-copy-btn:focus-visible {
+    outline: 2px solid #f7d774;
+    outline-offset: 3px;
+}
+
+/* --- رسالة التأكيد (بتظهر تحت الأزرار ثانيتين) --- */
+.qr-feedback {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin: 12px 0 0;
+    min-height: 20px;
+    color: #86efac;
+    font-size: 0.85rem;
+    font-weight: 600;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.qr-feedback.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================================================================
+   19.5) الوضع النهاري — ألوان أزرار المشاركة
+   ============================================================================ */
+
+body.light-mode .qr-share-btn {
+    background: linear-gradient(135deg, #f0dcae, #c39a4d 70%, #a97c26);
+    color: #2b1f08;
+    box-shadow: 0 10px 24px rgba(156, 111, 28, 0.28);
+}
+
+body.light-mode .qr-copy-btn {
+    color: var(--lm-bronze-ink);
+    background: rgba(255, 255, 255, 0.75);
+    border-color: var(--lm-border-strong);
+}
+
+body.light-mode .qr-copy-btn:hover {
+    color: var(--lm-ink);
+    background: #ffffff;
+    border-color: var(--lm-bronze);
+    box-shadow: 0 10px 20px rgba(156, 111, 28, 0.14);
+}
+
+body.light-mode .qr-feedback {
+    color: #15803d;
+}
+
+body.light-mode .qr-frame {
+    background: linear-gradient(150deg, #2c2c31 0%, #16161a 45%, #0d0d10 100%);
+    border-color: var(--lm-bronze);
+    box-shadow:
+        0 18px 38px rgba(90, 62, 14, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+body.light-mode .qr-plate {
+    background: #131317;
+}
+
+body.light-mode .qr-window {
+    box-shadow:
+        inset 0 0 0 1px rgba(0, 0, 0, 0.1),
+        0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+body.light-mode .qr-links li {
+    color: var(--lm-ink-soft);
+    background: rgba(255, 255, 255, 0.75);
+    border-color: var(--lm-border-strong);
+}
+
+body.light-mode .qr-links li:hover {
+    color: var(--lm-ink);
+    background: #ffffff;
+    border-color: var(--lm-bronze);
+}
+
+body.light-mode .qr-links li i {
+    color: var(--lm-bronze-ink);
+}
+
+/* الموبايل: السهم بيرجع فوق / الكارت بيتّزن */
+@media (max-width: 900px) {
+    .qr-scan {
+        position: static;
+        transform: none;
+        flex-direction: row;
+        justify-content: center;
+        width: auto;
+        margin-top: 10px;
     }
 }

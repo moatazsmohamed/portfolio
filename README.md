@@ -2,7 +2,7 @@
 
 موقع أعمال شخصي بتصميم استجابي سريع، تم بناؤه باستخدام **Vanilla JavaScript** وتأمين خادم التطوير الداخلي واجتياز اختبارات الجودة والأمان بنسبة 100%.
 
-🌐 **رابط المعاينة المباشرة (Live Demo):** [Moataz Mohamed Portfolio](https://mtzm2225-ship-it.github.io/portfolio/)  
+🌐 **رابط المعاينة المباشرة (Live Demo):** [Moataz Mohamed Portfolio](https://portfolio-moataz.vercel.app/)  
 💻 **المستودع (Repository):** [GitHub Repository](https://github.com/mtzm2225-ship-it/portfolio)
 
 ---

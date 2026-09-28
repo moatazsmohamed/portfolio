@@ -206,6 +206,25 @@ const translations = {
     contactTitle: 'هل تحتاج إلى مشروع أو تعاون أو مجرد دردشة سريعة؟',
     contactButton: 'تواصل معي',
 
+    /* رمز QR + المشاركة */
+    qrKicker: 'شاركها مع صحابك',
+    qrTitle: 'ادعُ أصحابك تشوف شغلك',
+    qrText: 'امسح الكود من موبايلك، أو اضغط «شارك» وابعت الرابط في واتساب أو أي تطبيق تاني — والموقع كله جاهز.',
+    qrCaption: 'portfolio-moataz.vercel.app',
+    qrScan: 'امسح الكود',
+    qrShare: 'شارك الموقع',
+    qrShareSent: 'تم نسخ اللينك!',
+    qrCopy: 'نسخ اللينك',
+    qrCopied: 'تم النسخ!',
+    qrDownload: 'حفظ الـ QR',
+    qrSaved: 'تم حفظ الصورة!',
+    qrPlateTitle: 'MY PORTFOLIO',
+    qrPlateSub: 'WEB DEVELOPER',
+    qrLinkProjects: 'المشاريع',
+    qrLinkAbout: 'عني',
+    qrLinkCv: 'السيرة الذاتية',
+    qrLinkSkills: 'المهارات',
+
     /* الفوتر: الجملة الكرييتف + مواقع التواصل + الحقوق */
     footerQuote: 'صُمِّم وطُوِّر بكل شغف | Designed & Developed with passion',
     footerSocialTitle: 'خلّينا على تواصل دايمًا',
@@ -372,6 +391,25 @@ const translations = {
     contactTitle: 'Need a project, collaboration, or just a quick chat?',
     contactButton: 'Contact Me',
 
+    /* QR code + sharing */
+    qrKicker: 'Share it with friends',
+    qrTitle: 'Invite your friends to see my work',
+    qrText: 'Scan the code from your phone, or hit Share and send the link on WhatsApp or any app — the whole site is ready.',
+    qrCaption: 'portfolio-moataz.vercel.app',
+    qrScan: 'Scan the code',
+    qrShare: 'Share site',
+    qrShareSent: 'Link copied!',
+    qrCopy: 'Copy link',
+    qrCopied: 'Copied!',
+    qrDownload: 'Save QR',
+    qrSaved: 'Image saved!',
+    qrPlateTitle: 'MY PORTFOLIO',
+    qrPlateSub: 'WEB DEVELOPER',
+    qrLinkProjects: 'Projects',
+    qrLinkAbout: 'About Me',
+    qrLinkCv: 'CV',
+    qrLinkSkills: 'Skills',
+
     /* Footer: credo + social links + copyright */
     footerQuote: 'Designed & Developed with passion | صُمِّم وطُوِّر بكل شغف',
     footerSocialTitle: "Let's stay connected",
@@ -442,7 +480,7 @@ const projectData = [
       en: 'An e-commerce fashion store with a luxury visual identity, showcasing the TAFRA collection with a modern, responsive design.'
     },
     primaryText: { ar: 'عرض المشروع', en: 'View Project' },
-    primaryLink: 'https://mtzm2225-ship-it.github.io/12.tafra/',
+    primaryLink: 'https://portfolio-moataz.vercel.app/12.tafra/',
     secondaryText: { ar: 'جيت هاب', en: 'GitHub' },
     secondaryLink: 'https://github.com/mtzm2225-ship-it/12.tafra',
     previewImage: 'img/Screenshot 2026-09-16 164001.png'
@@ -676,6 +714,49 @@ if (header) {
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(syncHeaderHeight);
   }
+}
+
+/* ============================================================================
+   5.1) زر العودة لأول الصفحة (Back to Top)
+   ----------------------------------------------------------------------------
+   مسؤول عن الزرار الدائري اللي بيظهر في الركن بعد ما الزائر ينزل مسافة
+   معينة، وبيرجّعه لأول الصفحة بشكل سلس بالضغط عليه.
+
+   ليه كلاس بدل ما نغيّر style مباشرة؟
+     لأن الإنيميشن كله مكتوب في 11.css جوه .backToTopBtn، والجافاسكربت
+     بس بيضيف/يشيل كلاس .is-visible — نفس أسلوب بقية الموقع.
+
+   الأداء: بنقارن الحالة الجديدة بالقديمة (isBackToTopVisible) وما
+   بنلمسش الـ DOM غير لما الحالة تتغير فعلًا.
+   ============================================================================ */
+const backToTopButton = document.querySelector('#backToTop');
+
+if (backToTopButton) {
+  /* العتبة: الزرار يظهر بعد 400 بكسل من التمرير (بعد ما الهيرو يعدي) */
+  const BACK_TO_TOP_THRESHOLD = 400;
+
+  let isBackToTopVisible = false;
+
+  const updateBackToTopVisibility = function () {
+    const shouldBeVisible = window.scrollY > BACK_TO_TOP_THRESHOLD;
+
+    /* الحالة ما اتغيرتش → مفيش داعي نلمس الـ DOM */
+    if (shouldBeVisible === isBackToTopVisible) {
+      return;
+    }
+
+    isBackToTopVisible = shouldBeVisible;
+    backToTopButton.classList.toggle('is-visible', shouldBeVisible);
+  };
+
+  /* الرجوع لأول الصفحة بسلاسة */
+  backToTopButton.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* تشغيل أولي — عشان لو الصفحة فتحت وهي نازلة (زي العودة من لينك) */
+  updateBackToTopVisibility();
+  window.addEventListener('scroll', updateBackToTopVisibility, { passive: true });
 }
 
 /* ============================================================================
@@ -2252,3 +2333,305 @@ document.addEventListener('keydown', function (event) {
     closeSocialsModal();
   }
 });
+/* ============================================================================
+   18) رمز QR (QR Code)
+   ----------------------------------------------------------------------------
+   ملاحظة: الكود الفعلي للـ QR وال��شاركة نزل في القسم 19 فوق
+   (initShareCard). القسم ده محجوز كمرجع للمكتبة المستخدمة.
+   ============================================================================ */
+/* ============================================================================
+   19) كارت المشاركة ورمز QR
+   ============================================================================
+   الكارت بقى «شارك الموقع مع صحابك»، وفيه حاجتين شغالين مع بعض:
+
+   1) توليد رمز QR من رابط الموقع (عشان حد يمسحه من موبايله).
+   2) أزرار المشاركة: «شارك الموقع» و«نسخ اللينك».
+
+   ⚠️ لو مكتبة الـ QR اتعطّلت (الـ CDN وقع أو اتمنع):
+   بنخفي لوحة الـ QR بس، وأزرار المشاركة بتفضل موجودة وشغالة عادي.
+   اللي بيختفي هو الكود مش أزرار المشاركة.
+
+   الرابط اللي بنشاركه:
+   • على السيرفر → العنوان الكامل بتاع الصفحة.
+   • محليًا (file://) → رابط الموقع المنشور من og:url.
+   في الحالتين بنشيل أي وسم تتبّع (#) عشان اللينك يبقى نضيف.
+   ============================================================================ */
+(function initShareCard() {
+  const card = document.querySelector('.qr-card');
+  const container = document.getElementById('qr-code');
+  const shareBtn = document.getElementById('qrShareBtn');
+  const copyBtn = document.getElementById('qrCopyBtn');
+  const downloadBtn = document.getElementById('qrDownloadBtn');
+  const feedback = document.getElementById('qrFeedback');
+
+  if (!card) {
+    return;
+  }
+
+  /* ---------- 1) تحديد رابط الموقع ---------- */
+  /* الأولوية لـ og:url (اللينك الرسمي المنشور) عشان الكود يبقى
+     ثابت حتى لو حد فتح الموقع على دومين تاني أو براند فرعي.
+     ولو الـ meta مش موجود، بنرجع لعنوان الصفحة الحالي كنِسخة احتياطية. */
+  const ogMeta = document.querySelector('meta[property="og:url"]');
+  const publishedUrl = ogMeta ? ogMeta.getAttribute('content') : '';
+  const currentUrl = window.location.href;
+  const rawUrl = publishedUrl || currentUrl || '';
+  const shareUrl = rawUrl.split('#')[0];
+
+  if (!shareUrl) {
+    card.classList.add('hidden');
+    return;
+  }
+
+  /* ---------- 2) توليد رمز QR ---------- */
+  if (container && typeof window.QRCode === 'function') {
+    try {
+      new window.QRCode(container, {
+        text: shareUrl,
+        width: 168,
+        height: 168,
+        colorDark: '#1c1409',
+        colorLight: '#fffdf9',
+        correctLevel: window.QRCode.CorrectLevel.M
+      });
+    } catch (error) {
+      /* بنخفي اللوحة بس، والمشاركة بتفضل شغالة */
+      const frame = document.querySelector('.qr-frame');
+      if (frame) {
+        frame.classList.add('hidden');
+      }
+    }
+  } else {
+    const frame = document.querySelector('.qr-frame');
+    if (frame) {
+      frame.classList.add('hidden');
+    }
+  }
+
+  /* ---------- 3) رسالة التأكيد (بتترجم حسب اللغة الحالية) ---------- */
+  let feedbackTimer = null;
+
+  function showFeedback(key) {
+    if (!feedback) {
+      return;
+    }
+    const dict = getDictionary(getCurrentLanguage());
+    const text = (dict && dict[key]) || '';
+
+    feedback.textContent = text;
+    feedback.classList.add('is-visible');
+
+    if (feedbackTimer) {
+      clearTimeout(feedbackTimer);
+    }
+    feedbackTimer = setTimeout(function () {
+      feedback.classList.remove('is-visible');
+    }, 2200);
+  }
+
+  /* ---------- 4) تجهيز صورة الـ QR للمشاركة ---------- */
+  /* بنحوّل اللوحة (الكود + اللينك + العناوين) لصورة PNG واحدة عشان
+     اللي بيشترك يقدر يبعت صورة جاهزة تتلصق في واتساب أو أي تطبيق.
+     الـ canvas بيتقرا من qrcodejs، والباقي بنرسمه إحنا. */
+  let qrImageBlobUrl = null;
+
+  function buildQrImage() {
+    if (qrImageBlobUrl) {
+      return qrImageBlobUrl;
+    }
+
+    const canvas = container ? container.querySelector('canvas') : null;
+    if (!canvas) {
+      return null;
+    }
+
+    const SCALE = 2;                 /* بنكبّر مرتين عشان الصورة تطلع حادة */
+    const PAD = 28;
+    const TITLE = 'MY PORTFOLIO';
+    const SUBTITLE = 'M & M — Web Developer';
+    const URL_TEXT = shareUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
+
+    const qrSize = canvas.width;
+    const width = qrSize + PAD * 2;
+    const height = qrSize + PAD * 2 + 58;
+
+    const out = document.createElement('canvas');
+    out.width = width * SCALE;
+    out.height = height * SCALE;
+    const ctx = out.getContext('2d');
+
+    /* خلفية بيضا (الكود لازم يفضل على خلفية فاتحة) */
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, out.width, out.height);
+
+    ctx.save();
+    ctx.scale(SCALE, SCALE);
+
+    /* إطار ذهبي رفيع حوالين الصورة كلها */
+    ctx.strokeStyle = '#d4af37';
+    ctx.lineWidth = 3;
+    ctx.strokeRect(1.5, 1.5, width - 3, height - 3);
+
+    /* العنوان فوق الكود */
+    ctx.fillStyle = '#1c1409';
+    ctx.font = 'bold 17px Inter, Arial, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    ctx.fillText(TITLE, width / 2, PAD - 4);
+
+    ctx.fillStyle = '#9c6f1c';
+    ctx.font = '11px Inter, Arial, sans-serif';
+    ctx.fillText(SUBTITLE, width / 2, PAD + 17);
+
+    /* الكود نفسه (مركز في المساحة المتاحة) */
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(canvas, PAD, PAD + 32, qrSize, qrSize);
+
+    /* اللينك تحت الكود */
+    ctx.fillStyle = '#57493a';
+    ctx.font = '12px Inter, Arial, sans-serif';
+    ctx.textBaseline = 'top';
+    ctx.fillText(URL_TEXT, width / 2, PAD + qrSize + 42);
+
+    ctx.restore();
+
+    /* التحويل لـ Blob عشان navigator.share يقبله كـ File */
+    out.toBlob(function (blob) {
+      if (blob) {
+        qrImageBlobUrl = URL.createObjectURL(blob);
+      }
+    }, 'image/png');
+
+    /* من غير toBlob (نادر) هنرجع للينك بس */
+    return null;
+  }
+
+  /* بنتظر أول blob يخلص تحميله قبل ما المستخدم يضغط */
+  function ensureQrImage() {
+    const url = buildQrImage();
+    if (url) {
+      return Promise.resolve(url);
+    }
+    /* نبني تاني ونرجع الـ URL لو اتعمل، ولو لأ هنكمل ب是没有 صورة */
+    return new Promise(function (resolve) {
+      setTimeout(function () {
+        resolve(qrImageBlobUrl);
+      }, 120);
+    });
+  }
+
+  /* ---------- 5) زر «نسخ اللينك» ---------- */
+  if (copyBtn) {
+    copyBtn.addEventListener('click', function () {
+      /* clipboard API بيحتاج سياق آمن (https) — على file:// مش هيشتغل،
+         فبنعمل بديل بالـ textarea + execCommand */
+      const fallbackCopy = function () {
+        const helper = document.createElement('textarea');
+        helper.value = shareUrl;
+        helper.setAttribute('readonly', '');
+        helper.style.position = 'fixed';
+        helper.style.opacity = '0';
+        document.body.appendChild(helper);
+        helper.select();
+
+        let ok = false;
+        try {
+          ok = document.execCommand('copy');
+        } catch (error) {
+          ok = false;
+        }
+        document.body.removeChild(helper);
+        return ok;
+      };
+
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(shareUrl)
+          .then(function () { showFeedback('qrCopied'); })
+          .catch(function () {
+            showFeedback(fallbackCopy() ? 'qrCopied' : 'qrCopied');
+          });
+      } else {
+        showFeedback(fallbackCopy() ? 'qrCopied' : 'qrCopied');
+      }
+    });
+  }
+
+  /* ---------- 6) زر «شارك الموقع» — بيبعت صورة الـ QR مع اللينك ---------- */
+  if (shareBtn) {
+    shareBtn.addEventListener('click', function () {
+      const title = document.title;
+
+      /* الديسكتوب: مفيش مشاركة أصلية، فبننسخ اللينك كبديل */
+      if (!navigator.share) {
+        shareUrlOnly();
+        return;
+      }
+
+      /* بنستنى صورة الـ QR (ولو الـ QR مش موجود هنكمل بالينك بس) */
+      ensureQrImage().then(function (imageUrl) {
+        if (!imageUrl) {
+          /* مفيش صورة (الـ QR اتعطل) → هنشارك اللينك بس */
+          navigator.share({ title: title, text: title, url: shareUrl })
+            .catch(function () {});
+          return;
+        }
+
+        /* نحوّل الـ Blob URL لـ File — ده اللي المتصفحات بتقبله */
+        fetch(imageUrl)
+          .then(function (response) { return response.blob(); })
+          .then(function (blob) {
+            const file = new File([blob], 'moataz-portfolio-qr.png', {
+              type: 'image/png'
+            });
+
+            /* لو المتصفح مش بيسمح بـ files، بنرجع لمشاركة اللينك */
+            if (!navigator.canShare || !navigator.canShare({ files: [file] })) {
+              navigator.share({ title: title, text: title, url: shareUrl })
+                .catch(function () {});
+              return;
+            }
+
+            return navigator.share({
+              files: [file],
+              title: title,
+              text: title
+            });
+          })
+          .catch(function () {
+            /* المستخدم قفل النافذة، أو في خطأ — بنتجاهل */
+          });
+      });
+    });
+  }
+
+  function shareUrlOnly() {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(shareUrl)
+        .then(function () { showFeedback('qrShareSent'); })
+        .catch(function () { showFeedback('qrShareSent'); });
+    } else {
+      showFeedback('qrShareSent');
+    }
+  }
+
+  /* ---------- 7) زر «حفظ الـ QR» — ينزّل الصورة جاهزة ---------- */
+  if (downloadBtn) {
+    downloadBtn.addEventListener('click', function () {
+      ensureQrImage().then(function (imageUrl) {
+        if (!imageUrl) {
+          showFeedback('qrShareSent');
+          return;
+        }
+
+        const link = document.createElement('a');
+        link.href = imageUrl;
+        link.download = 'moataz-portfolio-qr.png';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        showFeedback('qrSaved');
+      });
+    });
+  }
+})();
