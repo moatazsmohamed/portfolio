@@ -31,7 +31,10 @@ http
         res.writeHead(404);
         return res.end("404");
       }
-      res.writeHead(200, { "Content-Type": TYPES[path.extname(file).toLowerCase()] || "application/octet-stream" });
+      res.writeHead(200, {
+        "Content-Type":
+          TYPES[path.extname(file).toLowerCase()] || "application/octet-stream",
+      });
       res.end(data);
     });
   })

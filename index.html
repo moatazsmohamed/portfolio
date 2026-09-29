@@ -1,4 +1,4 @@
-﻿﻿<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- ============================================================================
      PORTFOLIO — M & M · Moataz Mohamed
      الملف: index.html  (الصفحة الوحيدة في الموقع)
@@ -1315,22 +1315,81 @@
     </footer>
 
     <!-- ====================================================================
-         الأزرار العائمة (Floating Buttons)
-         ==================================================================== -->
-    <!-- الزر العائم للواتساب: دايرة خضرا بيفتح محادثة واتساب مباشرة -->
-    <a href="https://wa.me/201280090726" id="whatsappToggle" class="whatsapp-fab"
-       target="_blank" rel="noopener noreferrer"
-       aria-label="Chat on WhatsApp" title="WhatsApp">
-        <i class="fa-brands fa-whatsapp"></i>
-    </a>
+         🤖 روبوت الموقع العائم — فيه زرار المساعد وزرار الواتساب
+         --------------------------------------------------------------------
+         الروبوت واقف في جنب الشاشة من تحت (زي أي Chatbot عادي)،
+         وده جواه الزرارين: زرار الواتساب وزرار المساعد الذكي.
 
-    <!-- الزر العائم للمساعد: بيفتح ويقفل لوحة الشات -->
-    <button type="button" id="aiToggle" class="ai-fab"
-            aria-label="Open AI assistant" aria-expanded="false" aria-controls="aiPanel">
-        <i class="fa-solid fa-robot ai-fab-open"></i>
-        <i class="fa-solid fa-xmark ai-fab-close"></i>
-        <span class="ai-fab-dot" aria-hidden="true"></span>
-    </button>
+         إزاي بيشتغل؟
+           • عينيه بتتحرك ناحية الماوس (JS بيحدّث --eye-x / --eye-y)
+           • راسه بيتمايل شوية ناحية الماوس
+           • الهوائي بيهتزّ خفيف
+           • لما الماوس يقرب منه، بيبتسم ويضيء
+
+         ملاحظة: كله CSS + JS، من غير أي صورة أو ملف خارجي.
+         وعلى الموبايل (من غير ماوس) بيفضل واقف ثابت ومبتسم.
+         ==================================================================== -->
+    <div class="bot-fab-dock" id="botFabDock">
+        <div class="hero-bot" id="heroBot" role="button" tabindex="0"
+             aria-label="Say hello to the bot">
+            <!-- 💬 فقاعة الكلام: بتظهر لما المستخدم يضغط على الروبوت -->
+            <div class="bot-bubble" id="botBubble">
+                <p class="bot-bubble-text" data-i18n="botGreeting">أهلاً بيك! أنا روبوت الموقع 👋</p>
+                <span class="bot-bubble-tail" aria-hidden="true"></span>
+            </div>
+
+            <div class="bot-antenna">
+                <span class="bot-antenna-tip"></span>
+            </div>
+
+            <div class="bot-head">
+                <div class="bot-ear bot-ear-right"></div>
+                <div class="bot-ear bot-ear-left"></div>
+
+                <div class="bot-face">
+                    <div class="bot-eye bot-eye-right"></div>
+                    <div class="bot-eye bot-eye-left"></div>
+                    <div class="bot-mouth"></div>
+                </div>
+            </div>
+
+            <div class="bot-body">
+                <div class="bot-chest">
+                    <span class="bot-light"></span>
+                    <span class="bot-light"></span>
+                    <span class="bot-light"></span>
+                </div>
+            </div>
+
+            <!-- إيدين صغيرتين على الجنبين -->
+            <span class="bot-arm bot-arm-left"></span>
+            <span class="bot-arm bot-arm-right"></span>
+
+            <!-- أرجل -->
+            <span class="bot-leg bot-leg-left"></span>
+            <span class="bot-leg bot-leg-right"></span>
+
+            <!-- ================================================================
+                 🎛️ الأزرار جوّه الروبوت (على صدره): الواتساب + المساعد الذكي
+                 ================================================================ -->
+            <div class="bot-fab-buttons">
+                <!-- زر الواتساب: دايرة خضرا بتفتح محادثة مباشرة -->
+                <a href="https://wa.me/201280090726" id="whatsappToggle" class="whatsapp-fab"
+                   target="_blank" rel="noopener noreferrer"
+                   aria-label="Chat on WhatsApp" title="WhatsApp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+
+                <!-- زر المساعد: بيفتح ويقفل لوحة الشات -->
+                <button type="button" id="aiToggle" class="ai-fab"
+                        aria-label="Open AI assistant" aria-expanded="false" aria-controls="aiPanel">
+                    <i class="fa-solid fa-robot ai-fab-open"></i>
+                    <i class="fa-solid fa-xmark ai-fab-close"></i>
+                    <span class="ai-fab-dot" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- لوحة الشات: الإدخال بيتبعت للـ Cloudflare Worker (worker.js) وهو اللي بيكلم الـ AI -->
     <div id="aiPanel" class="ai-panel hidden" role="dialog" aria-modal="false"

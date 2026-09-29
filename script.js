@@ -1,4 +1,4 @@
-﻿﻿﻿/* ============================================================================
+﻿/* ============================================================================
    PORTFOLIO — M & M · Moataz Mohamed
    الملف: script.js  (ملف الجافاسكربت الرئيسي والوحيد)
    ============================================================================
@@ -218,6 +218,9 @@ const translations = {
     qrCopied: 'تم النسخ!',
     qrDownload: 'حفظ الـ QR',
     qrSaved: 'تم حفظ الصورة!',
+
+    /* روبوت الهيرو: رسالة الترحيب لما المستخدم يدوس عليه */
+    botGreeting: 'أهلاً بيك! أنا روبوت الموقع، إعمل إيه؟ 👋',
     qrPlateTitle: 'MY PORTFOLIO',
     qrPlateSub: 'WEB DEVELOPER',
     qrLinkProjects: 'المشاريع',
@@ -403,6 +406,9 @@ const translations = {
     qrCopied: 'Copied!',
     qrDownload: 'Save QR',
     qrSaved: 'Image saved!',
+
+    /* Hero bot: greeting shown when the user clicks it */
+    botGreeting: "Hey there! I'm the site bot — what can I do for you? 👋",
     qrPlateTitle: 'MY PORTFOLIO',
     qrPlateSub: 'WEB DEVELOPER',
     qrLinkProjects: 'Projects',
@@ -2634,4 +2640,303 @@ document.addEventListener('keydown', function (event) {
       });
     });
   }
+})();
+
+/* ============================================================================
+   20) روبوت الهيرو — بيتابع الماوس بعينيه وراسه
+   ============================================================================
+   الفكرة: روبوت صغير واقف بين نص الهيرو وصورته، وعيناه وراسه بيتحركوا
+   حسب حركة الماوس — زي روبوت بيبص عليك.
+
+   إزاي بنحسب الاتجاه؟
+     بناخد مركز الروبوت على الشاشة، وبنقسم الفرق بينه وبين الماوس
+     على مسافة الـ viewport عشان نطلّع رقم بين -1 و +1:
+       -1 = أقصى اليمين
+        0 = فوق بعضه
+       +1 = أقصى الشمال
+     الرقم ده بنحطه في متغيّر CSS اسمه --eye-x (و --eye-y للرأسي).
+
+   بعدين CSS وحده هو اللي بيحرّك:
+     • العينين  → transform: translate(var(--eye-x) * 3px, …)
+     • الرأس   → rotate(var(--tilt))
+     • اللمبة   → box-shadow حسب --bot-glow
+
+   ⭐ الخفة: بنستخدم requestAnimationFrame وبنحدّث القيم في نفس الفريم،
+   فمفيش أي إعادة تخطيط (reflow) لكل حركة.
+
+   ⚠️ على الأجهزة اللي مفيش فيها ماوس (موبايل/تابلت):
+   الروبوت بيفضل واقف ثابت ونضيف الكتاب متنوعش.
+   ============================================================================ */
+(function initHeroBot() {
+  const bot = document.querySelector('.hero-bot');
+
+  if (!bot) {
+    return;
+  }
+
+  /* على الأجهزة اللمسية مفيش ماوس → نسيب الروبوت ثابت ونخرج */
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    bot.classList.add('is-idle');
+    return;
+  }
+
+  /* القيم الحالية — بنحدّثها بالتدريج عشان الحركة تبقى سلسة مش قفزات */
+  let currentEyeX = 0;
+  let currentEyeY = 0;
+  let currentTilt = 0;
+  let currentGlow = 0;
+
+  /* القيم المستهدفة (من الماوس) */
+  let targetEyeX = 0;
+  let targetEyeY = 0;
+  let targetTilt = 0;
+  let targetGlow = 0;
+
+  let frameId = null;
+  let botRect = null;
+
+  /* بنحسب مكان الروبوت مرة واحدة وكل resize (لأنه بيتحرك مع الصفحة) */
+  function measureBot() {
+    botRect = bot.getBoundingClientRect();
+  }
+
+  /* الدالة الأساسية: بتقرأ مكان الماوس وبتحسب الأهداف */
+  function onMouseMove(event) {
+    const clientX = event.clientX;
+    const clientY = event.clientY;
+
+    /* لو متقيسش بعد (أول حركة أو بعد resize) → قيس دلوقتي */
+    if (!botRect) {
+      measureBot();
+    }
+
+    if (!botRect || botRect.width === 0) {
+      return;
+    }
+
+    /* مركز الروبوت على الشاشة */
+    const botCenterX = botRect.left + botRect.width / 2;
+    const botCenterY = botRect.top + botRect.height / 2;
+
+    /* المسافة القصوى عشان نحوّل الإحداثيات لنسبة من -1 لـ 1
+       (من غيرها-robot هيتبص بزاوية مبالغ فيها) */
+    const maxX = window.innerWidth / 2;
+    const maxY = window.innerHeight / 2;
+
+    /* نسبة اتجاه الماوس من مركز الروبوت، مقصوصة بين -1 و 1 */
+    const normalizedX = (clientX - botCenterX) / maxX;
+    const normalizedY = (clientY - botCenterY) / maxY;
+
+    targetEyeX = Math.max(-1, Math.min(1, normalizedX));
+    targetEyeY = Math.max(-1, Math.min(1, normalizedY));
+
+    /* ميلان الرأس: أقل من اتجاه العين عشان يبقى طبيعي ومش مبالغ */
+    targetTilt = targetEyeX * 7; /* أقصى 7 درجات */
+
+    /* التوهّج: كل ما الماوس يقرب من الروبوت، الوهج يزيد
+       (المسافة بتتحسب Eu من غير sqrt عشان الك سريع) */
+    const dx = clientX - botCenterX;
+    const dy = clientY - botCenterY;
+    const distanceSquared = dx * dx + dy * dy;
+    const closeRange = 420 * 420; /* المسافة اللي بنعتبرها «قريب» */
+
+    if (distanceSquared < closeRange) {
+      const closeness = 1 - distanceSquared / closeRange;
+      targetGlow = closeness;
+
+      /* لما يبقى قريب جدًا → نضيف كلاس الابتسامة */
+      bot.classList.toggle('is-happy', closeness > 0.55);
+    } else {
+      targetGlow = 0;
+      bot.classList.remove('is-happy');
+    }
+
+    startLoop();
+  }
+
+  /* حلقة الحركة: بتقرّب القيم من Targets ونكتبها في CSS */
+  function tick() {
+    /* معامل التنعيم: كل فريم بنقرب 12% من الفرق
+       (رقم صغير = أنعم، رقم كبير = أسرع) */
+    const smoothing = 0.12;
+
+    currentEyeX += (targetEyeX - currentEyeX) * smoothing;
+    currentEyeY += (targetEyeY - currentEyeY) * smoothing;
+    currentTilt += (targetTilt - currentTilt) * smoothing;
+    currentGlow += (targetGlow - currentGlow) * smoothing;
+
+    /* كتابة القيم في متغيّرات CSS (من غير إعادة تخطيط) */
+    bot.style.setProperty('--eye-x', currentEyeX.toFixed(3));
+    bot.style.setProperty('--eye-y', currentEyeY.toFixed(3));
+    bot.style.setProperty('--tilt', currentTilt.toFixed(2) + 'deg');
+    bot.style.setProperty('--bot-glow', currentGlow.toFixed(3));
+
+    /* هل وصلنا للأهداف؟ لو أيوه بنوقف (توفير أداء) */
+    const settled =
+      Math.abs(targetEyeX - currentEyeX) < 0.001 &&
+      Math.abs(targetEyeY - currentEyeY) < 0.001 &&
+      Math.abs(targetTilt - currentTilt) < 0.01 &&
+      Math.abs(targetGlow - currentGlow) < 0.001;
+
+    if (settled) {
+      frameId = null;
+      return;
+    }
+
+    frameId = requestAnimationFrame(tick);
+  }
+
+  /* بنبدأ الحلقة لو مش شغالة */
+  function startLoop() {
+    if (frameId === null) {
+      frameId = requestAnimationFrame(tick);
+    }
+  }
+
+  /* التوصيل: mousemove على الـ document (أوشن نسمع وهوفيتحرك في أي مكان) */
+  document.addEventListener('mousemove', onMouseMove, { passive: true });
+
+  /* لما الماوس يخرج من الصفحة: الروبوت يرجع لوضعه الطبيعي */
+  document.addEventListener('mouseleave', function () {
+    targetEyeX = 0;
+    targetEyeY = 0;
+    targetTilt = 0;
+    targetGlow = 0;
+    bot.classList.remove('is-happy');
+    startLoop();
+  });
+
+  /* إعادة القياس لما الشاشة تتغير أو الـ page تتنفّذ */
+  window.addEventListener('resize', function () {
+    measureBot();
+  }, { passive: true });
+
+  window.addEventListener('scroll', function () {
+    measureBot();
+  }, { passive: true });
+
+  measureBot();
+})();
+
+/* ============================================================================
+   21) روبوت الهيرو — فقاعة الترحيب (الضغط عليها)
+   ============================================================================
+   لما المستخدم يدوس على الروبوت، بتظهر فوقه فقاعة كلام فيها رسالة ترحيب،
+   وبتنبض شوية كأنها بتتكلم، وبتقفل لوحدها بعد 4 ثواني.
+
+   إزاي بتُقفل؟
+     • بعد 4 ثواني تلقائيًا
+     • لو ضغط عليها تاني
+     • لما يضغط في أي مكان بره الروبوت
+     • لو ضغط Escape
+
+   ⭐ إمكانية الوصول (a11y):
+     • الروبوت عبارة عن <div role="button" tabindex="0">، فبيشتغل
+       بالماوس وبالـ Tab وبـ Enter/Space (زي أي زرار).
+   ============================================================================ */
+(function initHeroBotGreeting() {
+  const bot = document.getElementById('heroBot');
+
+  if (!bot) {
+    return;
+  }
+
+  /* مدة بقاء الفقاعة مفتوحة (مللي ثانية) */
+  const AUTO_HIDE_MS = 4000;
+  let hideTimer = null;
+
+  function showBubble() {
+    /* نشيل أي تايمر قديم عشان كل ضغطة تعيد الحساب من الأول */
+    if (hideTimer) {
+      clearTimeout(hideTimer);
+    }
+
+    bot.classList.add('is-talking');
+    /* نظّفش الحالة لو المستخدم ضغط Escape */
+    bot.setAttribute('aria-expanded', 'true');
+
+    hideTimer = setTimeout(function () {
+      hideBubble();
+    }, AUTO_HIDE_MS);
+  }
+
+  function hideBubble() {
+    bot.classList.remove('is-talking');
+    bot.setAttribute('aria-expanded', 'false');
+
+    if (hideTimer) {
+      clearTimeout(hideTimer);
+      hideTimer = null;
+    }
+  }
+
+  function toggleBubble() {
+    if (bot.classList.contains('is-talking')) {
+      hideBubble();
+    } else {
+      showBubble();
+    }
+  }
+
+  /* --- الضغط بالماوس أو باللمس --- */
+  bot.addEventListener('click', function (event) {
+    /* لو الضغط جوه الزراير جوّه الروبوت (واتساب/المساعد) → نطنشه
+       عشان الفقاعة ما تفتحش ونعملش toggle بالغلط */
+    if (event.target.closest('.bot-fab-buttons')) {
+      return;
+    }
+    event.stopPropagation();
+    toggleBubble();
+  });
+
+  /* --- نفس الحاجة للكيبورد: الزرار جوه الروبوت يفضل شغال لوحده --- */
+  bot.querySelectorAll('.bot-fab-buttons a, .bot-fab-buttons button').forEach(function (btn) {
+    btn.addEventListener('keydown', function (event) {
+      event.stopPropagation();
+    });
+    btn.addEventListener('pointerdown', function (event) {
+      event.stopPropagation();
+    });
+  });
+
+  /* --- الضغط على لوحة المفاتيح: Enter أو المسافة --- */
+  bot.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      /* Space بتعمل سكرول — بنمنعها */
+      event.preventDefault();
+      toggleBubble();
+    }
+  });
+
+  /* --- لمعة اللمس: بينضغّ الروبوت شوية وهو متدوس --- */
+  bot.addEventListener('pointerdown', function () {
+    bot.classList.add('is-pressed');
+  });
+
+  function releasePress() {
+    bot.classList.remove('is-pressed');
+  }
+
+  bot.addEventListener('pointerup', releasePress);
+  bot.addEventListener('pointercancel', releasePress);
+  bot.addEventListener('pointerleave', releasePress);
+
+  /* --- لو ضغط في أي مكان بره الروبوت، الفقاعة تقفل --- */
+  document.addEventListener('click', function (event) {
+    if (!bot.contains(event.target)) {
+      hideBubble();
+    }
+  });
+
+  /* --- زر Escape يقفل الفقاعة --- */
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && bot.classList.contains('is-talking')) {
+      hideBubble();
+    }
+  });
+
+  /* --- لو المستخدم غيّر اللغة، نحدّث نص الفقاعة فوراً --- */
+  document.addEventListener('languageChanged', function () {
+    /* مش ضروري — نصوص data-i18n بتتحدّث لوحدها في applyLanguage */
+  });
 })();
