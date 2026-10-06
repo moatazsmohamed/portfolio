@@ -1,4 +1,4 @@
-﻿/* ============================================================================
+﻿﻿/* ============================================================================
    PORTFOLIO — M & M · Moataz Mohamed
    الملف: 11.css  (ملف التنسيقات الرئيسي والوحيد)
    ============================================================================
@@ -948,11 +948,6 @@ body.light-mode .contact-modal-close {
 .developer-list {
     list-style: none;
     margin: 0;
-   /* مثال لما هو موجود حالياً */
-/* الشكل الصحيح بعد التعديل */
-.example-class {
-    padding: 20px;
-}
     max-height: 280px;
     overflow-y: auto;
     border: 1px solid rgba(212, 175, 55, 0.2);
@@ -4838,7 +4833,6 @@ body.light-mode .response-box.is-error {
         width: 112px;
         height: 150px;
         padding-top: 10px;
-    }
     }
 
     .whatsapp-fab,
