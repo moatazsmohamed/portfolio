@@ -474,7 +474,7 @@ const projectData = [
     primaryLink: 'index.html',
     secondaryText: { ar: 'جيت هاب', en: 'GitHub' },
     secondaryLink: 'https://github.com/',
-    previewImage: 'img/Screenshot 2026-09-25 123513.png'
+    previewImage: 'img/Screenshot 2026-10-19 165612.png'
   },
 
   /* --- المشروع الثاني: تافرا (متجر أزياء) --- */
