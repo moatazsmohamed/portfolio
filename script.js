@@ -542,7 +542,7 @@ const projectData = [
     en: 'Coming Soon' 
   },
   secondaryLink: '#',
-  previewImage: 'img/placeholder.png'
+  previewImage: 'img/Gemini_Generated_Image_9w33z89w33z89w33.jpeg'
 },
 {
   tag: { 
@@ -567,7 +567,7 @@ const projectData = [
     en: 'Coming Soon' 
   },
   secondaryLink: '#',
-  previewImage: 'img/placeholder.png'
+  previewImage: 'img/Gemini_Generated_Image_9w33z89w33z89w33.jpeg'
 },
 {
   tag: { 
@@ -592,7 +592,7 @@ const projectData = [
     en: 'Coming Soon' 
   },
   secondaryLink: '#',
-  previewImage: 'img/placeholder.png'
+  previewImage: 'img/Gemini_Generated_Image_9w33z89w33z89w33.jpeg'
 }
 ];
 
