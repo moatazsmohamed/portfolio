@@ -486,7 +486,7 @@ const projectData = [
       en: 'An e-commerce fashion store with a luxury visual identity, showcasing the TAFRA collection with a modern, responsive design.'
     },
     primaryText: { ar: 'عرض المشروع', en: 'View Project' },
-    primaryLink: 'https://portfolio-moataz.vercel.app/12.tafra/',
+    primaryLink: 'https://mtzm2225-ship-it.github.io/12.tafra',
     secondaryText: { ar: 'جيت هاب', en: 'GitHub' },
     secondaryLink: 'https://github.com/mtzm2225-ship-it/12.tafra',
     previewImage: 'img/Screenshot 2026-09-16 164001.png'
