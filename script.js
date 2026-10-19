@@ -493,18 +493,30 @@ const projectData = [
   },
 
   /* --- مشروع سيتم إضافته لاحقًا --- */
-  {
-    tag: { ar: 'قريبًا', en: 'Coming Soon' },
-    name: { ar: 'قريبًا', en: 'Coming Soon' },
-    description: {
-      ar: 'سيتم إضافة هذا المشروع قريبًا.',
-      en: 'This project will be added soon.'
-    },
-    primaryText: { ar: 'قريبًا', en: 'Coming Soon' },
-    primaryLink: '#portfolio',
-    secondaryText: { ar: 'قريبًا', en: 'Coming Soon' },
-    secondaryLink: '#portfolio'
-  }
+{
+  tag: { 
+    ar: 'أثاث خشبي وفاخر', 
+    en: 'Handcrafted Furniture' 
+  },
+  name: { 
+    ar: 'مؤسسة محمد إشماعيل وأولاده (MS Woodworks)', 
+    en: 'MS Woodworks - Handcrafted Furniture' 
+  },
+  description: {
+    ar: 'مؤسسة متخصصة في تصنيع الأثاث الخشبي الفاخر المخصص يدويًا من الجوز الداكن للتصاميم المنزلية والمكتبية بخبرة تتجاوز 25 عامًا.',
+    en: 'Specialized in crafting bespoke luxury solid wood furniture, executive office desks, and custom hand-carved joinery with over 25 years of experience.'
+  },
+  primaryText: { 
+    ar: 'زيارة الموقع', 
+    en: 'Visit Website' 
+  },
+  primaryLink: 'https://ms-wood-works.vercel.app/#home',
+  secondaryText: { 
+    ar: 'استكشف المجموعة', 
+    en: 'Explore Collection' 
+  },
+  secondaryLink: 'https://ms-wood-works.vercel.app/#portfolio'
+}
 ];
 
 /* ============================================================================
