@@ -515,7 +515,84 @@ const projectData = [
     ar: 'استكشف المجموعة', 
     en: 'Explore Collection' 
   },
-  secondaryLink: 'https://ms-wood-works.vercel.app/#portfolio'
+  secondaryLink: 'https://ms-wood-works.vercel.app/#portfolio',
+  previewImage: 'img/Screenshot 2026-10-19 161639.png'
+},
+
+{
+  tag: { 
+    ar: 'قريباً', 
+    en: 'Coming Soon' 
+  },
+  name: { 
+    ar: 'مشروع جديد قيد التطوير', 
+    en: 'New Project In Development' 
+  },
+  description: {
+    ar: 'مشروع برمجى جديد يتم العمل عليه حالياً، وسيتم إطلاقه وعرض تفاصيله قريباً جداً. ترقبوا الجديد!',
+    en: 'A new web development project currently in progress. Details and launch coming very soon. Stay tuned!'
+  },
+  primaryText: { 
+    ar: 'قريباً', 
+    en: 'Coming Soon' 
+  },
+  primaryLink: '#',
+  secondaryText: { 
+    ar: 'قريباً', 
+    en: 'Coming Soon' 
+  },
+  secondaryLink: '#',
+  previewImage: 'img/placeholder.png'
+},
+{
+  tag: { 
+    ar: 'قريباً', 
+    en: 'Coming Soon' 
+  },
+  name: { 
+    ar: 'مشروع جديد قيد التطوير', 
+    en: 'New Project In Development' 
+  },
+  description: {
+    ar: 'مشروع برمجى جديد يتم العمل عليه حالياً، وسيتم إطلاقه وعرض تفاصيله قريباً جداً. ترقبوا الجديد!',
+    en: 'A new web development project currently in progress. Details and launch coming very soon. Stay tuned!'
+  },
+  primaryText: { 
+    ar: 'قريباً', 
+    en: 'Coming Soon' 
+  },
+  primaryLink: '#',
+  secondaryText: { 
+    ar: 'قريباً', 
+    en: 'Coming Soon' 
+  },
+  secondaryLink: '#',
+  previewImage: 'img/placeholder.png'
+},
+{
+  tag: { 
+    ar: 'قريباً', 
+    en: 'Coming Soon' 
+  },
+  name: { 
+    ar: 'مشروع جديد قيد التطوير', 
+    en: 'New Project In Development' 
+  },
+  description: {
+    ar: 'مشروع برمجى جديد يتم العمل عليه حالياً، وسيتم إطلاقه وعرض تفاصيله قريباً جداً. ترقبوا الجديد!',
+    en: 'A new web development project currently in progress. Details and launch coming very soon. Stay tuned!'
+  },
+  primaryText: { 
+    ar: 'قريباً', 
+    en: 'Coming Soon' 
+  },
+  primaryLink: '#',
+  secondaryText: { 
+    ar: 'قريباً', 
+    en: 'Coming Soon' 
+  },
+  secondaryLink: '#',
+  previewImage: 'img/placeholder.png'
 }
 ];
 
