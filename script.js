@@ -587,12 +587,12 @@ const projectData = [
     tag: { ar: 'متجر إلكتروني', en: 'E-commerce' },
     name: { ar: 'تافرا - متجر أزياء', en: 'TAFRA - Fashion Store' },
     description: {
-      ar: 'متجر أزياء إلكتروني بهوية بصرية فاخرة، يعرض تشكيلة تافرا مع تصميم عصري ومتجاوب.',
-      en: 'An e-commerce fashion store with a luxury visual identity, showcasing the TAFRA collection with a modern, responsive design.'
+      ar: 'متجر أزياء إلكتروني بهوية بصرية فاخرة: 16 قطعة في 6 مجموعات، بحث وفرز، سلة طلبات تُرسل على واتساب، وتواصل مباشر — بواجهة عربية/إنجليزية متجاوبة.',
+      en: 'An e-commerce fashion store with a luxury identity: 16 pieces across 6 collections, search and sorting, a cart that sends the order over WhatsApp, and direct contact — in a bilingual Arabic/English responsive interface.'
     },
-    tech: ['HTML5', 'CSS3', 'JavaScript', 'GitHub Pages'],
-    primaryText: { ar: 'عرض المشروع', en: 'View Project' },
-    primaryLink: 'https://moatazsmohamed.github.io/12.tafra',
+    tech: ['HTML5', 'CSS3', 'JavaScript', 'WhatsApp Orders', 'Supabase', 'Vercel'],
+    primaryText: { ar: 'زيارة المتجر', en: 'Visit Store' },
+    primaryLink: 'https://tafrawear.vercel.app',
     secondaryText: { ar: 'جيت هاب', en: 'GitHub' },
     secondaryLink: 'https://github.com/moatazsmohamed/12.tafra',
     previewImage: 'img/tafra-preview.webp'
@@ -2114,8 +2114,8 @@ const assistantKnowledge = [
     id: 'tafra',
     keywords: ['تافرا', 'tafra', 'fashion', 'ازياء', 'متجر'],
     answer: {
-      ar: 'TAFRA متجر أزياء إلكتروني بهوية بصرية فاخرة وتصميم عصري متجاوب، بيعرض تشكيلة تافرا. تقدر تفتحه من زرار «عرض المشروع» في كارت TAFRA.',
-      en: 'TAFRA is an online fashion store with a luxury visual identity and a modern responsive design, showcasing the TAFRA collection. Open it from the “View Project” button on the TAFRA card.'
+      ar: 'TAFRA متجر أزياء إلكتروني بهوية بصرية فاخرة: 16 قطعة في 6 مجموعات (أوفرسايز، هوديز، بناطيل، إكسسوارات، عطور، هدايا)، مع بحث وفرز وسلة طلبات تتبعت على واتساب، وواجهة عربي/إنجليزي.\nتقدر تفتحه من زرار «زيارة المتجر» في كارت TAFRA.',
+      en: 'TAFRA is an online fashion store with a luxury identity: 16 pieces across 6 collections (oversized tees, hoodies, bottoms, accessories, fragrance, gifts), with search, sorting and a cart that sends the order over WhatsApp, in Arabic/English.\nOpen it from the “Visit Store” button on the TAFRA card.'
     }
   },
   {
