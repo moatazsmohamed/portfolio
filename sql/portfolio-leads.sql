@@ -112,8 +112,15 @@ begin
         raise exception 'LEAD_NAME_INVALID';
     end if;
 
-    if v_email !~ '^[^@[:space:]]+@[^@[:space:]]+\.[^@[:space:]]+$' then
+    if char_length(v_email) < 3 or char_length(v_email) > 254
+       or v_email !~ '^[^@[:space:]]+@[^@[:space:]]+\.[^@[:space:]]+$' then
         raise exception 'LEAD_EMAIL_INVALID';
+    end if;
+
+    -- لو الموبايل أطول من المسموح نرفضه هنا، مش نسيبه يوقع قيد العمود:
+    -- خطأ قيد العمود بيرجع نص الصف كامل (الإيميل والرسالة) في الرد.
+    if v_phone is not null and char_length(v_phone) > 40 then
+        raise exception 'LEAD_PHONE_INVALID';
     end if;
 
     if char_length(v_message) < 1 or char_length(v_message) > 4000 then
@@ -269,15 +276,22 @@ set search_path = portfolio, public
 as $$ select portfolio.remove(p_id); $$;
 
 -- الأذنين: مفيش one size fits all — النشر عام، والقراءة والحذف من جوه الدالة.
-revoke all on function public.portfolio_submit_lead(text, text, text, text, text, text, text) from public;
-revoke all on function public.portfolio_leads(text) from public;
-revoke all on function public.portfolio_lead_status(uuid, text, text) from public;
-revoke all on function public.portfolio_delete_lead(uuid) from public;
+-- الـ revoke لازم يكون بالاسم (public + anon + authenticated): Supabase بيعمل
+-- grant execute للأدوار دي بنفس الاسم على الدوال الجديدة، فـ "from public"
+-- لحاله مابيلغيش عنهم والدالة بتفضل قابلة للتنادى من anon.
+revoke all on function public.portfolio_submit_lead(text, text, text, text, text, text, text) from public, anon, authenticated;
+revoke all on function public.portfolio_leads(text) from public, anon, authenticated;
+revoke all on function public.portfolio_lead_status(uuid, text, text) from public, anon, authenticated;
+revoke all on function public.portfolio_delete_lead(uuid) from public, anon, authenticated;
 
 grant execute on function public.portfolio_submit_lead(text, text, text, text, text, text, text) to anon, authenticated;
 grant execute on function public.portfolio_leads(text) to authenticated;
 grant execute on function public.portfolio_lead_status(uuid, text, text) to authenticated;
 grant execute on function public.portfolio_delete_lead(uuid) to authenticated;
+
+-- الجداول نفسها: ماحدش يلمسها من الـ API، الدالات الـ definer بتاعتها بس.
+revoke all on table portfolio.leads from public, anon, authenticated;
+revoke all on table portfolio.admins from public, anon, authenticated;
 
 -- يخلي PostgREST يعيد قراءة الـ schema من غير ما تستنى دقيقة.
 notify pgrst, 'reload schema';
@@ -286,7 +300,12 @@ notify pgrst, 'reload schema';
 select case when missing is null then 'OK — الدوال الأربعة اتعملت'
              else 'ناقص: ' || missing || ' — جرب تشغّل السكريبت على المشروع اللي مفتوح دلوقتي'
         end as result,
-        (select string_agg(email, ', ') from portfolio.admins) as allowed_emails
+        (select string_agg(email, ', ') from portfolio.admins) as allowed_emails,
+        -- الأذنين الحقيقية لكل دالة بعد ما اتنفذت: anon لازم يبقى FA فقط.
+        (select jsonb_object_agg(p.proname, p.proacl)
+           from pg_proc p
+           join pg_namespace n on n.oid = p.pronamespace
+          where n.nspname = 'public' and p.proname like 'portfolio_%') as grants
   from (
     select string_agg(w.name, ', ' order by w.name) as missing
       from (values ('portfolio_submit_lead'), ('portfolio_leads'),
