@@ -239,6 +239,7 @@ const translations = {
     formOk: 'وصلت رسالتك ✅ هرّد عليك في أقرب وقت.',
     formErr: 'معلش، الرسالة مبتتبعتش دلوقتي. جرّب تاني أو تواصل معي مباشرة.',
     formFast: 'من دقيقتين انت بعت رسالة — استنى شوية وابعت تاني.',
+    formBusy: 'الرسايل زيادت شوية دلوقتي — جرّب بعد نص ساعة.',
     formNeedName: 'اكتب اسمك الأول.',
     formNeedEmail: 'اكتب إيميل صحيح عشان نقدر نرد عليك.',
     formNeedMsg: 'اكتب رسالتك الأول.',
@@ -464,6 +465,7 @@ const translations = {
     formOk: 'Your message is in ✅ I will reply as soon as I can.',
     formErr: 'The message could not be sent right now. Try again or contact me directly.',
     formFast: 'You just sent a message two minutes ago — please wait a bit and try again.',
+    formBusy: 'Messages are piling up right now — please try again in half an hour.',
     formNeedName: 'Please write your name first.',
     formNeedEmail: 'Please write a valid email so we can reply to you.',
     formNeedMsg: 'Please write your message first.',
@@ -3422,6 +3424,9 @@ function setFormBusy(busy) {
  */
 function mapLeadError(error) {
   const message = String((error && error.message) || error || '');
+  if (message.indexOf('LEAD_RATE_LIMIT') !== -1) {
+    return 'formBusy';
+  }
   if (message.indexOf('LEAD_THROTTLED') !== -1) {
     return 'formFast';
   }

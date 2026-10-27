@@ -93,6 +93,11 @@ begin
         raise exception 'LEAD_THROTTLED';
     end if;
 
+    -- سقف عام في الساعة: بيوقف السبام الموزّع على إيميلات عشوائية.
+    if (select count(*) from portfolio.leads where created_at > now() - interval '1 hour') >= 40 then
+        raise exception 'LEAD_RATE_LIMIT';
+    end if;
+
     insert into portfolio.leads (full_name, email, phone, message, lang, page)
     values (
         v_name,
@@ -147,7 +152,8 @@ set search_path = portfolio, public
 as $$
 declare
     v_status text := btrim(coalesce(p_status, ''));
-    v_note   text := nullif(btrim(coalesce(p_note, '')), '');
+    -- لو p_note جاية null يبقى المستخدم ملامسش الملاحظة؛ الفاضي يعني امسحها.
+    v_note   text := case when p_note is null then null else btrim(p_note) end;
 begin
     if not public.is_developer() then
         raise exception 'LEAD_FORBIDDEN';
@@ -159,7 +165,12 @@ begin
 
     update portfolio.leads
        set status = v_status,
-           note   = coalesce(v_note, note)
+           updated_at = now(),
+           note = case
+                    when v_note is null then note
+                    when v_note = '' then null
+                    else left(v_note, 1000)
+                  end
      where id = p_id;
 
     return jsonb_build_object('ok', true, 'updated', found);
@@ -188,7 +199,7 @@ create or replace function public.portfolio_submit_lead(
     p_full_name text,
     p_email     text,
     p_phone     text default null,
-    p_message   text,
+    p_message   text default '',
     p_lang      text default 'en',
     p_page      text default null,
     p_honeypot  text default null
@@ -232,3 +243,6 @@ grant execute on function public.portfolio_submit_lead(text, text, text, text, t
 grant execute on function public.portfolio_leads(text) to authenticated;
 grant execute on function public.portfolio_lead_status(uuid, text, text) to authenticated;
 grant execute on function public.portfolio_delete_lead(uuid) to authenticated;
+
+-- يخلي PostgREST يعيد قراءة الـ schema من غير ما تستنى دقيقة.
+notify pgrst, 'reload schema';

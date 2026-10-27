@@ -217,6 +217,10 @@ function getAdminClient() {
           }
         });
       });
+    adminClient = adminClient.catch(function (error) {
+      adminClient = null;
+      throw error;
+    });
   }
 
   return adminClient;
@@ -509,7 +513,11 @@ function loadLeads() {
  * @param {string} [note]
  */
 function setLeadStatus(id, status, note) {
-  return callRpc('portfolio_lead_status', { p_id: id, p_status: status, p_note: note || null })
+  return callRpc('portfolio_lead_status', {
+    p_id: id,
+    p_status: status,
+    p_note: note === undefined ? null : note
+  })
     .then(function () {
       setNotice(inboxMsg, 'saved', 'ok');
       return loadLeads();
