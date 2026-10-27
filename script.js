@@ -519,7 +519,7 @@ const projectData = [
     primaryText: { ar: 'زيارة مدار', en: 'Visit Madar' },
     primaryLink: 'https://madar-three-liart.vercel.app/login',
     secondaryText: { ar: 'جيت هاب', en: 'GitHub' },
-    secondaryLink: 'https://github.com/mtzm2225-ship-it/madar',
+    secondaryLink: 'https://github.com/moatazsmohamed/madar',
     previewImage: 'img/madar-login.webp'
   },
 
@@ -535,7 +535,7 @@ const projectData = [
     primaryText: { ar: 'عرض المشروع', en: 'View Project' },
     primaryLink: 'index.html',
     secondaryText: { ar: 'جيت هاب', en: 'GitHub' },
-    secondaryLink: 'https://github.com/mtzm2225-ship-it/portfolio',
+    secondaryLink: 'https://github.com/moatazsmohamed/portfolio',
     previewImage: 'img/portfolio-preview.webp'
   },
 
@@ -549,9 +549,9 @@ const projectData = [
     },
     tech: ['HTML5', 'CSS3', 'JavaScript', 'GitHub Pages'],
     primaryText: { ar: 'عرض المشروع', en: 'View Project' },
-    primaryLink: 'https://mtzm2225-ship-it.github.io/12.tafra',
+    primaryLink: 'https://moatazsmohamed.github.io/12.tafra',
     secondaryText: { ar: 'جيت هاب', en: 'GitHub' },
-    secondaryLink: 'https://github.com/mtzm2225-ship-it/12.tafra',
+    secondaryLink: 'https://github.com/moatazsmohamed/12.tafra',
     previewImage: 'img/tafra-preview.webp'
   },
 

@@ -3,7 +3,7 @@
 موقع أعمال شخصي بتصميم استجابي سريع، تم بناؤه باستخدام **Vanilla JavaScript** — بدون أي خطوة بناء.
 
 🌐 **رابط المعاينة المباشرة (Live Demo):** [Moataz Mohamed Portfolio](https://portfolio-moataz.vercel.app/)  
-💻 **المستودع (Repository):** [GitHub Repository](https://github.com/mtzm2225-ship-it/portfolio)
+💻 **المستودع (Repository):** [GitHub Repository](https://github.com/moatazsmohamed/portfolio)
 
 ---
 
@@ -44,7 +44,7 @@
 
 ```bash
 # 1. استنساخ المستودع
-git clone https://github.com/mtzm2225-ship-it/portfolio.git
+git clone https://github.com/moatazsmohamed/portfolio.git
 
 # 2. الانتقال لمجلد المشروع
 cd portfolio
