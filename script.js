@@ -1075,10 +1075,10 @@ function stepProject(direction) {
   goToProject(currentProjectIndex + direction);
 }
 
-/* عدّاد المشاريع في الهيرو بياخد رقمه من نفس مصدر بيانات المعرض */
+/* عدّاد المشاريع في الهيرو — نفس إجمالي المشاريع المعروض في قسم الأرقام */
 const heroStatProjects = document.getElementById('heroStatProjects');
 if (heroStatProjects) {
-  heroStatProjects.textContent = String(projectData.length).padStart(2, '0');
+  heroStatProjects.textContent = '08';
 }
 
 /* زر "تغيير المشروع" — بينقل للمشروع اللي بعده */
@@ -3076,7 +3076,8 @@ document.addEventListener('keydown', function (event) {
    • عدد العملاء ثابت تحت، والمشاريع بتتحسب من projectData.
    ============================================================================ */
 (function () {
-  const SITE_CLIENT_COUNT = 3;
+  const SITE_CLIENT_COUNT = 6;
+  const SITE_PROJECT_COUNT = 8;
   const STORE_KEY = 'portfolioUsageCounters';
   const VISIT_GAP = 45000;
   const LIVE_MIN = 9000;
@@ -3098,10 +3099,10 @@ document.addEventListener('keydown', function (event) {
   saveState();
 
   if (clientsEl) {
-    clientsEl.textContent = String(SITE_CLIENT_COUNT);
+    clientsEl.textContent = SITE_CLIENT_COUNT + '+';
   }
-  if (projectsEl && typeof projectData !== 'undefined') {
-    projectsEl.textContent = String(projectData.length);
+  if (projectsEl) {
+    projectsEl.textContent = SITE_PROJECT_COUNT + '+';
   }
 
   function randomBetween(min, max) {
@@ -3159,17 +3160,21 @@ document.addEventListener('keydown', function (event) {
     return isNaN(parsed) ? 0 : parsed;
   }
 
+  function formatCount(value) {
+    return value + '+';
+  }
+
   function countUp(element, target, from) {
     if (!element) {
       return;
     }
     if (reduceMotion || !window.requestAnimationFrame) {
-      element.textContent = String(target);
+      element.textContent = formatCount(target);
       return;
     }
     const start = typeof from === 'number' ? from : currentValue(element);
     if (start === target) {
-      element.textContent = String(target);
+      element.textContent = formatCount(target);
       return;
     }
     const duration = 850;
@@ -3177,11 +3182,11 @@ document.addEventListener('keydown', function (event) {
     function tick(now) {
       const progress = Math.min((now - startedAt) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
-      element.textContent = String(Math.round(start + (target - start) * eased));
+      element.textContent = formatCount(Math.round(start + (target - start) * eased));
       if (progress < 1) {
         window.requestAnimationFrame(tick);
       } else {
-        element.textContent = String(target);
+        element.textContent = formatCount(target);
       }
     }
     window.requestAnimationFrame(tick);
@@ -3192,8 +3197,8 @@ document.addEventListener('keydown', function (event) {
       countUp(visitsEl, state.visits);
       countUp(visitorsEl, state.visitors);
     } else {
-      visitsEl.textContent = String(state.visits);
-      visitorsEl.textContent = String(state.visitors);
+      visitsEl.textContent = formatCount(state.visits);
+      visitorsEl.textContent = formatCount(state.visitors);
     }
   }
 
