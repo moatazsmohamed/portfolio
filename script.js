@@ -75,6 +75,7 @@ const translations = {
     portfolio: 'المشاريع',
     contact: 'تواصل',
     headerCta: 'كلمني',
+    menuLabel: 'القائمة',
     search: 'بحث...',
     experienceNav: 'الخبرات',
     skillsNav: 'المهارات',
@@ -132,6 +133,11 @@ const translations = {
 
     /* قسم الهيرو */
     welcome: 'مرحبًا! أنا معتز محمد',
+    heroStatus: 'متاح للتدريب والوظائف المبتدئة',
+    statProjectsLabel: 'مشاريع منشورة',
+    statTechLabel: 'تقنيات في الشغل اليومي',
+    statLocationLabel: 'الموقع',
+    statLocationValue: 'الإسكندرية، مصر',
     heroTitle: 'ملفي الشخصي، سيرتي الذاتية، ومشاريعي البرمجية كلهم في مكان واحد',
     heroDescription: 'أنا طالب IT شغوف بالبرمجة والتقنية وبناء الأشياء التي تحدث تأثيرًا. أتعلم باستمرار وأحسن مهاراتي وأحوّل الأفكار إلى مشاريع حقيقية.',
     viewWork: 'عرض الأعمال',
@@ -185,6 +191,19 @@ const translations = {
     portfolioKicker: 'مشروع مميز',
     portfolioTitle: 'المشاريع',
     projectTag: 'أحدث مشروع',
+
+    /* دراسة حالة مدار */
+    caseKicker: 'دراسة حالة',
+    caseTitle: 'مدار — من فكرة لمشروع شغّال',
+    caseIntro: 'منصة متعددة الشركات لإدارة شغل الفرق، بدأت من مشكلة حقيقية في الشغل اليومي ووصلت لمنتج فعلًا مستخدم كل يوم.',
+    caseProblemLabel: 'المشكلة',
+    caseProblemText: 'فرق موزعة على أقسام محتاجة مكان واحد للمهام اليومية والصلاحيات والتقارير الشهرية، بدل شيتات متفرقة ومتابعة يدوية.',
+    caseBuiltLabel: 'اللي اتبنى',
+    caseBuiltText: 'منصة متعددة الشركات: مهام يومية بمؤقتات، أقسام وصلاحيات، تقارير شهرية، لوحة للمطوّر، وواجهة عربية كاملة من اليمين للشمال.',
+    caseRoleLabel: 'دوري',
+    caseRoleText: 'من الأول للآخر: تصميم قاعدة البيانات والصلاحيات، طبقة الـ API، تجربة المستخدم، والنشر.',
+    caseOpen: 'افتح مدار',
+    caseTagsLabel: 'التقنيات المستخدمة',
     projectName: 'مدار — إدارة فريق العمل',
     projectDescription: 'منصة سحابية متعددة الشركات لإدارة فرق العمل: مهام يومية وتايمر، أقسام وصلاحيات، تقارير شهرية، ولوحة مطوّر — بواجهة عربية كاملة.',
     viewProject: 'عرض المشروع',
@@ -254,6 +273,7 @@ const translations = {
     portfolio: 'Portfolio',
     contact: 'Contact',
     headerCta: "Let's Talk",
+    menuLabel: 'Menu',
     search: 'Search...',
     experienceNav: 'Experience',
     skillsNav: 'Skills',
@@ -311,6 +331,11 @@ const translations = {
 
     /* Hero section */
     welcome: "Welcome! I'm Moataz Mohamed",
+    heroStatus: 'Open to internships & junior roles',
+    statProjectsLabel: 'Live projects',
+    statTechLabel: 'Technologies in use',
+    statLocationLabel: 'Based in',
+    statLocationValue: 'Alexandria, EG',
     heroTitle: 'My personal portfolio, CV, and software projects all in one place',
     heroDescription: "I'm an IT student passionate about programming, technology, and building things that make an impact. I'm constantly learning, improving my skills, and turning ideas into real projects.",
     viewWork: 'View Work',
@@ -364,6 +389,19 @@ const translations = {
     portfolioKicker: 'Featured Project',
     portfolioTitle: 'Projects',
     projectTag: 'Latest Project',
+
+    /* Madar case study */
+    caseKicker: 'Case Study',
+    caseTitle: 'Madar — from an idea to a running product',
+    caseIntro: 'A multi-tenant team-operations platform that started as a real workflow problem and ended up as a working product used every day.',
+    caseProblemLabel: 'The problem',
+    caseProblemText: 'Teams split across departments needed one place for daily tasks, permissions and monthly reporting instead of scattered sheets and manual follow-up.',
+    caseBuiltLabel: 'What I built',
+    caseBuiltText: 'A multi-company platform: timed daily tasks, departments and roles, monthly reports, a developer console, and a full Arabic RTL interface.',
+    caseRoleLabel: 'My role',
+    caseRoleText: 'End-to-end: database schema and permissions, the API layer, the client experience, and the deployment.',
+    caseOpen: 'Open Madar',
+    caseTagsLabel: 'Technologies used',
     projectName: 'Madar — Team Management',
     projectDescription: 'A multi-tenant cloud platform for team operations: daily tasks with timers, departments and permissions, monthly reports, and a developer panel — with a fully Arabic interface.',
     viewProject: 'View Project',
@@ -552,6 +590,8 @@ const projectData = [
 
 /* --- الهيدر والتنقل --- */
 const header = document.querySelector('.header');
+const navToggle = document.querySelector('.nav-toggle');
+const navBackdrop = document.getElementById('navBackdrop');
 const navLinks = document.querySelectorAll('.nav-links a');
 const langButtons = document.querySelectorAll('.lang-btn');
 const nightModeButton = document.querySelector('.night-mode-btn');
@@ -563,6 +603,7 @@ const searchButton = document.querySelector('.search-btn');
 /* --- عناصر الترجمة --- */
 const i18nElements = document.querySelectorAll('[data-i18n]');
 const i18nPlaceholders = document.querySelectorAll('[data-i18n-placeholder]');
+const i18nAriaLabels = document.querySelectorAll('[data-i18n-aria-label]');
 
 /* --- كارت المشاريع --- */
 const projectTag = document.querySelector('.project-tag');
@@ -1020,6 +1061,12 @@ function stepProject(direction) {
   goToProject(currentProjectIndex + direction);
 }
 
+/* عدّاد المشاريع في الهيرو بياخد رقمه من نفس مصدر بيانات المعرض */
+const heroStatProjects = document.getElementById('heroStatProjects');
+if (heroStatProjects) {
+  heroStatProjects.textContent = String(projectData.length).padStart(2, '0');
+}
+
 /* زر "تغيير المشروع" — بينقل للمشروع اللي بعده */
 if (projectChangeButton) {
   projectChangeButton.addEventListener('click', function () {
@@ -1145,6 +1192,14 @@ function applyLanguage(language) {
     }
   });
 
+  /* ترجمة الـ aria-label (زي زر قائمة الموبايل) */
+  i18nAriaLabels.forEach(function (element) {
+    const key = element.dataset.i18nAriaLabel;
+    if (dictionary[key]) {
+      element.setAttribute('aria-label', dictionary[key]);
+    }
+  });
+
   /* تحديد زر اللغة النشط */
   langButtons.forEach(function (button) {
     button.classList.toggle('active', button.dataset.lang === language);
@@ -1198,6 +1253,58 @@ navLinks.forEach(function (link) {
 
     link.classList.add('active');
   });
+});
+
+/* ----------------------------------------------------------------------------
+   قائمة الموبايل (Drawer)
+   ----------------------------------------------------------------------------
+   بتفتح وتقفل بزر الهامبرجر، وبتتقفل كمان بالضغط على الخلفية أو Escape
+   أو أي رابط جوه القائمة. body.nav-open هي اللي بتظبط الشكل في CSS.
+   ---------------------------------------------------------------------------- */
+
+function setMobileNav(open) {
+  if (!navToggle) {
+    return;
+  }
+
+  document.body.classList.toggle('nav-open', open);
+  navToggle.setAttribute('aria-expanded', String(open));
+  navToggle.setAttribute('aria-label', getDictionary(savedLanguage).menuLabel || 'Menu');
+}
+
+if (navToggle) {
+  navToggle.addEventListener('click', function () {
+    setMobileNav(!document.body.classList.contains('nav-open'));
+  });
+}
+
+if (navBackdrop) {
+  navBackdrop.addEventListener('click', function () {
+    setMobileNav(false);
+  });
+}
+
+/* أي ضغطة على رابط في القائمة تقفلها (بعد ما التنقل يبدأ) */
+navLinks.forEach(function (link) {
+  link.addEventListener('click', function () {
+    setMobileNav(false);
+  });
+});
+
+document.addEventListener('keydown', function (event) {
+  if (event.key === 'Escape' && document.body.classList.contains('nav-open')) {
+    setMobileNav(false);
+    if (navToggle) {
+      navToggle.focus();
+    }
+  }
+});
+
+/* لو الشاشة كبرت والقائمة مفتوحة: نقفلها ونرجع الشريط لطبيعته */
+window.addEventListener('resize', function () {
+  if (window.innerWidth > 900 && document.body.classList.contains('nav-open')) {
+    setMobileNav(false);
+  }
 });
 
 /* أسهم تمرير قائمة الشهادات يمين وشمال */

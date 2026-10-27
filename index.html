@@ -285,7 +285,13 @@
             <span class="logo-text">M & M</span>
         </div>
 
-        <nav class="nav-links">
+        <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav" data-i18n-aria-label="menuLabel">
+            <span class="nav-toggle-line"></span>
+            <span class="nav-toggle-line"></span>
+            <span class="nav-toggle-line"></span>
+        </button>
+
+        <nav class="nav-links" id="site-nav" aria-label="Main navigation">
             <a href="#home" class="active" data-i18n="home">Home</a>
             <a href="#about" data-i18n="about">About Me</a>
             <a href="#summary" data-i18n="summaryNav">Summary</a>
@@ -326,6 +332,9 @@
             </div>
         </nav>
     </header>
+
+    <!-- خلفية معتمة بتظهر ورا قائمة الموبايل (بتقفل القائمة بالضغط عليها) -->
+    <div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
 
     <!-- ====================================================================
          نافذة مواقع التواصل (Social Links Popup)
@@ -402,7 +411,7 @@
             <div class="hero-text-content" data-reveal="up">
                 <div class="welcome-pill">
                     <span class="green-dot"></span>
-                    <span data-i18n="welcome">Welcome! I'm Moataz Mohamed</span>
+                    <span data-i18n="heroStatus">Open to internships &amp; junior roles</span>
                 </div>
 
                 <h1 class="main-title" data-i18n="heroTitle">
@@ -414,6 +423,23 @@
                      that make an impact. I'm constantly learning, improving my skills,
                       and turning ideas into real projects.
                 </p>
+
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <strong class="hero-stat-value" id="heroStatProjects">04</strong>
+                        <span class="hero-stat-label" data-i18n="statProjectsLabel">Live projects</span>
+                    </div>
+
+                    <div class="hero-stat">
+                        <strong class="hero-stat-value">6+</strong>
+                        <span class="hero-stat-label" data-i18n="statTechLabel">Technologies in use</span>
+                    </div>
+
+                    <div class="hero-stat">
+                        <strong class="hero-stat-value" data-i18n="statLocationValue">Alexandria, EG</strong>
+                        <span class="hero-stat-label" data-i18n="statLocationLabel">Based in</span>
+                    </div>
+                </div>
 
                 <div class="cta-buttons">
                     <a href="#portfolio" class="btn btn-primary" data-i18n="viewWork">
@@ -832,6 +858,53 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- دراسة حالة مختصرة: مدار -->
+        <div class="case-study" data-reveal="up">
+            <div class="case-head">
+                <p class="section-kicker" data-i18n="caseKicker">Case Study</p>
+                <h3 class="case-title" data-i18n="caseTitle">Madar — from an idea to a running product</h3>
+                <p class="case-lead" data-i18n="caseIntro">
+                    A multi-tenant team-operations platform that started as a real workflow problem and ended up as a working product used every day.
+                </p>
+            </div>
+
+            <div class="case-grid">
+                <div class="case-item">
+                    <span class="case-label" data-i18n="caseProblemLabel">The problem</span>
+                    <p data-i18n="caseProblemText">
+                        Teams split across departments needed one place for daily tasks, permissions and monthly reporting instead of scattered sheets.
+                    </p>
+                </div>
+
+                <div class="case-item">
+                    <span class="case-label" data-i18n="caseBuiltLabel">What I built</span>
+                    <p data-i18n="caseBuiltText">
+                        A multi-company platform: timed daily tasks, departments and roles, monthly reports, a developer console, and a full Arabic RTL interface.
+                    </p>
+                </div>
+
+                <div class="case-item">
+                    <span class="case-label" data-i18n="caseRoleLabel">My role</span>
+                    <p data-i18n="caseRoleText">
+                        End-to-end: database schema and permissions, the API layer, the client experience, and the deployment.
+                    </p>
+                </div>
+            </div>
+
+            <div class="case-foot">
+                <ul class="case-tags" aria-label="Technologies used" data-i18n-aria-label="caseTagsLabel">
+                    <li>React Native</li>
+                    <li>TypeScript</li>
+                    <li>Supabase</li>
+                    <li>PostgreSQL</li>
+                </ul>
+
+                <a class="case-link" href="https://madar-three-liart.vercel.app/login" target="_blank" rel="noopener noreferrer" data-i18n="caseOpen">
+                    Open Madar <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
             </div>
         </div>
         </section>
