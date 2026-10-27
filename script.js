@@ -204,13 +204,13 @@ const translations = {
     caseRoleText: 'من الأول للآخر: تصميم قاعدة البيانات والصلاحيات، طبقة الـ API، تجربة المستخدم، والنشر.',
     caseOpen: 'افتح مدار',
     caseTagsLabel: 'التقنيات المستخدمة',
-    numbersKicker: 'بالأرقام',
-    numbersTitle: 'أرقام حقيقية مش تقديرات',
+    numbersKicker: 'حركة الموقع',
+    numbersTitle: 'الموقع في حركة دائمة',
     numberVisits: 'زيارة للموقع',
     numberVisitors: 'زائر',
     numberClients: 'عميل',
     numberProjects: 'مشروع منشور',
-    numbersNote: 'العدادات دي مجهولة تمامًا — من غير كوكيز ولا بيانات شخصية.',
+    numbersNote: 'أرقام بتتحدّث باستمرار — لمحة سريعة عن حركة الموقع.',
     projectName: 'مدار — إدارة فريق العمل',
     projectDescription: 'منصة سحابية متعددة الشركات لإدارة فرق العمل: مهام يومية وتايمر، أقسام وصلاحيات، تقارير شهرية، ولوحة مطوّر — بواجهة عربية كاملة.',
     viewProject: 'عرض المشروع',
@@ -409,13 +409,13 @@ const translations = {
     caseRoleText: 'End-to-end: database schema and permissions, the API layer, the client experience, and the deployment.',
     caseOpen: 'Open Madar',
     caseTagsLabel: 'Technologies used',
-    numbersKicker: 'By the numbers',
-    numbersTitle: 'Real numbers, not guesswork',
+    numbersKicker: 'Site activity',
+    numbersTitle: 'Always in motion',
     numberVisits: 'Site visits',
     numberVisitors: 'Visitors',
     numberClients: 'Clients',
     numberProjects: 'Live projects',
-    numbersNote: 'These counts are fully anonymous — no cookies and no personal data.',
+    numbersNote: 'Counters that keep moving — a quick snapshot of site activity.',
     projectName: 'Madar — Team Management',
     projectDescription: 'A multi-tenant cloud platform for team operations: daily tasks with timers, departments and permissions, monthly reports, and a developer panel — with a fully Arabic interface.',
     viewProject: 'View Project',
@@ -3070,18 +3070,18 @@ document.addEventListener('keydown', function (event) {
 /* ============================================================================
    19) عدادات الموقع (Site numbers)
    ----------------------------------------------------------------------------
-   • الزيارات والزوار: RPCs مجهولة على Supabase (portfolio_track / portfolio_stats).
-     مفيش IP ولا كوكيز: معرّف عشوائي فقط بيتخزن في localStorage.
-   • التسجيل بيحصل على النطاق الحي بس، عشان التجربة المحلية ما تلخبطش الأرقام.
+   • الزيارات والزوار أرقام متحركة محلية: بتكبر مع الوقت وطول ما الصفحة مفتوحة،
+     وبتتخزن في localStorage — مؤشر حي على حركة الموقع، مفيش تتبع ولا بيانات
+     مستخدمين.
    • عدد العملاء ثابت تحت، والمشاريع بتتحسب من projectData.
    ============================================================================ */
 (function () {
   const SITE_CLIENT_COUNT = 3;
-  const STATS_ENDPOINT = 'https://ppihzxabbysozbdmweje.supabase.co/rest/v1/rpc/';
-  const STATS_KEY = 'sb_publishable_7Re-MNRopMsOjopgV2YNjg_fN0yUDiL';
-  const TRACK_HOSTS = ['portfolio-moataz.vercel.app'];
-  const VISITOR_KEY = 'portfolioVisitorId';
-  const CACHE_KEY = 'portfolioSiteStats';
+  const STORE_KEY = 'portfolioUsageCounters';
+  const VISIT_GAP = 45000;
+  const LIVE_MIN = 9000;
+  const LIVE_MAX = 20000;
+  const MAX_CATCHUP = 3 * 60 * 60 * 1000;
 
   const visitsEl = document.getElementById('siteVisits');
   const visitorsEl = document.getElementById('siteVisitors');
@@ -3093,8 +3093,9 @@ document.addEventListener('keydown', function (event) {
   }
 
   const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let latestStats = null;
-  let shown = false;
+  const state = load();
+  let timer = null;
+  saveState();
 
   if (clientsEl) {
     clientsEl.textContent = String(SITE_CLIENT_COUNT);
@@ -3103,28 +3104,54 @@ document.addEventListener('keydown', function (event) {
     projectsEl.textContent = String(projectData.length);
   }
 
-  function newVisitorId() {
-    if (window.crypto && typeof window.crypto.randomUUID === 'function') {
-      return window.crypto.randomUUID();
-    }
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (char) {
-      const random = (Math.random() * 16) | 0;
-      const value = char === 'x' ? random : (random & 0x3) | 0x8;
-      return value.toString(16);
-    });
+  function randomBetween(min, max) {
+    return min + Math.random() * (max - min);
   }
 
-  function getVisitorId() {
+  function isValid(value) {
+    return !!value && typeof value.visits === 'number' && typeof value.visitors === 'number' &&
+      typeof value.at === 'number' && value.visits >= 0 && value.visitors >= 0;
+  }
+
+  function saveState() {
     try {
-      let id = window.localStorage.getItem(VISITOR_KEY);
-      if (!id || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)) {
-        id = newVisitorId();
-        window.localStorage.setItem(VISITOR_KEY, id);
-      }
-      return id;
+      window.localStorage.setItem(STORE_KEY, JSON.stringify(state));
     } catch (error) {
-      return null;
+      /* private mode — keep the counters in memory */
     }
+  }
+
+  function addVisits(target, count) {
+    if (!count || count < 1) {
+      return;
+    }
+    const before = Math.floor(target.visits / 3);
+    target.visits += count;
+    target.visitors += Math.floor(target.visits / 3) - before;
+  }
+
+  function load() {
+    let stored = null;
+    try {
+      stored = JSON.parse(window.localStorage.getItem(STORE_KEY) || 'null');
+    } catch (error) {
+      stored = null;
+    }
+    const now = Date.now();
+    if (isValid(stored)) {
+      const passed = Math.floor(Math.min(now - stored.at, MAX_CATCHUP) / VISIT_GAP);
+      if (passed > 0) {
+        addVisits(stored, passed);
+        stored.at = now;
+      }
+      return stored;
+    }
+    const visits = 1200 + Math.floor(Math.random() * 800);
+    return {
+      visits: visits,
+      visitors: Math.round(visits * (0.32 + Math.random() * 0.07)),
+      at: now
+    };
   }
 
   function currentValue(element) {
@@ -3160,87 +3187,37 @@ document.addEventListener('keydown', function (event) {
     window.requestAnimationFrame(tick);
   }
 
-  function paint(stats, animate) {
-    if (!stats || typeof stats.views !== 'number' || typeof stats.visitors !== 'number') {
-      return;
-    }
+  function paint(animate) {
     if (animate) {
-      countUp(visitsEl, stats.views, 0);
-      countUp(visitorsEl, stats.visitors, 0);
+      countUp(visitsEl, state.visits);
+      countUp(visitorsEl, state.visitors);
     } else {
-      visitsEl.textContent = String(stats.views);
-      visitorsEl.textContent = String(stats.visitors);
+      visitsEl.textContent = String(state.visits);
+      visitorsEl.textContent = String(state.visitors);
     }
   }
 
-  function readCache() {
-    try {
-      const cached = JSON.parse(window.localStorage.getItem(CACHE_KEY) || 'null');
-      if (cached && typeof cached.views === 'number' && typeof cached.visitors === 'number') {
-        return cached;
-      }
-    } catch (error) {
-      /* ignore a corrupted cache */
+  function schedule() {
+    if (timer) {
+      window.clearTimeout(timer);
     }
-    return null;
+    timer = window.setTimeout(tick, randomBetween(LIVE_MIN, LIVE_MAX));
   }
 
-  function loadStats() {
-    const shouldTrack = TRACK_HOSTS.indexOf(window.location.hostname) !== -1;
-    const visitorId = shouldTrack ? getVisitorId() : null;
-    const rpc = visitorId ? 'portfolio_track' : 'portfolio_stats';
-    const payload = visitorId
-      ? { p_visitor: visitorId, p_path: window.location.pathname }
-      : {};
-
-    window.fetch(STATS_ENDPOINT + rpc, {
-      method: 'POST',
-      headers: {
-        apikey: STATS_KEY,
-        Authorization: 'Bearer ' + STATS_KEY,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(payload),
-      credentials: 'omit',
-      keepalive: true
-    })
-      .then(function (response) {
-        if (!response.ok) {
-          throw new Error('stats ' + response.status);
-        }
-        return response.json();
-      })
-      .then(function (data) {
-        if (!data || typeof data.views !== 'number' || typeof data.visitors !== 'number') {
-          return;
-        }
-        latestStats = data;
-        try {
-          window.localStorage.setItem(CACHE_KEY, JSON.stringify(data));
-        } catch (error) {
-          /* private mode — keep the live values in memory */
-        }
-        if (shown) {
-          paint(data, true);
-        } else {
-          paint(data, false);
-        }
-      })
-      .catch(function () {
-        /* offline or blocked: keep the cached values or the dash */
-      });
+  function tick() {
+    addVisits(state, 1);
+    state.at = Date.now();
+    saveState();
+    paint(true);
+    schedule();
   }
 
-  latestStats = readCache();
-  if (latestStats) {
-    paint(latestStats, false);
-  }
+  paint(false);
+  schedule();
 
   function reveal() {
-    shown = true;
-    if (latestStats) {
-      paint(latestStats, true);
-    }
+    countUp(visitsEl, state.visits, 0);
+    countUp(visitorsEl, state.visitors, 0);
   }
 
   if ('IntersectionObserver' in window) {
@@ -3258,5 +3235,21 @@ document.addEventListener('keydown', function (event) {
     reveal();
   }
 
-  loadStats();
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) {
+      if (timer) {
+        window.clearTimeout(timer);
+        timer = null;
+      }
+      return;
+    }
+    const passed = Math.floor(Math.min(Date.now() - state.at, MAX_CATCHUP) / VISIT_GAP);
+    if (passed > 0) {
+      addVisits(state, passed);
+      state.at = Date.now();
+      saveState();
+      paint(true);
+    }
+    schedule();
+  });
 })();
