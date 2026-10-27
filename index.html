@@ -22,7 +22,7 @@
        ├─ شاشة التحميل (Preloader)
        ├─ شاشة الاسم اللامع (Name Intro)
        ├─ <header> الشريط العلوي (لوجو + تنقل + بحث + إعدادات)
-       ├─ نافذة تسجيل الدخول + لوحة المطور (منبثقات)
+       ├─ نافذة مواقع التواصل (منبثقة)
        ├─ <main id="home">      → قسم الهيرو
        ├─ <section id="about">   → عني + سلايدر التقنيات + الشهادات
        ├─ <section id="summary"> → النبذة المهنية (الهدف الوظيفي)
@@ -60,32 +60,68 @@
     <meta property="article:published_time" content="2026-09-21T00:00:00+00:00" />
 
     <!-- وصف محركات البحث (Google) -->
-    <meta name="description" content="Explore my secure, interactive web portfolio featuring clean architecture, SonarQube A-Grade quality, dynamic tech stack, and interactive AI modules. Built with HTML5, CSS3, and ES6+ JavaScript.">
-    <meta name="keywords" content="Moataz Mohamed, معتز محمد, Frontend Developer, Web Developer, Portfolio, JavaScript, Web Security">
+    <meta name="description" content="Portfolio of Moataz Mohamed, a frontend developer in Alexandria building bilingual web and mobile apps with JavaScript, React Native and Supabase. Explore Madar, MS Woodworks and TAFRA.">
+    <meta name="keywords" content="Moataz Mohamed, معتز محمد, Frontend Developer, Web Developer, Alexandria, React Native, Supabase, Portfolio, JavaScript">
+    <link rel="canonical" href="https://portfolio-moataz.vercel.app/">
 
     <!-- Open Graph / Facebook / LinkedIn Meta Tags -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://portfolio-moataz.vercel.app/" />
     <meta property="og:title" content="Moataz Mohamed | Frontend Developer Portfolio" />
-    <meta property="og:description" content="Explore my secure, interactive web portfolio featuring clean architecture, SonarQube A-Grade quality, dynamic tech stack, and interactive AI modules. Built with HTML5, CSS3, and ES6+ JavaScript." />
-    <meta property="og:image" content="https://portfolio-moataz.vercel.app/img/Screenshot%202026-09-21%20163647.png" />
-    <meta property="og:image:secure_url" content="https://portfolio-moataz.vercel.app/img/Screenshot%202026-09-21%20163647.png" />
+    <meta property="og:description" content="Frontend developer in Alexandria building bilingual web and mobile apps. Explore Madar, MS Woodworks, TAFRA and a portfolio with a built-in AI assistant." />
+    <meta property="og:image" content="https://portfolio-moataz.vercel.app/img/og-cover.png" />
+    <meta property="og:image:secure_url" content="https://portfolio-moataz.vercel.app/img/og-cover.png" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="627" />
-    <meta property="og:image:alt" content="Moataz Mohamed Portfolio Preview" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Moataz Mohamed — Frontend Developer portfolio cover" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="ar_EG" />
 
     <!-- Twitter / X Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://portfolio-moataz.vercel.app/" />
     <meta name="twitter:title" content="Moataz Mohamed | Frontend Developer Portfolio" />
-    <meta name="twitter:description" content="Explore my secure, interactive web portfolio featuring clean architecture, SonarQube A-Grade quality, dynamic tech stack, and interactive AI modules." />
-    <meta name="twitter:image" content="https://portfolio-moataz.vercel.app/img/Screenshot%202026-09-21%20163647.png" />
+    <meta name="twitter:description" content="Frontend developer in Alexandria building bilingual web and mobile apps. Explore Madar, MS Woodworks, TAFRA and a built-in AI assistant." />
+    <meta name="twitter:image" content="https://portfolio-moataz.vercel.app/img/og-cover.png" />
+    <meta name="twitter:image:alt" content="Moataz Mohamed — Frontend Developer portfolio cover" />
 
 
     <!-- أيقونة الموقع (Favicon) -->
-<link rel="icon" href="img/img/my-photo.jpg">
-<link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0a0d14">
+
+    <!-- بيانات منظمة لمحركات البحث (Person) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Moataz Mohamed",
+      "alternateName": "معتز محمد",
+      "jobTitle": "Frontend Developer",
+      "url": "https://portfolio-moataz.vercel.app/",
+      "image": "https://portfolio-moataz.vercel.app/img/og-cover.png",
+      "email": "mailto:mtzm2225@gmail.com",
+      "telephone": "+201035712862",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Alexandria",
+        "addressCountry": "EG"
+      },
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Borg El Arab Technological University"
+      },
+      "knowsAbout": ["JavaScript", "HTML5", "CSS3", "React Native", "Expo", "TypeScript", "Supabase", "PostgreSQL", "Responsive Web Design"],
+      "sameAs": [
+        "https://github.com/mtzm2225-ship-it",
+        "https://www.linkedin.com/in/moataz-mohamed-342b32399"
+      ]
+    }
+    </script>
 
     <!-- تسريع التحميل: نفتح الاتصال بالسيرفرات الخارجية بدري ونحمّل الصور كسول -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -199,7 +235,7 @@
 
             <div class="circular-wrapper">
                 <div class="logo-container">
-                    <img src="img/WhatsApp Image 2026-09-2ن2 at 12.20.03 PM.jpeg" alt="M&M Logo" class="space-logo">
+                    <img src="img/logo.webp" alt="M&M Logo" class="space-logo" width="256" height="256">
                 </div>
 
                 <div class="orbit-ring ring-1"></div>
@@ -245,7 +281,7 @@
          ==================================================================== -->
     <header class="header">
         <div class="logo-container">
-            <img src="img/WhatsApp Image 2026-09-2ن2 at 12.20.03 PM.jpeg" alt="Logo">
+            <img src="img/logo.webp" alt="Logo" width="256" height="256">
             <span class="logo-text">M & M</span>
         </div>
 
@@ -286,33 +322,10 @@
                     </div>
                 </div>
 
-                <button class="signin-btn" type="button" data-i18n="signin">Sign In</button>
+                <a class="header-cta" href="#contact-form-section" data-i18n="headerCta">Let's Talk</a>
             </div>
         </nav>
     </header>
-
-    <!-- ====================================================================
-         نافذة تسجيل الدخول (Sign In Modal)
-         بتفتح بالضغط على زر Sign In، وبتحفظ المدخلات محليًا
-         ==================================================================== -->
-    <div class="signin-modal hidden" id="signin-modal" aria-hidden="true">
-        <div class="signin-modal-content" role="dialog" aria-modal="true" aria-labelledby="signin-modal-title">
-            <button class="signin-close" type="button" aria-label="Close">×</button>
-            <h3 id="signin-modal-title" data-i18n="signinTitle">Sign In</h3>
-            <p class="signin-subtitle" data-i18n="signinSubtitle">Use your email or phone number to continue.</p>
-
-            <form id="signin-form">
-                <label class="signin-field">
-                    <span data-i18n="signinFieldLabel">Email or phone number</span>
-                    <input id="signin-identifier" type="text" data-i18n-placeholder="signinPlaceholder" placeholder="Email or phone number">
-                </label>
-
-                <button class="signin-submit" type="submit" data-i18n="signinSubmit">Continue</button>
-            </form>
-
-            <p id="signin-message" class="signin-message"></p>
-        </div>
-    </div>
 
     <!-- ====================================================================
          نافذة مواقع التواصل (Social Links Popup)
@@ -357,23 +370,6 @@
         </div>
     </div>
 
-
-    <!-- ====================================================================
-         لوحة المطور (Developer Panel)
-         بتفتح بكود سري أو اختصار Ctrl + Shift + R
-         ==================================================================== -->
-    <div class="developer-panel hidden" id="developer-panel" aria-hidden="true">
-        <div class="developer-panel-content">
-            <div class="developer-panel-header">
-                <h3 data-i18n="developerTitle">Developer Registrations</h3>
-                <button class="developer-close" type="button" aria-label="Close">×</button>
-            </div>
-
-            <ul id="developer-list" class="developer-list"></ul>
-
-            <button class="developer-clear" type="button" data-i18n="developerClear">Clear</button>
-        </div>
-    </div>
 
     <!-- ====================================================================
          قسم الهيرو (Hero) — أول حاجة يشوفها الزائر
@@ -443,7 +439,7 @@
 
             <div class="hero-image-wrapper" data-reveal="right">
                 <div class="cyber-glow"></div>
-                <img src="img/img/WhatsApp Image 2026-09-23 at 11.33.07 AM.jpeg" alt="Moataz Mohamed" class="hero-standalone-img" decoding="async" fetchpriority="high">
+                <img src="img/hero-moataz.webp" alt="Moataz Mohamed" class="hero-standalone-img" width="1200" height="800" decoding="async" fetchpriority="high">
             </div>
         </div>
 
@@ -667,15 +663,15 @@
                             </div>
                         </div>
                         <div class="certificate-thumb">
-                            <img src="img/مقدمة في HTML (1)_page-0001.jpg" alt="Certificate 1" loading="lazy" decoding="async">
+                            <img src="img/certificate-html.webp" alt="Certificate 1" width="1600" height="1131" loading="lazy" decoding="async">
                         </div>
                         <div class="certificate-text">
                             <h4 data-i18n="html">HTML</h4>
                             <span data-i18n="completed2026">Completed in 2026</span>
                         </div>
                         <div class="certificate-actions">
-                            <a class="certificate-btn view" href="img/مقدمة في HTML (1)_page-0001.jpg" target="_blank" rel="noopener noreferrer" data-i18n="viewLabel">View</a>
-                            <a class="certificate-btn download" href="img/مقدمة في HTML (1)_page-0001.jpg" download data-i18n="downloadLabel">Download</a>
+                            <a class="certificate-btn view" href="img/certificate-html.webp" target="_blank" rel="noopener noreferrer" data-i18n="viewLabel">View</a>
+                            <a class="certificate-btn download" href="img/certificate-html.webp" download data-i18n="downloadLabel">Download</a>
                         </div>
                         <p class="certificate-note" data-i18n="htmlNote">This certificate reflects the importance of learning the foundations of web development and building a strong base in HTML.</p>
                     </div>
@@ -688,15 +684,15 @@
                             </div>
                         </div>
                         <div class="certificate-thumb">
-                            <img src="img/مقدمة في CSS (1)_page-0001 (1).jpg" alt="Certificate 2" loading="lazy" decoding="async">
+                            <img src="img/certificate-css.webp" alt="Certificate 2" width="1600" height="1131" loading="lazy" decoding="async">
                         </div>
                         <div class="certificate-text">
                             <h4 data-i18n="css">CSS</h4>
                             <span data-i18n="completed2025">Completed in 2025</span>
                         </div>
                         <div class="certificate-actions">
-                            <a class="certificate-btn view" href="img/مقدمة في CSS (1)_page-0001 (1).jpg" target="_blank" rel="noopener noreferrer" data-i18n="viewLabel">View</a>
-                            <a class="certificate-btn download" href="img/مقدمة في CSS (1)_page-0001 (1).jpg" download data-i18n="downloadLabel">Download</a>
+                            <a class="certificate-btn view" href="img/certificate-css.webp" target="_blank" rel="noopener noreferrer" data-i18n="viewLabel">View</a>
+                            <a class="certificate-btn download" href="img/certificate-css.webp" download data-i18n="downloadLabel">Download</a>
                         </div>
                         <p class="certificate-note" data-i18n="cssNote">This certificate reflects the importance of mastering design, layout, responsiveness, and visual styling in modern web development.</p>
                     </div>
@@ -709,15 +705,15 @@
                             </div>
                         </div>
                         <div class="certificate-thumb">
-                            <img src="img/Arabian-Academy-event-certificate (2)_page-0001.jpg" alt="Before Brand Event Certificate" loading="lazy" decoding="async">
+                            <img src="img/certificate-brand-event.webp" alt="Before Brand Event Certificate" width="1241" height="877" loading="lazy" decoding="async">
                         </div>
                         <div class="certificate-text">
                             <h4 data-i18n="beforeBrandTitle">Before Brand Event</h4>
                             <span data-i18n="beforeBrandDate">August 27, 2026</span>
                         </div>
                         <div class="certificate-actions">
-                            <a class="certificate-btn view" href="img/Arabian-Academy-event-certificate (2)_page-0001.jpg" target="_blank" rel="noopener noreferrer" data-i18n="viewLabel">View</a>
-                            <a class="certificate-btn download" href="img/Arabian-Academy-event-certificate (2)_page-0001.jpg" download data-i18n="downloadLabel">Download</a>
+                            <a class="certificate-btn view" href="img/certificate-brand-event.webp" target="_blank" rel="noopener noreferrer" data-i18n="viewLabel">View</a>
+                            <a class="certificate-btn download" href="img/certificate-brand-event.webp" download data-i18n="downloadLabel">Download</a>
                         </div>
                         <div class="certificate-meta">
                             <p><strong data-i18n="issuerLabel">Issuer:</strong> <span data-i18n="beforeBrandIssuer">Arabian Academy & Before Brand Team</span></p>
@@ -733,15 +729,15 @@
                             </div>
                         </div>
                         <div class="certificate-thumb">
-                            <img src="img/certificate (4).png" alt="Certificate 4" loading="lazy" decoding="async">
+                            <img src="img/certificate-4.webp" alt="Certificate 4" width="1600" height="1131" loading="lazy" decoding="async">
                         </div>
                         <div class="certificate-text">
                             <h4 data-i18n="java">JavaScript</h4>
                             <span data-i18n="completed2025">Completed in 2025</span>
                         </div>
                         <div class="certificate-actions">
-                            <a class="certificate-btn view" href="img/certificate (4).png" target="_blank" rel="noopener noreferrer" data-i18n="viewLabel">View</a>
-                            <a class="certificate-btn download" href="img/certificate (4).png" download data-i18n="downloadLabel">Download</a>
+                            <a class="certificate-btn view" href="img/certificate-4.webp" target="_blank" rel="noopener noreferrer" data-i18n="viewLabel">View</a>
+                            <a class="certificate-btn download" href="img/certificate-4.webp" download data-i18n="downloadLabel">Download</a>
                         </div>
                         <p class="certificate-note" data-i18n="javascriptnote">Completed an introductory JavaScript course covering dynamic scripting, DOM manipulation, event handling, and core programming logic.</p>
                     </div>
@@ -799,7 +795,7 @@
             <div class="project-info">
                 <div class="project-meta">
                     <span class="project-tag" data-i18n="projectTag">Latest Project</span>
-                    <span class="project-index" id="projectIndex" aria-hidden="true">01 / 07</span>
+                    <span class="project-index" id="projectIndex" aria-hidden="true">01 / 04</span>
                 </div>
 
                 <h3 data-i18n="projectName" aria-live="polite">Madar — Team Management</h3>
@@ -820,7 +816,7 @@
 
             <div class="project-preview" aria-label="Project preview">
                 <div class="preview-window has-image">
-                    <img class="project-preview-image" src="img/madar-login.png" alt="Madar login page preview" loading="lazy" decoding="async">
+                    <img class="project-preview-image" src="img/madar-login.webp" alt="Madar login page preview" width="1600" height="833" loading="lazy" decoding="async">
 
                     <div class="preview-body">
                         <div class="preview-sidebar"></div>

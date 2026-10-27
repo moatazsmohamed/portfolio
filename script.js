@@ -9,7 +9,7 @@
    فهرس الأقسام (بالترتيب جوه الملف)
    ----------------------------------------------------------------------------
      1)  الترجمة (Translations)            — قاموس عربي/إنجليزي
-     2)  بيانات المشاريع (Project Data)     — مصفوفة المشاريع الثلاثة
+     2)  بيانات المشاريع (Project Data)     — مصفوفة المشاريع الأربعة
      3)  مراجع عناصر الصفحة (DOM Refs)      — بنمسك العناصر مرة واحدة
      4)  أدوات مساعدة (Helpers)            — دوال صغيرة بيستخدمها الباقي
      5)  الهيدر (Header Scroll State)      — تغيير شكل الشريط عند النزول
@@ -17,15 +17,18 @@
      7)  الثيم (Theme)                    — الوضع الأساسي / الأبيض
      8)  كارت المشاريع (Portfolio Card)     — التنقل بين المشاريع
      9)  الترجمة التطبيقية (Language)       — تبديل اللغة وتطبيقها
-    10)  تسجيل الدخول (Sign In Modal)      — النافذة المنبثقة
-    11)  تسجيلات المطور (Developer Panel)  — لوحة سرية للمطور
-    12)  إرسال نموذج الدخول (Sign In Submit)
-    13)  التنقل وسلايدر الشهادات (Navigation)
-    14)  شاشة التحميل + شاشة الاسم (Preloader / Name Intro)
-    15)  التشغيل الأولي (Init)              — بيتنفّذ في آخر الملف
-       15.0  ظهور المحتوى عند النزول (Scroll Reveal)
-       15.1  (محذوف) توهج الماوس القديم — اتشال
-       15.2  الخلفية التفاعلية (Living Background) + المؤشر المخصص
+    10)  التنقل وسلايدر الشهادات (Navigation)
+    11)  شاشة التحميل + شاشة الاسم (Preloader / Name Intro)
+    12)  التشغيل الأولي (Init)              — بيتنفّذ في آخر الملف
+       12.0  ظهور المحتوى عند النزول (Scroll Reveal)
+       12.1  (محذوف) توهج الماوس القديم — اتشال
+       12.2  الخلفية التفاعلية (Living Background) + المؤشر المخصص
+    13)  مساعد الذكاء الاصطناعي (AI Assistant / Chat)
+    14)  زر مواقع التواصل + نافذتها (Social Links Popup)
+    15)  رمز QR (QR Code)
+    16)  كارت المشاركة ورمز QR
+    17)  روبوت الهيرو — متابعة الماوس
+    18)  روبوت الهيرو — فقاعة الترحيب
 
    ----------------------------------------------------------------------------
    قواعد مهمة لأي حد بيعدّل هنا
@@ -71,26 +74,13 @@ const translations = {
     about: 'عني',
     portfolio: 'المشاريع',
     contact: 'تواصل',
-    signin: 'تسجيل الدخول',
+    headerCta: 'كلمني',
     search: 'بحث...',
     experienceNav: 'الخبرات',
     skillsNav: 'المهارات',
     summaryNav: 'النبذة',
     socialsTitle: 'مواقع التواصل',
     socialsSubtitle: 'تلاقيني على المنصات دي — دايمًا مبسوط أتعرف على ناس جديدة.',
-
-    /* نافذة تسجيل الدخول */
-    signinTitle: 'تسجيل الدخول',
-    signinSubtitle: 'استخدم بريدك الإلكتروني أو رقم الهاتف للمتابعة.',
-    signinFieldLabel: 'البريد الإلكتروني أو رقم الهاتف',
-    signinPlaceholder: 'البريد الإلكتروني أو رقم الهاتف',
-    signinSubmit: 'متابعة',
-    signinError: 'يرجى إدخال بريد إلكتروني أو رقم هاتف صحيح.',
-    signinSuccess: 'تم تسجيل الدخول بنجاح.',
-
-    /* لوحة المطور */
-    developerTitle: 'تسجيلات المطور',
-    developerClear: 'مسح',
 
     /* قسم النبذة المهنية (Professional Summary) */
     summaryTitle: 'نبذة مهنية',
@@ -263,26 +253,13 @@ const translations = {
     about: 'About Me',
     portfolio: 'Portfolio',
     contact: 'Contact',
-    signin: 'Sign In',
+    headerCta: "Let's Talk",
     search: 'Search...',
     experienceNav: 'Experience',
     skillsNav: 'Skills',
     summaryNav: 'Summary',
     socialsTitle: 'Social Links',
     socialsSubtitle: 'Find me on these platforms — always happy to connect.',
-
-    /* Sign In modal */
-    signinTitle: 'Sign In',
-    signinSubtitle: 'Use your email or phone number to continue.',
-    signinFieldLabel: 'Email or phone number',
-    signinPlaceholder: 'Email or phone number',
-    signinSubmit: 'Continue',
-    signinError: 'Please enter a valid email or phone number.',
-    signinSuccess: 'You have signed in successfully.',
-
-    /* Developer panel */
-    developerTitle: 'Developer Registrations',
-    developerClear: 'Clear',
 
     /* Professional Summary */
     summaryTitle: 'Professional Summary',
@@ -491,7 +468,7 @@ const projectData = [
     primaryLink: 'https://madar-three-liart.vercel.app/login',
     secondaryText: { ar: 'جيت هاب', en: 'GitHub' },
     secondaryLink: 'https://github.com/mtzm2225-ship-it/madar',
-    previewImage: 'img/madar-login.png'
+    previewImage: 'img/madar-login.webp'
   },
 
   /* --- المشروع الثاني: موقع الملف الشخصي --- */
@@ -507,7 +484,7 @@ const projectData = [
     primaryLink: 'index.html',
     secondaryText: { ar: 'جيت هاب', en: 'GitHub' },
     secondaryLink: 'https://github.com/mtzm2225-ship-it/portfolio',
-    previewImage: 'img/Screenshot 2026-10-19 165612.png'
+    previewImage: 'img/portfolio-preview.webp'
   },
 
   /* --- المشروع الثالث: تافرا (متجر أزياء) --- */
@@ -523,7 +500,7 @@ const projectData = [
     primaryLink: 'https://mtzm2225-ship-it.github.io/12.tafra',
     secondaryText: { ar: 'جيت هاب', en: 'GitHub' },
     secondaryLink: 'https://github.com/mtzm2225-ship-it/12.tafra',
-    previewImage: 'img/Screenshot 2026-09-16 164001.png'
+    previewImage: 'img/tafra-preview.webp'
   },
 
   /* --- المشروع الرابع: MS Woodworks --- */
@@ -551,84 +528,8 @@ const projectData = [
     en: 'Explore Collection' 
   },
   secondaryLink: 'https://ms-wood-works.vercel.app/#portfolio',
-  previewImage: 'img/Screenshot 2026-10-19 161639.png'
+  previewImage: 'img/mswood-preview.webp'
 },
-
-{
-  tag: { 
-    ar: 'قريباً', 
-    en: 'Coming Soon' 
-  },
-  name: { 
-    ar: 'مشروع جديد قيد التطوير', 
-    en: 'New Project In Development' 
-  },
-  description: {
-    ar: 'مشروع برمجى جديد يتم العمل عليه حالياً، وسيتم إطلاقه وعرض تفاصيله قريباً جداً. ترقبوا الجديد!',
-    en: 'A new web development project currently in progress. Details and launch coming very soon. Stay tuned!'
-  },
-  primaryText: { 
-    ar: 'قريباً', 
-    en: 'Coming Soon' 
-  },
-  primaryLink: '#',
-  secondaryText: { 
-    ar: 'قريباً', 
-    en: 'Coming Soon' 
-  },
-  secondaryLink: '#',
-  previewImage: 'img/Gemini_Generated_Image_9w33z89w33z89w33.jpeg'
-},
-{
-  tag: { 
-    ar: 'قريباً', 
-    en: 'Coming Soon' 
-  },
-  name: { 
-    ar: 'مشروع جديد قيد التطوير', 
-    en: 'New Project In Development' 
-  },
-  description: {
-    ar: 'مشروع برمجى جديد يتم العمل عليه حالياً، وسيتم إطلاقه وعرض تفاصيله قريباً جداً. ترقبوا الجديد!',
-    en: 'A new web development project currently in progress. Details and launch coming very soon. Stay tuned!'
-  },
-  primaryText: { 
-    ar: 'قريباً', 
-    en: 'Coming Soon' 
-  },
-  primaryLink: '#',
-  secondaryText: { 
-    ar: 'قريباً', 
-    en: 'Coming Soon' 
-  },
-  secondaryLink: '#',
-  previewImage: 'img/Gemini_Generated_Image_9w33z89w33z89w33.jpeg'
-},
-{
-  tag: { 
-    ar: 'قريباً', 
-    en: 'Coming Soon' 
-  },
-  name: { 
-    ar: 'مشروع جديد قيد التطوير', 
-    en: 'New Project In Development' 
-  },
-  description: {
-    ar: 'مشروع برمجى جديد يتم العمل عليه حالياً، وسيتم إطلاقه وعرض تفاصيله قريباً جداً. ترقبوا الجديد!',
-    en: 'A new web development project currently in progress. Details and launch coming very soon. Stay tuned!'
-  },
-  primaryText: { 
-    ar: 'قريباً', 
-    en: 'Coming Soon' 
-  },
-  primaryLink: '#',
-  secondaryText: { 
-    ar: 'قريباً', 
-    en: 'Coming Soon' 
-  },
-  secondaryLink: '#',
-  previewImage: 'img/Gemini_Generated_Image_9w33z89w33z89w33.jpeg'
-}
 ];
 
 /* ============================================================================
@@ -658,21 +559,6 @@ const nightModeButton = document.querySelector('.night-mode-btn');
 /* --- البحث --- */
 const searchInput = document.querySelector('.search-input');
 const searchButton = document.querySelector('.search-btn');
-
-/* --- تسجيل الدخول --- */
-const signInButton = document.querySelector('.signin-btn');
-const signInModal = document.querySelector('#signin-modal');
-const signInForm = document.querySelector('#signin-form');
-const signInInput = document.querySelector('#signin-identifier');
-const signInMessage = document.querySelector('#signin-message');
-const signInClose = document.querySelector('.signin-close');
-
-/* --- لوحة المطور --- */
-const developerToggle = document.querySelector('#developer-toggle');
-const developerPanel = document.querySelector('#developer-panel');
-const developerList = document.querySelector('#developer-list');
-const developerClose = document.querySelector('.developer-close');
-const developerClear = document.querySelector('.developer-clear');
 
 /* --- عناصر الترجمة --- */
 const i18nElements = document.querySelectorAll('[data-i18n]');
@@ -737,46 +623,6 @@ function getCurrentLanguage() {
  */
 function getDictionary(language) {
   return translations[language] || translations.en;
-}
-
-/**
- * التحقق من صحة البريد الإلكتروني
- * @param {string} value - القيمة المدخلة
- * @returns {boolean} صحيح أم لا
- */
-function isValidEmail(value) {
-    if (!value || typeof value !== 'string') return false;
-    
-    // تعبير نمطي بسيط ومباشر بدون التراجع العكسي (Non-backtracking Regex)
-    const emailRegex = /^[\w.-]+@[\w.-]+\.\w+$/;
-    return emailRegex.test(value.trim());
-}
-
-/**س
- * التحقق من صحة رقم الهاتف
- * (من 10 إلى 15 رقم، ولا يكون كل الأرقام متشابهة)
- * @param {string} value - القيمة المدخلة
- * @returns {boolean} صحيح أم لا
- */
-function isValidPhoneNumber(value) {
-  const normalized = value.replace(/[\s\-+()]/g, '');
-
-  /* لازم يكون أرقام فقط */
-  if (!/^\d+$/.test(normalized)) {
-    return false;
-  }
-
-  /* الطول المسموح به */
-  if (normalized.length < 10 || normalized.length > 15) {
-    return false;
-  }
-
-  /* رفض الأرقام المتكررة زي 1111 */
-  if (/^(\d)\1+$/.test(normalized)) {
-    return false;
-  }
-
-  return true;
 }
 
 /* ============================================================================
@@ -1325,289 +1171,9 @@ langButtons.forEach(function (button) {
   });
 });
 
-/* ============================================================================
-   10) تسجيل الدخول (Sign In Modal)
-   ----------------------------------------------------------------------------
-   نافذة منبثقة بتفتح بالضغط على زر "تسجيل الدخول" في الهيدر.
-
-   ⚠️ مهم توضيح: ده تسجيل دخول محلي بالكامل (Front-end only).
-      مفيش أي سيرفر التقاء أو قاعدة بيانات — المدخلات بتتحفظ في
-      localStorage على جهاز الزائر بس.
-      الغرض منه عرض تسجيلات المطور في لوحة المطور (قسم 11)،
-      مش مصادقة حقيقية.
-
-   طرق غلق النافذة:
-     • زر × في الكورنر
-     • الضغط على أي مكان فاضي ورا النافذة (الخلفية المعتمة)
-     • الضغط على مفتاح Escape
-   ============================================================================ */
-
-/** فتح نافذة تسجيل الدخول */
-function openSignInModal() {
-  if (!signInModal) {
-    return;
-  }
-
-  signInModal.classList.remove('hidden');
-  signInModal.setAttribute('aria-hidden', 'false');
-
-  /* نركّز على خانة الإدخال بعد ظهور النافذة */
-  if (signInInput) {
-    setTimeout(function () {
-      signInInput.focus();
-    }, 50);
-  }
-}
-
-/** إغلاق نافذة تسجيل الدخول */
-function closeSignInModal() {
-  if (!signInModal) {
-    return;
-  }
-
-  signInModal.classList.add('hidden');
-  signInModal.setAttribute('aria-hidden', 'true');
-}
-
-if (signInButton) {
-  signInButton.addEventListener('click', openSignInModal);
-}
-
-if (signInClose) {
-  signInClose.addEventListener('click', closeSignInModal);
-}
-
-/* الإغلاق بالضغط على الخلفية المعتمة */
-if (signInModal) {
-  signInModal.addEventListener('click', function (event) {
-    if (event.target === signInModal) {
-      closeSignInModal();
-    }
-  });
-}
 
 /* ============================================================================
-   11) تسجيلات المطور (Developer Registrations)
-   ----------------------------------------------------------------------------
-   لوحة سرية بتعرض كل اللي سجّلوا دخول على الموقع من على الجهاز ده.
-
-   كيف بتفتح؟
-     • مفتاح اختصار: Ctrl + Shift + R
-     • أو بكتابة الكود السري في نافذة تسجيل الدخول (شوف قسم 12)
-     • زر يختبئ في الصفحة (لو موجود #developer-toggle)
-
-   البيانات بتتقرا من localStorage — كل تسجيل بيتخزن ككائن فيه
-   البيانات والوقت.
-
-   فيه كمان زر "مسح" بيفضّي القايمة خالص بعد تأكيد من المطوّر.
-
-   ملاحظة أمنية: اللوحة دي للعرض بس على جهاز المطوّر وتجربة العميل —
-   مفيش أي بيانات حقيقية متجمّعة من أي سيرفر.
-   ============================================================================ */
-
-/**
- * قراءة التسجيلات المحفوظة من المتصفح
- * @returns {Array} مصفوفة التسجيلات
- */
-function getRegistrations() {
-  try {
-    const saved = localStorage.getItem('portfolioRegistrations');
-    return saved ? JSON.parse(saved) : [];
-  } catch (error) {
-    /* لو البيانات محفوظة بشكل غلط نرجّع مصفوفة فاضية بدل ما الكود يقع */
-    return [];
-  }
-}
-
-/**
- * حفظ التسجيلات في المتصفح
- * @param {Array} registrations - مصفوفة التسجيلات
- */
-function saveRegistrations(registrations) {
-  localStorage.setItem('portfolioRegistrations', JSON.stringify(registrations));
-}
-
-/** عرض كل التسجيلات داخل لوحة المطور */
-function renderDeveloperRegistrations() {
-  if (!developerList) {
-    return;
-  }
-
-  const registrations = getRegistrations();
-  developerList.innerHTML = '';
-
-  /* لو مفيش تسجيلات نعرض رسالة */
-  if (!registrations.length) {
-    const emptyItem = document.createElement('li');
-    emptyItem.textContent = 'No registrations yet.';
-    emptyItem.className = 'developer-empty';
-    developerList.appendChild(emptyItem);
-    return;
-  }
-
-  registrations.forEach(function (entry, index) {
-    const item = document.createElement('li');
-    item.className = 'developer-item';
-
-    const label = document.createElement('span');
-    label.textContent = '#' + (index + 1) + ' - ' + entry.identifier;
-
-    /* بنحدد نوع رابط التواصل حسب المدخل (إيميل ولا رقم واتساب) */
-    let actionLink = null;
-    const trimmedIdentifier = (entry.identifier || '').trim();
-
-    if (isValidEmail(trimmedIdentifier)) {
-      actionLink = document.createElement('a');
-      actionLink.href = 'mailto:' + trimmedIdentifier;
-      actionLink.textContent = 'Email';
-      actionLink.target = '_blank';
-      actionLink.rel = 'noopener noreferrer';
-      actionLink.className = 'developer-action';
-    } else {
-      const normalizedPhone = trimmedIdentifier.replace(/[^\d]/g, '');
-
-      if (normalizedPhone.length >= 10 && normalizedPhone.length <= 15 && !/^(\d)\1+$/.test(normalizedPhone)) {
-        actionLink = document.createElement('a');
-        actionLink.href = 'https://wa.me/' + normalizedPhone;
-        actionLink.textContent = 'WhatsApp';
-        actionLink.target = '_blank';
-        actionLink.rel = 'noopener noreferrer';
-        actionLink.className = 'developer-action';
-      }
-    }
-
-    item.appendChild(label);
-
-    if (actionLink) {
-      item.appendChild(actionLink);
-    }
-
-    developerList.appendChild(item);
-  });
-}
-
-/** فتح لوحة المطور وعرض التسجيلات */
-function openDeveloperPanel() {
-  if (developerToggle) {
-    developerToggle.classList.remove('hidden');
-  }
-
-  if (!developerPanel) {
-    return;
-  }
-
-  developerPanel.classList.remove('hidden');
-  developerPanel.setAttribute('aria-hidden', 'false');
-  renderDeveloperRegistrations();
-}
-
-/** إغلاق لوحة المطور */
-function closeDeveloperPanel() {
-  if (!developerPanel) {
-    return;
-  }
-
-  developerPanel.classList.add('hidden');
-  developerPanel.setAttribute('aria-hidden', 'true');
-}
-
-if (developerToggle) {
-  developerToggle.addEventListener('click', openDeveloperPanel);
-}
-
-if (developerClose) {
-  developerClose.addEventListener('click', closeDeveloperPanel);
-}
-
-/* زر مسح كل التسجيلات */
-if (developerClear) {
-  developerClear.addEventListener('click', function () {
-    saveRegistrations([]);
-    renderDeveloperRegistrations();
-  });
-}
-
-/* الإغلاق بالضغط على الخلفية المعتمة */
-if (developerPanel) {
-  developerPanel.addEventListener('click', function (event) {
-    if (event.target === developerPanel) {
-      closeDeveloperPanel();
-    }
-  });
-}
-
-/* اختصار لوحة المطور: Ctrl + Shift + R */
-document.addEventListener('keydown', function (event) {
-  const isDeveloperShortcut = (event.ctrlKey || event.metaKey) &&
-    event.shiftKey &&
-    event.key.toLowerCase() === 'r';
-
-  if (isDeveloperShortcut) {
-    event.preventDefault();
-    openDeveloperPanel();
-  }
-});
-
-/* ============================================================================
-   12) إرسال نموذج تسجيل الدخول (Sign In Submit)
-   ----------------------------------------------------------------------------
-   بيتعامل مع ثلاث احتمالات للمدخل اللي الزائر كتبه:
-
-     1) كود المطور السري  → يفتح لوحة المطور (قسم 11) ويقفل النافذة
-     2) إيميل صحيح        → نسجّله ونجاح
-     3) رقم موبايل صحيح   → نسجّله ونجاح
-   التحقق من الرقم: 10 لـ 15 رقم بعد ما نشيل الرموز (+, مسافات، -، ()).
-   بنرفض كمان الأرقام المتكررة زي 1111 أو 0000 (مش أرقام حقيقية).
-
-   الرسائل بتظهر تحت النموذج:
-     • رسالة خطأ حمرا لو المدخل غلط
-     • رسالة نجاح خضرا لو تمام
-   بعد أي محاولة ناجحة بنفضّي الحقل ونقفل النافذة بعد فترة قصيرة.
-   ============================================================================ */
-if (signInForm && signInInput && signInMessage) {
-  signInForm.addEventListener('submit', function (event) {
-    event.preventDefault();
-
-    const identifier = signInInput.value.trim();
-    const dictionary = getDictionary(getCurrentLanguage());
-
-    /* كود المطور السري: بيفتح لوحة التسجيلات بدل تسجيل الدخول العادي */
-    if (identifier === '23121975') {
-      signInInput.value = '';
-      closeSignInModal();
-      openDeveloperPanel();
-      return;
-    }
-
-    const isValidIdentifier = isValidEmail(identifier) || isValidPhoneNumber(identifier);
-
-    /* لو المدخل غير صالح نعرض رسالة خطأ */
-    if (!identifier || !isValidIdentifier) {
-      signInMessage.textContent = dictionary.signinError;
-      signInMessage.style.color = '#fca5a5';
-      return;
-    }
-
-    /* نحفظ التسجيل الجديد (بحد أقصى 50 تسجيل) */
-    const registrations = getRegistrations();
-    registrations.unshift({ identifier: identifier, createdAt: new Date().toISOString() });
-    saveRegistrations(registrations.slice(0, 10000));
-
-    localStorage.setItem('portfolioUser', identifier);
-    signInMessage.textContent = dictionary.signinSuccess;
-    signInMessage.style.color = '#86efac';
-    signInInput.value = '';
-
-    /* نقفل النافذة بعد ثانية وربع */
-    setTimeout(function () {
-      closeSignInModal();
-      signInMessage.textContent = '';
-    }, 1200);
-  });
-}
-
-/* ============================================================================
-   13) شريط التنقل وسلايدر الشهادات (Navigation & Certificates Slider)
+   10) شريط التنقل وسلايدر الشهادات (Navigation & Certificates Slider)
    ----------------------------------------------------------------------------
    فنكشنلين مختلفين في نفس المكان:
 
@@ -1663,7 +1229,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ============================================================================
-   14) شاشة التحميل (Preloader) + شاشة الاسم اللامع (Name Intro)
+   11) شاشة التحميل (Preloader) + شاشة الاسم اللامع (Name Intro)
    ----------------------------------------------------------------------------
    الترتيب اللي بيحصل لما الصفحة تفتح:
 
@@ -1687,7 +1253,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* مدد العرض (بالميلي ثانية) — عدّل الأرقام دي لو حابب تطول/تقصّر */
 const PRELOADER_FADE_TIME = 300;      /* مدة اختفاء شاشة التحميل (لازم تطابق الـ CSS) */
-const NAME_INTRO_AUTO_HIDE = 2200;    /* اختفاء تلقائي لو الزائر ما داسش */
+const NAME_INTRO_AUTO_HIDE = 1500;    /* اختفاء تلقائي لو الزائر ما داسش */
 const NAME_INTRO_FADE_TIME = 420;     /* مدة اختفاء شاشة الاسم (لازم تطابق الـ CSS) */
 
 /* عنصر شاشة الاسم */
@@ -1832,6 +1398,25 @@ function startNameIntro() {
     return;
   }
 
+  /* الزيارة التانية في نفس الجلسة: الزائر شاف المقدمة قبل كده — نتخطاها */
+  let introAlreadyPlayed = false;
+  try {
+    introAlreadyPlayed = window.sessionStorage.getItem('portfolioIntroPlayed') === '1';
+  } catch (error) {
+    introAlreadyPlayed = false;
+  }
+
+  if (introAlreadyPlayed) {
+    hideNameIntro(false);
+    return;
+  }
+
+  try {
+    window.sessionStorage.setItem('portfolioIntroPlayed', '1');
+  } catch (error) {
+    /* التخزين متاح دائمًا تقريبًا؛ لو اتمنع مش مشكلة — المقدمة بسيطة */
+  }
+
   nameIntroReady = true;
   nameIntro.setAttribute('aria-hidden', 'false');
 
@@ -1879,7 +1464,7 @@ window.addEventListener('DOMContentLoaded', function () {
 window.addEventListener('error', hidePreloader);
 
 /* ============================================================================
-   15) التشغيل الأولي (Init)
+   12) التشغيل الأولي (Init)
    ----------------------------------------------------------------------------
    ده آخر جزء في الملف — بيشتغل بعد ما كل الدوال فوق اتعرفت.
    بسيط جدًا: بيطبّق اللغة والثيم المحفوظين من زيارة الزائر الأخيرة.
@@ -1892,7 +1477,7 @@ applyLanguage(savedLanguage);
 applyTheme(savedTheme === 'light');
 
 /* ============================================================================
-   15.0) ظهور المحتوى عند النزول (Scroll Reveal)
+   12.0) ظهور المحتوى عند النزول (Scroll Reveal)
    ----------------------------------------------------------------------------
    الفكرة: بنخفي العناصر الأول (opacity: 0) عن طريق كلاس .reveal-init،
    وبعدين IntersectionObserver لما العنصر يدخل الشاشة بنضيف .is-visible
@@ -2002,11 +1587,11 @@ applyTheme(savedTheme === 'light');
 })();
 
 /* ============================================================================
-   15.1) (تمت إزالة تفاعل توهج الماوس مع الخلفية)
+   12.1) (تمت إزالة تفاعل توهج الماوس مع الخلفية)
    الصفحة مافيهاش أي عنصر عائم أو توهج بيتبع الماوس — أسرع وأنضف.
    ============================================================================ */
 /* ============================================================================
-   15.2) الخلفية التفاعلية «الخيالية البرمجية» (Living Background)
+   12.2) الخلفية التفاعلية «الخيالية البرمجية» (Living Background)
    ----------------------------------------------------------------------------
    ده الجزء الأكبر في الملف — مسؤول عن كل المؤثرات اللي بتتبع الماوس.
 
@@ -2293,7 +1878,7 @@ applyTheme(savedTheme === 'light');
     );
   })();
 /* ============================================================================
-   16) مساعد الذكاء الاصطناعي (AI Assistant / Chat)
+   13) مساعد الذكاء الاصطناعي (AI Assistant / Chat)
    ----------------------------------------------------------------------------
    فيه حاجتين هنا:
      1) الزر العائم (.ai-fab) اللي بيفتح ويقفل لوحة الشات (#aiPanel)
@@ -2685,7 +2270,7 @@ if (aiInput) {
   });
 }
 /* ============================================================================
-   17) زر مواقع التواصل + نافذتها (Social Links Popup)
+   14) زر مواقع التواصل + نافذتها (Social Links Popup)
    ----------------------------------------------------------------------------
    زر صغير مدوّر (.btn-socials) جنب «تحميل السيرة الذاتية» في الهيرو.
    بالضغط عليه بتفتح نافذة صغيرة (#socials-modal) فيها كروت مواقع التواصل.
@@ -2760,13 +2345,13 @@ document.addEventListener('keydown', function (event) {
   }
 });
 /* ============================================================================
-   18) رمز QR (QR Code)
+   15) رمز QR (QR Code)
    ----------------------------------------------------------------------------
    ملاحظة: الكود الفعلي للـ QR وال��شاركة نزل في القسم 19 فوق
    (initShareCard). القسم ده محجوز كمرجع للمكتبة المستخدمة.
    ============================================================================ */
 /* ============================================================================
-   19) كارت المشاركة ورمز QR
+   16) كارت المشاركة ورمز QR
    ============================================================================
    الكارت بقى «شارك الموقع مع صحابك»، وفيه حاجتين شغالين مع بعض:
 
@@ -3063,7 +2648,7 @@ document.addEventListener('keydown', function (event) {
 })();
 
 /* ============================================================================
-   20) روبوت الهيرو — بيتابع الماوس بعينيه وراسه
+   17) روبوت الهيرو — بيتابع الماوس بعينيه وراسه
    ============================================================================
    الفكرة: روبوت صغير واقف بين نص الهيرو وصورته، وعيناه وراسه بيتحركوا
    حسب حركة الماوس — زي روبوت بيبص عليك.
@@ -3239,7 +2824,7 @@ document.addEventListener('keydown', function (event) {
 })();
 
 /* ============================================================================
-   21) روبوت الهيرو — فقاعة الترحيب (الضغط عليها)
+   18) روبوت الهيرو — فقاعة الترحيب (الضغط عليها)
    ============================================================================
    لما المستخدم يدوس على الروبوت، بتظهر فوقه فقاعة كلام فيها رسالة ترحيب،
    وبتنبض شوية كأنها بتتكلم، وبتقفل لوحدها بعد 4 ثواني.

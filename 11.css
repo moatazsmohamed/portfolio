@@ -231,7 +231,7 @@ body.has-custom-cursor .btn *,
 body.has-custom-cursor .lang-btn,
 body.has-custom-cursor .slider-btn,
 body.has-custom-cursor .scroll-btn,
-body.has-custom-cursor .signin-btn,
+body.has-custom-cursor .header-cta,
 body.has-custom-cursor .settings-pill,
 body.has-custom-cursor .project-btn,
 body.has-custom-cursor .certificate-btn,
@@ -556,7 +556,6 @@ body > * {
     display: none;
 }
 
-
 .header {
     background: rgba(10, 9, 12, 0.9);
     backdrop-filter: blur(14px);
@@ -709,10 +708,13 @@ body.header-is-fixed {
     width: 100%;
 }
 
-/* ==================== 3. زر تسجيل الدخول (Sign In Button) ==================== */
+/* ==================== 3. زر الدعوة للتواصل (Header CTA) ==================== */
 
-/* زر Sign In: بيظهر في نهاية الهيدر وبيمنح شكل زر واضح ومميز */
-.signin-btn {
+/* زر «كلمني»: بيظهر في نهاية الهيدر وبيمنح شكل زر واضح ومميز */
+.header-cta {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
     padding: 8px 20px;
     border: 1px solid #d4af37;
     background: transparent;
@@ -724,14 +726,13 @@ body.header-is-fixed {
     transition: all 0.3s ease;
 }
 
-.signin-btn:hover {
+.header-cta:hover {
     color: #07060a;
     background-color: #d4af37;
     box-shadow: 0 0 18px rgba(212, 175, 55, 0.6);
     transform: translateY(-2px);
 }
 
-.signin-modal,
 .contact-modal {
     position: fixed;
     inset: 0;
@@ -744,13 +745,10 @@ body.header-is-fixed {
     z-index: 2000;
 }
 
-.signin-modal.hidden,
 .contact-modal.hidden {
     display: none;
 }
 
-.signin-modal-content,
-.contact-modal-content,
 .contact-modal-content {
     position: relative;
     width: min(100%, 420px);
@@ -761,7 +759,6 @@ body.header-is-fixed {
     box-shadow: 0 28px 70px rgba(0, 0, 0, 0.7), 0 0 40px rgba(212, 175, 55, 0.08);
 }
 
-.signin-close,
 .contact-modal-close {
     position: absolute;
     top: 12px;
@@ -776,68 +773,10 @@ body.header-is-fixed {
     cursor: pointer;
 }
 
-.signin-modal-content h3,
 .contact-modal-content h3 {
     margin: 0 0 8px;
     font-size: 1.4rem;
     color: #f8fafc;
-}
-
-.signin-subtitle {
-    margin: 0 0 18px;
-    color: #cbd5e1;
-    font-size: 0.92rem;
-    line-height: 1.5;
-}
-
-.signin-field {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    color: #e2e8f0;
-    font-size: 0.9rem;
-    margin-bottom: 18px;
-}
-
-.signin-field input {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 12px 14px;
-    border-radius: 10px;
-    border: 1px solid rgba(212, 175, 55, 0.22);
-    background: rgba(255, 255, 255, 0.03);
-    color: #f8fafc;
-    font-size: 0.96rem;
-    outline: none;
-}
-
-.signin-field input:focus {
-    border-color: #d4af37;
-    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
-}
-
-.signin-submit {
-    width: 100%;
-    padding: 12px 16px;
-    border: none;
-    border-radius: 10px;
-    background: linear-gradient(135deg, #f7d774, #d4af37);
-    color: #1a1305;
-    font-weight: 700;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.signin-submit:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 12px 24px rgba(212, 175, 55, 0.35);
-}
-
-.signin-message {
-    min-height: 20px;
-    margin: 14px 0 0;
-    font-size: 0.9rem;
-    color: #86efac;
 }
 
 .contact-modal-list {
@@ -876,172 +815,13 @@ body.header-is-fixed {
     transform: translateY(-1px);
 }
 
-body.light-mode .signin-modal-content,
 body.light-mode .contact-modal-content {
     background: rgba(255, 252, 245, 0.97);
     border-color: rgba(191, 143, 40, 0.28);
     box-shadow: 0 24px 48px rgba(191, 143, 40, 0.18);
 }
 
-body.light-mode .signin-field input {
-    background: rgba(248, 250, 252, 0.9);
-    color: #0f172a;
-}
-
-body.light-mode .signin-subtitle,
-body.light-mode .signin-field {
-    color: #475569;
-}
-
-body.light-mode .signin-close,
 body.light-mode .contact-modal-close {
-    color: #0f172a;
-    background: rgba(148, 163, 184, 0.08);
-}
-
-.developer-panel {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(3, 3, 5, 0.8);
-    backdrop-filter: blur(4px);
-    z-index: 2001;
-    padding: 20px;
-}
-
-.developer-panel-content {
-    width: min(100%, 500px);
-    background: rgba(13, 12, 16, 0.98);
-    border: 1px solid rgba(212, 175, 55, 0.28);
-    border-radius: 18px;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
-    padding: 22px;
-}
-
-.developer-panel-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    margin-bottom: 12px;
-}
-
-.developer-panel-header h3 {
-    margin: 0;
-    color: #f8fafc;
-    font-size: 1.15rem;
-}
-
-.developer-close {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    border: 1px solid rgba(148, 163, 184, 0.24);
-    background: rgba(255, 255, 255, 0.04);
-    color: #f8fafc;
-    font-size: 1.2rem;
-    cursor: pointer;
-}
-
-.developer-list {
-    list-style: none;
-    margin: 0;
-    max-height: 280px;
-    overflow-y: auto;
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 12px;
-    padding: 10px;
-}
-
-.developer-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 10px 12px;
-    border-radius: 10px;
-    background: rgba(212, 175, 55, 0.08);
-    border: 1px solid rgba(212, 175, 55, 0.22);
-    color: #e2e8f0;
-    margin-bottom: 8px;
-    font-size: 0.92rem;
-}
-
-.developer-item:last-child {
-    margin-bottom: 0;
-}
-
-.developer-item span {
-    flex: 1;
-    word-break: break-word;
-}
-
-.developer-action {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 92px;
-    padding: 7px 10px;
-    border-radius: 8px;
-    background: rgba(34, 197, 94, 0.16);
-    border: 1px solid rgba(34, 197, 94, 0.5);
-    color: #dcfce7;
-    text-decoration: none;
-    font-size: 0.8rem;
-    font-weight: 700;
-}
-
-.developer-empty {
-    padding: 14px 12px;
-    color: #cbd5e1;
-    font-size: 0.9rem;
-    text-align: center;
-}
-
-.developer-clear {
-    width: 100%;
-    margin-top: 16px;
-    border: none;
-    border-radius: 10px;
-    padding: 10px 14px;
-    background: linear-gradient(135deg, #f8fafc, #cbd5e1);
-    color: #0f172a;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-body.light-mode .developer-panel-content {
-    background: rgba(255, 252, 245, 0.98);
-    border-color: rgba(191, 143, 40, 0.25);
-    box-shadow: 0 20px 45px rgba(120, 90, 20, 0.15);
-}
-
-body.light-mode .developer-panel-header h3,
-body.light-mode .developer-item,
-body.light-mode .developer-empty {
-    color: #0f172a;
-}
-
-body.light-mode .developer-list {
-    background: rgba(248, 250, 252, 0.9);
-    border-color: rgba(148, 163, 184, 0.2);
-}
-
-body.light-mode .developer-item {
-    background: rgba(212, 175, 55, 0.1);
-    border-color: rgba(212, 175, 55, 0.28);
-}
-
-body.light-mode .developer-action {
-    background: rgba(34, 197, 94, 0.12);
-    border-color: rgba(22, 163, 74, 0.32);
-    color: #166534;
-}
-
-body.light-mode .developer-close {
     color: #0f172a;
     background: rgba(148, 163, 184, 0.08);
 }
@@ -1156,7 +936,7 @@ body.light-mode .settings-dropdown {
 }
 
 body.light-mode .settings-pill,
-body.light-mode .signin-btn,
+body.light-mode .header-cta,
 body.light-mode .lang-btn,
 body.light-mode .search-btn,
 body.light-mode .nav-links a,
@@ -1212,7 +992,7 @@ body.light-mode .lang-btn.active {
 body.light-mode .lang-btn:hover,
 body.light-mode .settings-pill:hover,
 body.light-mode .search-btn:hover,
-body.light-mode .signin-btn:hover,
+body.light-mode .header-cta:hover,
 body.light-mode .nav-links a:hover,
 body.light-mode .nav-links a.active {
     box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.25), 0 0 18px rgba(212, 175, 55, 0.16);
@@ -1993,6 +1773,9 @@ body.light-mode .search-match {
     font-weight: 700;
     letter-spacing: 0.14em;
     font-variant-numeric: tabular-nums;
+    /* العدّاد لازم يفضل «01 / 04» في العربي كمان مش يتقلب */
+    direction: ltr;
+    unicode-bidi: isolate;
 }
 
 /* شرائح التقنيات المستخدمة في المشروع */
@@ -2964,22 +2747,6 @@ body.light-mode .contact-item:hover {
   left: 100%;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* === زراير التحكم والتنقل === */
 .slider-btn {
   background: rgba(255, 255, 255, 0.08);
@@ -3011,8 +2778,6 @@ body.light-mode .contact-item:hover {
 .prev-btn { margin-right: 0; }
 .next-btn { margin-left: 0; }
 
-
-
 /* إعطاء مساحة للحاوية لمنع القطع الحاد */
 .tech-slider-container {
   display: flex;
@@ -3042,8 +2807,6 @@ body.light-mode .contact-item:hover {
 .tech-card-slim {
   flex-shrink: 0; /* يضمن عدم انكماش الكلمات مطلقاً */
 }
-
-
 
 /* بلوك الـ Responsive: هنا ضبط الشكل على الشاشات الصغيرة */
 /* ==================== 11. Responsive / شاشة الموبايل ==================== */
@@ -3545,12 +3308,6 @@ body.light-mode .contact-item:hover {
     }
 }
 
-
-
-
-
-
-
 /* ==================== 9. شاشة التحميل (Preloader) ==================== */
 /* شاشة التحميل بتغطي كامل الشاشة فوق كل العناصر لحد ما الصفحة تحمّل */
 #preloader {
@@ -3864,7 +3621,7 @@ html {
         width: 100%;
     }
 
-    .signin-btn {
+    .header-cta {
         padding: 8px 14px;
         font-size: 0.82rem;
     }
@@ -4087,14 +3844,11 @@ html {
     }
 
     /* --- النوافذ المنبثقة --- */
-    .signin-modal-content,
-    .contact-modal-content,
-    .developer-panel-content {
+    .contact-modal-content {
         padding: 22px 16px 16px;
         border-radius: 14px;
     }
 
-    .signin-modal-content h3,
     .contact-modal-content h3 {
         font-size: 1.2rem;
     }
@@ -4190,7 +3944,6 @@ html {
     }
 }
 
-
 .sr-only {
     position: absolute;
     width: 1px;
@@ -4206,7 +3959,6 @@ html {
    (تمت إزالة طبقات توهج الماوس — Cursor Glow / Spotlight)
    الصفحة مافيهاش أي عنصر عائم أو توهج بيتبع الماوس.
    ============================================================================ */
-
 
 /* ============================================================================
    ==================== 12. انيميشن الاسم اللامع (Name Intro) ====================
@@ -4508,16 +4260,6 @@ body.light-mode .name-intro-kicker {
         background: none;
     }
 }
-
-
-
-
-
-
-
-
-
-
 
 /* ============================================================================
    الأزرار العائمة (Floating Buttons) — واتساب + مساعد الذكاء الاصطناعي
@@ -7042,7 +6784,7 @@ body.light-mode .nav-links a.active {
 body.light-mode .nav-links a:hover,
 body.light-mode .settings-pill:hover,
 body.light-mode .search-btn:hover,
-body.light-mode .signin-btn:hover {
+body.light-mode .header-cta:hover {
     box-shadow: 0 0 0 2px rgba(156, 111, 28, 0.18), 0 8px 18px rgba(156, 111, 28, 0.14);
     transform: translateY(-1px);
 }
@@ -7126,12 +6868,12 @@ body.light-mode .settings-action-btn.is-active {
     color: var(--lm-bronze-ink);
 }
 
-body.light-mode .signin-btn {
+body.light-mode .header-cta {
     border-color: var(--lm-bronze);
     color: var(--lm-bronze-ink);
 }
 
-body.light-mode .signin-btn:hover {
+body.light-mode .header-cta:hover {
     background: linear-gradient(135deg, #e8cf98, #c39a4d);
     color: #2b1f08;
     box-shadow: 0 10px 22px rgba(156, 111, 28, 0.30);
@@ -7602,26 +7344,20 @@ body.light-mode .footer-socials .social-link:hover {
 }
 
 /* ----------------------------------------------------------------------------
-   🪟 النوافذ المنبثقة (تسجيل الدخول / المطور / مواقع التواصل / المساعد)
+   🪟 النوافذ المنبثقة (التواصل / مواقع التواصل / المساعد)
    ---------------------------------------------------------------------------- */
-body.light-mode .signin-modal-content,
 body.light-mode .contact-modal-content,
 body.light-mode .socials-modal-content,
-body.light-mode .developer-panel-content,
 body.light-mode .ai-panel {
     background: var(--lm-surface-solid);
     border-color: var(--lm-border-strong);
     box-shadow: 0 30px 70px rgba(58, 44, 16, 0.22), var(--lm-hairline);
 }
 
-body.light-mode .signin-modal-content h3,
 body.light-mode .contact-modal-content h3,
 body.light-mode .socials-modal-content h3,
-body.light-mode .developer-panel-header h3,
 body.light-mode .ai-header-text h3,
 body.light-mode .ai-close,
-body.light-mode .developer-close,
-body.light-mode .signin-close,
 body.light-mode .contact-modal-close,
 body.light-mode .socials-close {
     color: var(--lm-ink);
@@ -7629,27 +7365,11 @@ body.light-mode .socials-close {
     border-color: var(--lm-border);
 }
 
-body.light-mode .signin-subtitle,
-body.light-mode .signin-field,
 body.light-mode .socials-subtitle,
-body.light-mode .developer-empty,
-body.light-mode .developer-item,
 body.light-mode .ai-header-text p {
     color: var(--lm-ink-soft);
 }
 
-body.light-mode .signin-field input {
-    background: rgba(255, 255, 255, 0.9);
-    border-color: var(--lm-border);
-    color: var(--lm-ink);
-}
-
-body.light-mode .signin-field input:focus {
-    border-color: var(--lm-bronze);
-    box-shadow: 0 0 0 3px rgba(156, 111, 28, 0.16);
-}
-
-body.light-mode .signin-submit,
 body.light-mode .ai-send-btn {
     background: linear-gradient(135deg, #f0dcae, #c39a4d 70%, #a97c26);
     color: #2b1f08;
@@ -7672,22 +7392,6 @@ body.light-mode .social-tile:hover {
     background: rgba(203, 168, 100, 0.18);
     border-color: var(--lm-border-strong);
     color: var(--lm-bronze-ink);
-}
-
-body.light-mode .developer-list {
-    background: rgba(245, 238, 226, 0.8);
-    border-color: var(--lm-border);
-}
-
-body.light-mode .developer-item {
-    background: rgba(255, 253, 249, 0.8);
-    border-color: var(--lm-border);
-}
-
-body.light-mode .developer-action {
-    background: rgba(22, 163, 74, 0.10);
-    border-color: rgba(22, 163, 74, 0.30);
-    color: #15803d;
 }
 
 body.light-mode .ai-input {
