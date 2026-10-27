@@ -1,13 +1,14 @@
 /* ============================================================================
    PORTFOLIO — منطق صندوق رسائل العملاء (admin.js)
    ----------------------------------------------------------------------------
-   • الدخول بحساب Supabase نفسه المستخدم في مدار (حساب المطور).
+   • الدخول بحساب Supabase بتاع مشروع البورتفوليو — نفس الإيميل وكلمة السر
+     اللي بتدخل بيهم على مدار، بس المستخدم ده اتعمل في المشروع الجديد.
    • كل البيانات بتيجي من دوال عامة في Supabase:
        portfolio_leads(p_status)              → قراءة الرسايل
        portfolio_lead_status(p_id,p_status)   → تغيير الحالة أو حفظ ملاحظة
        portfolio_delete_lead(p_id)            → حذف
-     والصلاحيات دي متأكد منها جوه الدالة نفسها (public.is_developer())،
-     فلو أي حساب تاني فتح الصفحة دي هيشوف رسالة "مش حساب المطور".
+     والصلاحيات دي متأكد منها جوه الدالة نفسها (portfolio.is_admin())، فلو أي
+     إيميل تاني فتح الصفحة دي هيشوف رسالة "الإيميل ده مش مسموحله".
    • الرسايل بتترسم بـ textContent دوم (مفيش innerHTML بيحقن نص المستخدم)،
      فمفيش XSS من نص الرسالة أو الاسم.
    ============================================================================ */
@@ -25,13 +26,13 @@ const ADMIN_REFRESH_MS = 60000;
 const adminTranslations = {
   ar: {
     loginTitle: 'صندوق رسائل العملاء',
-    loginHint: 'ادخل بحساب المطور بتاع مدار (نفس الإيميل وكلمة السر).',
+    loginHint: 'ادخل بنفس الإيميل وكلمة السر بتوع حساب المطور في مدار.',
     emailLabel: 'البريد الإلكتروني',
     passwordLabel: 'كلمة السر',
     loginBtn: 'دخول',
     loggingIn: 'بيتأكد...',
     badLogin: 'الإيميل أو كلمة السر غلط.',
-    notDev: 'الحساب ده دخول بيه، بس هو مش حساب المطور — الرسايل مقفولة.',
+    notDev: 'الإيميل ده مش في قائمة اللي بيفتحوا الصندوق — ضيفه في portfolio.admins.',
     loadErr: 'مفهمناش نجيب الرسايل. اتأكد من الإنترنت أو إن الجدول اتعمل.',
     inboxTitle: 'رسائل العملاء',
     refreshBtn: 'تحديث',
@@ -68,13 +69,13 @@ const adminTranslations = {
   },
   en: {
     loginTitle: 'Client messages',
-    loginHint: 'Sign in with the Madar developer account (same email and password).',
+    loginHint: 'Sign in with the same email and password as your Madar developer account.',
     emailLabel: 'Email',
     passwordLabel: 'Password',
     loginBtn: 'Sign in',
     loggingIn: 'Checking...',
     badLogin: 'Wrong email or password.',
-    notDev: 'You are signed in, but this account is not the developer account.',
+    notDev: 'This email is not on the inbox list — add it to portfolio.admins.',
     loadErr: 'Could not load messages. Check the connection or that the table exists.',
     inboxTitle: 'Client messages',
     refreshBtn: 'Refresh',
