@@ -246,3 +246,13 @@ grant execute on function public.portfolio_delete_lead(uuid) to authenticated;
 
 -- يخلي PostgREST يعيد قراءة الـ schema من غير ما تستنى دقيقة.
 notify pgrst, 'reload schema';
+
+-- فحص سريع: آخر نتيجة في المحرر بتقولّي السكريبت اتعمل فعلاً ولا لأ.
+-- المفروض عمود result يطلّع "OK — الدوال الستة اتعملت".
+select case when count(*) >= 6 then 'OK — الدوال الستة اتعملت'
+            else 'ناقص ' || (6 - count(*))::text || ' — السكريبت مبيتشغّلش على المشروع ده'
+       end as result,
+       string_agg(p.proname, ', ' order by p.proname) as funcs
+  from pg_proc p
+  join pg_namespace n on n.oid = p.pronamespace
+ where n.nspname = 'public' and p.proname like 'portfolio%';

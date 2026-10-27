@@ -53,7 +53,7 @@
 - حدود أطوال في قيود العمود نفسه (اسم 120، إيميل 254، رسالة 4000) فمفيش حشو.
 - `admin.js` بيرسّم كل نص بـ `textContent` — رسالة العميل مستحيل تحقن HTML.
 
-**التشغيل لأول مرة:** افتح Supabase → مشروع مدار → **SQL Editor**، انسخ كل محتوى `sql/portfolio-leads.sql` والصقه واعمل **Run** مرة واحدة.
+**التشغيل لأول مرة:** افتح [Supabase → SQL Editor لمشروع مدار](https://supabase.com/dashboard/project/ppihzxabbysozbdmweje/sql/new)، اعمل **Ctrl+A** في المحرر (Supabase بيشتغل على المحدّد فقط)، الصق كل محتوى `sql/portfolio-leads.sql` واعمل **Run**. آخر عمود `result` في النتيجة لازم يطلّع `OK — الدوال الستة اتعملت`.
 
 ---
 
