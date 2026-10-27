@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<!-- ============================================================================
+     PORTFOLIO — صندوق رسائل العملاء (admin.html)
+     الصفحة دي ليك أنت لوحدك: بتطلب حساب المطور بتاع مدار (نفس الإيميل
+     وكلمة السر بالظبط)، وبتعرض الرسايل اللي جاية من فورم التواصل.
+
+     • مش متلينكاهاش من أي حتة في الموقع، وعنوانها:
+         https://portfolio-moataz.vercel.app/admin.html
+     • robots.txt مانع الفهرسة، وفيها noindex كمان.
+     • مافيش فيها أي سر: مفتاح النشر (publishable) علني، والصلاحيات كلها
+     متأمنة جوه دوال Supabase في sql/portfolio-leads.sql.
+     ============================================================================ -->
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <title>رسائل العملاء — Moataz Mohamed</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0b0a08;
+            --panel: #16130e;
+            --panel-2: #1e1a13;
+            --border: #2c2519;
+            --gold: #d4af37;
+            --gold-soft: #f7d774;
+            --text: #f3ead6;
+            --muted: #a2977f;
+            --ok: #6ee7b7;
+            --err: #f87171;
+            --radius: 14px;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: radial-gradient(1200px 600px at 80% -10%, rgba(212, 175, 55, 0.12), transparent 60%), var(--bg);
+            color: var(--text);
+            font-family: 'Cairo', 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.7;
+        }
+
+        [dir="ltr"] body { font-family: 'Inter', 'Cairo', system-ui, sans-serif; }
+
+        .wrap { max-width: 900px; margin: 0 auto; padding: 22px 16px 60px; }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 22px;
+        }
+
+        .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .2px; }
+        .brand i { color: var(--gold); }
+        .brand small { color: var(--muted); font-weight: 400; }
+
+        .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+        .btn {
+            font: inherit;
+            font-size: .88rem;
+            padding: 8px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--panel-2);
+            color: var(--text);
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: .2s;
+        }
+
+        .btn:hover { border-color: var(--gold); color: var(--gold-soft); }
+        .btn.gold { background: linear-gradient(135deg, var(--gold-soft), var(--gold)); color: #1a1305; border: none; font-weight: 600; }
+        .btn.ghost { background: transparent; }
+        .btn.danger:hover { border-color: var(--err); color: var(--err); }
+        .btn:disabled { opacity: .55; cursor: wait; }
+
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px;
+        }
+
+        .hidden { display: none !important; }
+
+        /* ---------- الدخول ---------- */
+        #loginView { max-width: 420px; margin: 8vh auto 0; }
+        #loginView h1 { font-size: 1.3rem; margin: 0 0 4px; }
+        #loginView p.hint { color: var(--muted); font-size: .9rem; margin: 0 0 18px; }
+
+        label { display: block; font-size: .85rem; color: var(--muted); margin: 14px 0 6px; }
+        input, textarea {
+            font: inherit;
+            width: 100%;
+            padding: 11px 13px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: #100e0b;
+            color: var(--text);
+        }
+        input:focus, textarea:focus { outline: none; border-color: var(--gold); }
+
+        .msg { min-height: 24px; margin-top: 14px; font-size: .9rem; }
+        .msg.ok { color: var(--ok); }
+        .msg.err { color: var(--err); }
+
+        /* ---------- شريط الأدوات ---------- */
+        .toolbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
+        .tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+        .tab { font: inherit; font-size: .85rem; padding: 7px 13px; border-radius: 999px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; }
+        .tab.active { border-color: var(--gold); color: var(--gold-soft); background: rgba(212, 175, 55, .08); }
+        .toolbar input { width: auto; flex: 1; min-width: 160px; }
+
+        .count { color: var(--muted); font-size: .85rem; }
+
+        /* ---------- كروت الرسايل ---------- */
+        .lead { margin-bottom: 12px; }
+        .lead.is-new { border-color: rgba(212, 175, 55, .55); }
+        .lead-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; cursor: pointer; }
+        .lead-name { font-weight: 600; }
+        .lead-meta { color: var(--muted); font-size: .82rem; word-break: break-all; }
+        .lead-date { color: var(--muted); font-size: .78rem; white-space: nowrap; }
+
+        .pill { font-size: .72rem; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); white-space: nowrap; }
+        .pill.new { color: var(--gold-soft); border-color: rgba(212, 175, 55, .5); }
+        .pill.read { color: #93c5fd; border-color: rgba(147, 197, 253, .35); }
+        .pill.archived { color: var(--muted); }
+
+        .lead-body { margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--border); }
+        .lead-text { white-space: pre-wrap; word-break: break-word; margin: 0 0 14px; }
+        .lead-contact { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+        .lead-note { font-size: .85rem; color: var(--muted); }
+
+        .empty { text-align: center; color: var(--muted); padding: 40px 10px; }
+
+        @media (max-width: 640px) {
+            .lead-head { flex-direction: column; }
+            .actions { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <!-- ==================== شاشة الدخول ==================== -->
+        <section id="loginView" class="card">
+            <h1 data-i18n="loginTitle">صندوق رسائل العملاء</h1>
+            <p class="hint" data-i18n="loginHint">ادخل بحساب المطور بتاع مدار (نفس الإيميل وكلمة السر).</p>
+
+            <form id="loginForm">
+                <div>
+                    <label for="loginEmail" data-i18n="emailLabel">البريد الإلكتروني</label>
+                    <input type="email" id="loginEmail" name="email" autocomplete="username" required>
+                </div>
+                <div>
+                    <label for="loginPassword" data-i18n="passwordLabel">كلمة السر</label>
+                    <input type="password" id="loginPassword" name="password" autocomplete="current-password" required>
+                </div>
+
+                <button type="submit" class="btn gold" id="loginBtn" style="width:100%;justify-content:center;margin-top:18px" data-i18n="loginBtn" data-i18n-attr="textContent">دخول</button>
+                <p class="msg" id="loginMsg" role="status" aria-live="polite"></p>
+            </form>
+        </section>
+
+        <!-- ==================== الصندوق ==================== -->
+        <section id="inboxView" class="hidden">
+            <div class="topbar">
+                <div class="brand">
+                    <i>✉</i>
+                    <span data-i18n="inboxTitle">رسائل العملاء</span>
+                    <small id="counter"></small>
+                </div>
+
+                <div class="actions">
+                    <button class="btn ghost" id="refreshBtn" data-i18n="refreshBtn">تحديث</button>
+                    <button class="btn ghost" id="csvBtn" data-i18n="csvBtn">تصدير CSV</button>
+                    <button class="btn ghost" id="langBtn">EN</button>
+                    <a class="btn ghost" href="index.html" data-i18n="siteLink">الموقع</a>
+                    <button class="btn danger ghost" id="logoutBtn" data-i18n="logoutBtn">خروج</button>
+                </div>
+            </div>
+
+            <div class="toolbar">
+                <div class="tabs" id="tabs">
+                    <button class="tab active" data-filter="" data-i18n="tabAll">الكل</button>
+                    <button class="tab" data-filter="new" data-i18n="tabNew">جديدة</button>
+                    <button class="tab" data-filter="read" data-i18n="tabRead">مقروءة</button>
+                    <button class="tab" data-filter="archived" data-i18n="tabArchived">مؤرشفة</button>
+                </div>
+                <input type="search" id="searchInput" data-i18n-placeholder="searchPh" placeholder="دوّر بالاسم أو الإيميل أو النص" autocomplete="off">
+            </div>
+
+            <div id="leads"></div>
+            <p class="msg" id="inboxMsg" role="status" aria-live="polite"></p>
+        </section>
+    </div>
+
+    <script src="admin.js" defer></script>
+</body>
+</html>

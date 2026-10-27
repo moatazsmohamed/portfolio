@@ -879,7 +879,7 @@
                 <ul class="project-tech" id="projectTech" aria-label="Technologies used"></ul>
 
                 <div class="project-actions">
-                    <a href="https://madar-three-liart.vercel.app/login" target="_blank" rel="noopener noreferrer" class="project-btn primary" data-i18n="viewProject">View Project</a>
+                    <a href="https://madar-m.vercel.app/login" target="_blank" rel="noopener noreferrer" class="project-btn primary" data-i18n="viewProject">View Project</a>
                     <a href="https://github.com/moatazsmohamed/madar" target="_blank" rel="noopener noreferrer" class="project-btn secondary" data-i18n="githubProject">GitHub</a>
                     <button type="button" class="project-btn change" data-i18n="changeProject">Change Project</button>
                 </div>
@@ -949,7 +949,7 @@
                     <li>PostgreSQL</li>
                 </ul>
 
-                <a class="case-link" href="https://madar-three-liart.vercel.app/login" target="_blank" rel="noopener noreferrer" data-i18n="caseOpen">
+                <a class="case-link" href="https://madar-m.vercel.app/login" target="_blank" rel="noopener noreferrer" data-i18n="caseOpen">
                     Open Madar <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </a>
             </div>
@@ -1295,56 +1295,60 @@
     <!-- ====================================================================
          نموذج التواصل (Contact Form)
          --------------------------------------------------------------------
-         الإرسال عبر خدمة Formspree (action = رابط الفورم بتاعك).
-         مفيش أي كود سيرفر من ناحيتنا — الخدمة بتستقبل البيانات
-         وتبعتها على الإيميل المسجّل عندهم.
-
-         ⚠️ لو عايز تغير الإيميل اللي بتيجي عليه الرسايل:
-         ده بيتعمل من لوحة تحكم Formspree مش من الكود.
+         الرسايل بتتخزن في جدول portfolio_leads على Supabase، وأنت بتقرأها
+         من صفحة الرسائل admin.html بحساب المطور بتاع مدار.
+         الإرسال بيتعمل في script.js (قسم 19) — الفورم نفسه مفيهوش action.
 
          حقول النموذج:
            name    → الاسم (مطلوب)
            phone   → التليفون (اختياري)
-           _replyto → الإيميل (مطلوب)
-                      الـ _replyto ده اسم خاص بـ Formspree:
-                      بيعرفها إن ده عنوان الرد على الرسالة
+           email   → الإيميل (مطلوب)
            message → نص الرسالة (مطلوب)
+           site    → خانة طُعم مخفية؛ البوتات بتملها والجدول بيرفض السطر
 
-         النصوص هنا مش مترجمة (data-i18n مش موجودة) — قسم إنجليزي بس.
+         كل النصوص مترجمة (data-i18n) — العربي والإنجليزي اتنين اتاكد.
          ==================================================================== -->
     <section class="contact-section" id="contact-form-section">
         <div class="contact-container" data-reveal="up">
             <div class="contact-header">
-                <h2>Let's Build Something Together</h2>
-                <p>Have a project in mind or want to chat? Fill out the form below and I'll get back to you.</p>
+                <h2 data-i18n="formTitle">Let's Build Something Together</h2>
+                <p data-i18n="formIntro">Have a project in mind or want to chat? Fill out the form below and I'll get back to you.</p>
             </div>
 
-            <form class="contact-form" action="https://formspree.io/f/xppzgnbo" method="POST">
+            <form class="contact-form" id="contactForm" novalidate>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                        <label for="name" data-i18n="formNameLabel">Full Name</label>
+                        <input type="text" id="name" name="name" data-i18n-placeholder="formNamePh" placeholder="Enter your name" maxlength="120" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+                        <label for="phone" data-i18n="formPhoneLabel">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" data-i18n-placeholder="formPhonePh" placeholder="Enter your phone number" maxlength="40">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="_replyto" placeholder="Enter your email address" required>
+                    <label for="email" data-i18n="formEmailLabel">Email Address</label>
+                    <input type="email" id="email" name="email" data-i18n-placeholder="formEmailPh" placeholder="Enter your email address" maxlength="254" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="message">Your Message</label>
-                    <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+                    <label for="message" data-i18n="formMsgLabel">Your Message</label>
+                    <textarea id="message" name="message" rows="5" data-i18n-placeholder="formMsgPh" placeholder="Write your message here..." maxlength="4000" required></textarea>
                 </div>
 
-                <button type="submit" class="btn-submit">
-                    Send Message <i class="fa-solid fa-paper-plane"></i>
+                <!-- خانة الطُعم: مخفية عن البشر، أي حد يملّها بيت رفض -->
+                <div style="position:absolute;left:-9999px" aria-hidden="true">
+                    <label for="site">Leave this field empty</label>
+                    <input type="text" id="site" name="site" tabindex="-1" autocomplete="off">
+                </div>
+
+                <button type="submit" class="btn-submit" id="contactSubmit">
+                    <span data-i18n="formSubmit">Send Message</span> <i class="fa-solid fa-paper-plane"></i>
                 </button>
+
+                <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
             </form>
         </div>
 

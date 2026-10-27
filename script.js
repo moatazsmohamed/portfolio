@@ -29,6 +29,7 @@
     16)  كارت المشاركة ورمز QR
     17)  روبوت الهيرو — متابعة الماوس
     18)  روبوت الهيرو — فقاعة الترحيب
+    19)  صندوق رسائل العملاء (Contact form → Supabase)
 
    ----------------------------------------------------------------------------
    قواعد مهمة لأي حد بيعدّل هنا
@@ -221,6 +222,26 @@ const translations = {
     contactKicker: 'دعنا نتواصل',
     contactTitle: 'هل تحتاج إلى مشروع أو تعاون أو مجرد دردشة سريعة؟',
     contactButton: 'تواصل معي',
+
+    /* فورم التواصل */
+    formTitle: 'يلا نبني حاجة سوا',
+    formIntro: 'عندك مشروع أو فكرة أو سؤال؟ املّ الخانات دي وهرد عليك في أقرب وقت.',
+    formNameLabel: 'الاسم كامل',
+    formNamePh: 'اكتب اسمك',
+    formPhoneLabel: 'رقم التليفون',
+    formPhonePh: 'رقمك (اختياري)',
+    formEmailLabel: 'البريد الإلكتروني',
+    formEmailPh: 'الإيميل اللي هنرد عليك عليه',
+    formMsgLabel: 'رسالتك',
+    formMsgPh: 'اكتب تفاصيل المشروع أو سؤالك هنا...',
+    formSubmit: 'ابعت الرسالة',
+    formSending: 'بتتبعت دلوقتي...',
+    formOk: 'وصلت رسالتك ✅ هرّد عليك في أقرب وقت.',
+    formErr: 'معلش، الرسالة مبتتبعتش دلوقتي. جرّب تاني أو تواصل معي مباشرة.',
+    formFast: 'من دقيقتين انت بعت رسالة — استنى شوية وابعت تاني.',
+    formNeedName: 'اكتب اسمك الأول.',
+    formNeedEmail: 'اكتب إيميل صحيح عشان نقدر نرد عليك.',
+    formNeedMsg: 'اكتب رسالتك الأول.',
 
     /* رمز QR + المشاركة */
     qrKicker: 'شاركها مع صحابك',
@@ -427,6 +448,26 @@ const translations = {
     contactTitle: 'Need a project, collaboration, or just a quick chat?',
     contactButton: 'Contact Me',
 
+    /* Contact form */
+    formTitle: "Let's Build Something Together",
+    formIntro: 'Have a project, an idea or a question? Fill the form below and I will get back to you soon.',
+    formNameLabel: 'Full Name',
+    formNamePh: 'Enter your name',
+    formPhoneLabel: 'Phone Number',
+    formPhonePh: 'Your number (optional)',
+    formEmailLabel: 'Email Address',
+    formEmailPh: 'The email I should reply to',
+    formMsgLabel: 'Your Message',
+    formMsgPh: 'Tell me about the project or ask your question...',
+    formSubmit: 'Send Message',
+    formSending: 'Sending...',
+    formOk: 'Your message is in ✅ I will reply as soon as I can.',
+    formErr: 'The message could not be sent right now. Try again or contact me directly.',
+    formFast: 'You just sent a message two minutes ago — please wait a bit and try again.',
+    formNeedName: 'Please write your name first.',
+    formNeedEmail: 'Please write a valid email so we can reply to you.',
+    formNeedMsg: 'Please write your message first.',
+
     /* QR code + sharing */
     qrKicker: 'Share it with friends',
     qrTitle: 'Invite your friends to see my work',
@@ -517,7 +558,7 @@ const projectData = [
     },
     tech: ['React Native', 'Expo', 'TypeScript', 'Supabase', 'PostgreSQL', 'Vercel'],
     primaryText: { ar: 'زيارة مدار', en: 'Visit Madar' },
-    primaryLink: 'https://madar-three-liart.vercel.app/login',
+    primaryLink: 'https://madar-m.vercel.app/login',
     secondaryText: { ar: 'جيت هاب', en: 'GitHub' },
     secondaryLink: 'https://github.com/moatazsmohamed/madar',
     previewImage: 'img/madar-login.webp'
@@ -2029,7 +2070,7 @@ const assistantKnowledge = [
   },
   {
     id: 'about',
-    keywords: ['مين معتز', 'من هو معتز', 'عن معتز', 'عرفني بمعتز', 'حدثني عن معتز', 'من انت', 'مين انت', 'who is moataz', 'about moataz', 'about you', 'introduce yourself', 'yourself'],
+    keywords: ['مين معتز', 'من هو معتز', 'عن معتز', 'عرفني بمعتز', 'حدثني عن معتز', 'من انت', 'مين انت', 'اسمك', 'معتز', 'who is moataz', 'about moataz', 'about you', 'introduce yourself', 'yourself'],
     answer: {
       ar: 'معتز محمد — Frontend Developer وطالب تكنولوجيا معلومات في جامعة برج العرب التكنولوجية، ومن الإسكندرية 🇪🇬.\nخلفيته بتجمع بين الإدارة والعمل التقني، وبيبني تطبيقات ويب وموبايل كاملة. بيدور حاليًا على تدريب أو وظيفة مبتدئة كـ Frontend Developer.',
       en: 'Moataz Mohamed is a frontend developer and IT student at Borg El Arab Technological University, based in Alexandria, Egypt.\nHis background mixes management with hands-on technical work, and he builds complete web and mobile apps. He is currently looking for an internship or a junior frontend role.'
@@ -2053,10 +2094,10 @@ const assistantKnowledge = [
   },
   {
     id: 'madar',
-    keywords: ['مدار', 'madar', 'saas', 'اداره فريق', 'team management'],
+    keywords: ['مدار', 'منصة مدار', 'madar', 'saas', 'اداره فريق', 'team management', 'فريق', 'تيم', 'مهام', 'تايمر', 'تقارير'],
     answer: {
-      ar: 'مدار منصة سحابية متعددة الشركات لإدارة فرق العمل:\n• مهام يومية مع تايمر ومتابعة إنجاز.\n• أقسام وصلاحيات (مدير، مدير قسم، مشرف، موظف).\n• تقارير شهرية ونسب إنجاز وأرشيف.\n• لوحة مطوّر تدخل أي شركة بصلاحيات مديرها.\nمبنية بـ React Native (Expo) وTypeScript وSupabase، ومستضافة على Vercel.\nجرّبها: https://madar-three-liart.vercel.app/login',
-      en: 'Madar is a multi-tenant cloud platform for team management:\n• Daily tasks with timers and completion tracking.\n• Departments and roles (admin, manager, supervisor, employee).\n• Monthly reports, completion percentages and archives.\n• A developer console that can enter any company with admin powers.\nBuilt with React Native (Expo), TypeScript and Supabase, hosted on Vercel.\nTry it: https://madar-three-liart.vercel.app/login'
+      ar: 'مدار منصة سحابية متعددة الشركات لإدارة فرق العمل:\n• مهام يومية مع تايمر ومتابعة إنجاز.\n• أقسام وصلاحيات (مدير، مدير قسم، مشرف، موظف).\n• تقارير شهرية ونسب إنجاز وأرشيف.\n• لوحة مطوّر تدخل أي شركة بصلاحيات مديرها.\nمبنية بـ React Native (Expo) وTypeScript وSupabase، ومستضافة على Vercel.\nجرّبها: https://madar-m.vercel.app/login',
+      en: 'Madar is a multi-tenant cloud platform for team management:\n• Daily tasks with timers and completion tracking.\n• Departments and roles (admin, manager, supervisor, employee).\n• Monthly reports, completion percentages and archives.\n• A developer console that can enter any company with admin powers.\nBuilt with React Native (Expo), TypeScript and Supabase, hosted on Vercel.\nTry it: https://madar-m.vercel.app/login'
     }
   },
   {
@@ -2077,7 +2118,7 @@ const assistantKnowledge = [
   },
   {
     id: 'contact',
-    keywords: ['تواصل', 'اتواصل', 'كلمني', 'رقم', 'ايميل', 'واتساب', 'whatsapp', 'email', 'phone', 'contact', 'reach'],
+    keywords: ['تواصل', 'اتواصل', 'كلمني', 'رقم', 'ايميل', 'واتساب', 'تليفون', 'موبيل', 'عنوان', 'ابعت', 'whatsapp', 'email', 'phone', 'contact', 'reach'],
     answer: {
       ar: 'تقدر تتواصل مع معتز من:\n• واتساب: https://wa.me/201280090726\n• إيميل: mtzm2225@gmail.com\n• تليفون: +20 1035712862\n• لينكدإن: https://www.linkedin.com/in/moataz-mohamed-342b32399\nوهو منفتح على التدريب، الشغل المبتدئ، والتعاون في المشاريع.',
       en: 'You can reach Moataz via:\n• WhatsApp: https://wa.me/201280090726\n• Email: mtzm2225@gmail.com\n• Phone: +20 1035712862\n• LinkedIn: https://www.linkedin.com/in/moataz-mohamed-342b32399\nHe is open to internships, junior roles and project collaborations.'
@@ -2133,7 +2174,7 @@ const assistantKnowledge = [
   },
   {
     id: 'site',
-    keywords: ['الموقع ده', 'الموقع دا', 'what can you do', 'help', 'مساعده'],
+    keywords: ['الموقع ده', 'الموقع دا', 'what can you do', 'help', 'مساعده', 'مساعد', 'ai', 'بتعرف تعمل ايه', 'تساعدني'],
     answer: {
       ar: 'الموقع ده فيه: نبذة عن معتز، خبراته، مهاراته، الشهادات، المشاريع، وطرق التواصل — وكمان المساعد ده اللي بيرد على أسئلتك. جرّب تسألني عن أي حاجة منهم.',
       en: 'This site includes his bio, experience, skills, certificates, projects and contact details — plus this assistant that answers your questions. Ask me about any of them.'
@@ -2225,6 +2266,27 @@ function normalizeAssistantText(value) {
     .trim();
 }
 
+/**
+ * لغة الرد بتتحدد من لغة الرسالة نفسها، مش من مفتاح لغة الموقع.
+ * يعني واحد يكتب عربي وهو الموقع بالإنجليزي، الرد يطلع عربي.
+ * @param {string} message - نص رسالة المستخدم
+ * @returns {string} 'ar' أو 'en'
+ */
+function detectAssistantLanguage(message) {
+  const normalized = normalizeAssistantText(message);
+  const arabic = (normalized.match(/[؀-ۿ]/g) || []).length;
+  const latin = (normalized.match(/[a-z]/g) || []).length;
+
+  if (arabic && arabic >= latin) {
+    return 'ar';
+  }
+  if (latin && latin > arabic) {
+    return 'en';
+  }
+
+  return getCurrentLanguage();
+}
+
 /** أعلى درجة تطابق لموضوع واحد: الكلمات الأطول والأدق بتاخد أولوية */
 function scoreAssistantTopic(topic, query, tokens) {
   let best = 0;
@@ -2283,7 +2345,7 @@ function findAssistantAnswer(message, language) {
  * @returns {Promise<string>} الإجابة حسب اللغة الحالية
  */
 function askAI(userMessage) {
-  const language = getCurrentLanguage();
+  const language = detectAssistantLanguage(userMessage);
   const answer = findAssistantAnswer(userMessage, language);
 
   /* تأخير بسيط عشان حالة "جاري التفكير" تبان طبيعية */
@@ -3260,3 +3322,205 @@ document.addEventListener('keydown', function (event) {
     schedule();
   });
 })();
+
+/* ============================================================================
+   19) صندوق رسائل العملاء (فورم التواصل → Supabase)
+   ----------------------------------------------------------------------------
+   قبل ما تعدل القسم ده اعرف التلات حاجات دول:
+
+   • الرسايل بتخّن في جدول portfolio.leads، والجدول نفسه في schema اسمه
+     portfolio وهو schema مقفول على PostgREST — مافيش أي وصول ليه غير من
+     خلال الدوال العامة. الملف اللي بيعرّف الجدول والدوال: sql/portfolio-leads.sql
+
+   • الـ publishable key اللي تحت ده مفتاح علني بالضرورة (بيتحط في أي موقع
+     ثابت). الأمان كله في الدالة نفسها: الدالة العامة بترفض أي حقل طويل،
+     وبترفض أي بوت ملّى خانة الطُعم، وبتمنع أكثر من رسالة من نفس الإيميل
+     في دقيقتين. مفيش هنا أي سر مفاتيح service_role.
+
+   • لو الدالة اتندهت بـ error، الـ message بتاعتها بتكون كود ثابت
+     (LEAD_THROTTLED / LEAD_EMAIL_INVALID / ...) — بنحوّله لرسالة مفهومة
+     للمستخدم في mapLeadError.
+   ============================================================================ */
+
+const SUPABASE_URL = 'https://ppihzxabbysozbdmweje.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_7Re-MNRopMsOjopgV2YNjg_fN0yUDiL';
+const SUPABASE_ESM_URL = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+const LEAD_EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const contactForm = document.getElementById('contactForm');
+const formStatus = document.getElementById('formStatus');
+const contactSubmit = document.getElementById('contactSubmit');
+
+/* العميل بيبنى مرة واحدة عند أول إرسال — موقع البورتفوليو مابيثقلش بمكتبة */
+let supabaseClientPromise = null;
+
+/* آخر حالة اتعرضت، عشان سطر الحالة يفضل مترجم بعد تبديل اللغة */
+let lastStatusKey = '';
+let lastStatusTone = '';
+
+/**
+ * تحميل مكتبة Supabase وإنشاء عميل واحد مشترك.
+ * @returns {Promise<Object>} عميل supabase جاهز
+ */
+function getSupabaseClient() {
+  if (!supabaseClientPromise) {
+    supabaseClientPromise = import(SUPABASE_ESM_URL)
+      .then(function (module) {
+        return module.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+          auth: { persistSession: false, autoRefreshToken: false }
+        });
+      })
+      .catch(function (error) {
+        supabaseClientPromise = null;
+        throw error;
+      });
+  }
+
+  return supabaseClientPromise;
+}
+
+/** رسم سطر الحالة بلغة الموقع الحالية */
+function renderFormStatus() {
+  if (!formStatus) {
+    return;
+  }
+
+  const dictionary = getDictionary(getCurrentLanguage());
+  formStatus.textContent = lastStatusKey ? (dictionary[lastStatusKey] || '') : '';
+  formStatus.classList.toggle('is-ok', lastStatusTone === 'ok');
+  formStatus.classList.toggle('is-error', lastStatusTone === 'error');
+}
+
+/**
+ * ضبط سطر الحالة.
+ * @param {string} key - مفتاح الترجمة (فاضي = مسح الرسالة)
+ * @param {string} tone - 'ok' أو 'error' أو فاضي
+ */
+function setFormStatus(key, tone) {
+  lastStatusKey = key;
+  lastStatusTone = tone || '';
+  renderFormStatus();
+}
+
+/** تعطيل الزرار وتغيير نصه وهو بيستنى الرد */
+function setFormBusy(busy) {
+  if (!contactSubmit) {
+    return;
+  }
+
+  const label = contactSubmit.querySelector('span');
+  contactSubmit.disabled = busy;
+  if (label) {
+    label.textContent = getDictionary(getCurrentLanguage())[busy ? 'formSending' : 'formSubmit'];
+  }
+}
+
+/**
+ * تحويل خطأ الدالة لرسالة مفهومة.
+ * @param {Error|{message?: string}} error
+ * @returns {string} مفتاح الترجمة
+ */
+function mapLeadError(error) {
+  const message = String((error && error.message) || error || '');
+  if (message.indexOf('LEAD_THROTTLED') !== -1) {
+    return 'formFast';
+  }
+  if (message.indexOf('LEAD_EMAIL_INVALID') !== -1) {
+    return 'formNeedEmail';
+  }
+  if (message.indexOf('LEAD_NAME_INVALID') !== -1) {
+    return 'formNeedName';
+  }
+  if (message.indexOf('LEAD_MESSAGE_INVALID') !== -1) {
+    return 'formNeedMsg';
+  }
+  return 'formErr';
+}
+
+/**
+ * إرسال الرسالة للدالة العامة في Supabase.
+ * @param {Object} payload - أسماء الحقول مطابقة لأرجومنتات portfolio_submit_lead
+ * @returns {Promise<Object>} نتيجة الدالة
+ */
+function submitLead(payload) {
+  return getSupabaseClient().then(function (client) {
+    return client.rpc('portfolio_submit_lead', payload).then(function (result) {
+      if (result.error) {
+        throw result.error;
+      }
+      return result.data;
+    });
+  });
+}
+
+/** قارئ الفورم: بياخد الحقول من الفورم نفسه، فمفيش id محتاج نبحث عنه */
+function readContactForm() {
+  const data = new FormData(contactForm);
+  return {
+    p_full_name: String(data.get('name') || '').trim().slice(0, 120),
+    p_email: String(data.get('email') || '').trim().toLowerCase().slice(0, 254),
+    p_phone: String(data.get('phone') || '').trim().slice(0, 40) || null,
+    p_message: String(data.get('message') || '').trim().slice(0, 4000),
+    p_lang: getCurrentLanguage() === 'ar' ? 'ar' : 'en',
+    p_page: window.location.pathname,
+    p_honeypot: String(data.get('site') || '').trim()
+  };
+}
+
+/**
+ * معالج إرسال فورم التواصل.
+ * @param {SubmitEvent} event
+ */
+function onContactSubmit(event) {
+  event.preventDefault();
+
+  const payload = readContactForm();
+
+  /* خانة الطُعم: البوت بيملّها — نرد نجاح وهمي من غير أي إرسال */
+  if (payload.p_honeypot) {
+    contactForm.reset();
+    setFormStatus('formOk', 'ok');
+    return;
+  }
+
+  if (!payload.p_full_name) {
+    setFormStatus('formNeedName', 'error');
+    return;
+  }
+  if (!LEAD_EMAIL_PATTERN.test(payload.p_email)) {
+    setFormStatus('formNeedEmail', 'error');
+    return;
+  }
+  if (!payload.p_message) {
+    setFormStatus('formNeedMsg', 'error');
+    return;
+  }
+
+  setFormBusy(true);
+  setFormStatus('', '');
+
+  submitLead(payload)
+    .then(function () {
+      contactForm.reset();
+      setFormStatus('formOk', 'ok');
+    })
+    .catch(function (error) {
+      setFormStatus(mapLeadError(error), 'error');
+    })
+    .then(function () {
+      setFormBusy(false);
+    });
+}
+
+if (contactForm) {
+  contactForm.addEventListener('submit', onContactSubmit);
+}
+
+if (formStatus) {
+  /* applyLanguage بيغيّر سمة lang على <html> — بنعيد رسم سطر الحالة معها */
+  new MutationObserver(renderFormStatus).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['lang']
+  });
+}
+

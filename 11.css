@@ -3296,6 +3296,31 @@ body.light-mode .contact-item:hover {
     transform: translateY(-2px);
 }
 
+/* الزرار وهو بيستنى الرد من السيرفر */
+.btn-submit:disabled {
+    opacity: 0.6;
+    cursor: wait;
+    transform: none;
+    box-shadow: none;
+}
+
+/* سطر حالة إرسال الرسالة (نجاح / خطأ) */
+.form-status {
+    min-height: 22px;
+    margin: 12px 0 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.form-status.is-ok {
+    color: #6ee7b7;
+}
+
+.form-status.is-error {
+    color: #f87171;
+}
+
 /* التجاوب مع شاشات الموبايل */
 @media (max-width: 768px) {
     .form-row {
