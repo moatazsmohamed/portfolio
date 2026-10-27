@@ -787,7 +787,8 @@
             <h2 class="section-title" data-i18n="portfolioTitle">Projects</h2>
         </div>
 
-        <div class="project-card" data-reveal="zoom">
+        <div class="project-card" data-reveal="zoom" tabindex="0" role="group"
+             aria-roledescription="carousel" aria-label="Projects">
             <button type="button" class="project-nav-btn prev" aria-label="Previous project">
                 <i class="fa-solid fa-arrow-left project-arrow"></i>
             </button>
@@ -796,22 +797,30 @@
             </button>
 
             <div class="project-info">
-                <span class="project-tag" data-i18n="projectTag">First Project</span>
-                <h3 data-i18n="projectName">Portfolio Website</h3>
+                <div class="project-meta">
+                    <span class="project-tag" data-i18n="projectTag">Latest Project</span>
+                    <span class="project-index" id="projectIndex" aria-hidden="true">01 / 07</span>
+                </div>
+
+                <h3 data-i18n="projectName" aria-live="polite">Madar — Team Management</h3>
                 <p data-i18n="projectDescription">
-                    A modern personal portfolio with a responsive interface, language switcher, and certificate display section.
+                    A multi-tenant cloud platform for team operations: daily tasks with timers, departments and permissions, monthly reports, and a developer panel — with a fully Arabic interface.
                 </p>
 
+                <ul class="project-tech" id="projectTech" aria-label="Technologies used"></ul>
+
                 <div class="project-actions">
-                    <a href="index.html" target="_blank" rel="noopener noreferrer" class="project-btn primary" data-i18n="viewProject">View Project</a>
-                    <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="project-btn secondary" data-i18n="githubProject">GitHub</a>
+                    <a href="https://madar-three-liart.vercel.app/login" target="_blank" rel="noopener noreferrer" class="project-btn primary" data-i18n="viewProject">View Project</a>
+                    <a href="https://github.com/mtzm2225-ship-it/madar" target="_blank" rel="noopener noreferrer" class="project-btn secondary" data-i18n="githubProject">GitHub</a>
                     <button type="button" class="project-btn change" data-i18n="changeProject">Change Project</button>
                 </div>
+
+                <div class="project-dots" id="projectDots" role="group" aria-label="Choose a project"></div>
             </div>
 
             <div class="project-preview" aria-label="Project preview">
                 <div class="preview-window has-image">
-                    <img class="project-preview-image" src="img/Screenshot 2026-09-22 133437.png" alt="First project preview" loading="lazy" decoding="async">
+                    <img class="project-preview-image" src="img/madar-login.png" alt="Madar login page preview" loading="lazy" decoding="async">
 
                     <div class="preview-body">
                         <div class="preview-sidebar"></div>
@@ -1391,7 +1400,7 @@
         </div>
     </div>
 
-    <!-- لوحة الشات: الإدخال بيتبعت للـ Cloudflare Worker (worker.js) وهو اللي بيكلم الـ AI -->
+    <!-- لوحة الشات: المساعد بيشتغل محليًا (بدون سيرفر) وبيجاوب من قاعدة معرفة داخل script.js -->
     <div id="aiPanel" class="ai-panel hidden" role="dialog" aria-modal="false"
          aria-labelledby="ai-panel-title">
         <div class="ai-header">
@@ -1408,6 +1417,9 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </div>
+
+        <!-- أسئلة سريعة: بتتملي تلقائيًا من script.js حسب اللغة -->
+        <div id="aiSuggestions" class="ai-suggestions" role="group" aria-label="Suggested questions"></div>
 
         <div class="ai-box">
             <input type="text" id="userInput" class="ai-input" autocomplete="off"

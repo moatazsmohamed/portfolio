@@ -194,9 +194,9 @@ const translations = {
     /* قسم المشاريع */
     portfolioKicker: 'مشروع مميز',
     portfolioTitle: 'المشاريع',
-    projectTag: 'أول مشروع',
-    projectName: 'موقع الملف الشخصي',
-    projectDescription: 'موقع شخصي حديث بتصميم متجاوب، إمكانية تبديل اللغة، وقسم عرض الشهادات.',
+    projectTag: 'أحدث مشروع',
+    projectName: 'مدار — إدارة فريق العمل',
+    projectDescription: 'منصة سحابية متعددة الشركات لإدارة فرق العمل: مهام يومية وتايمر، أقسام وصلاحيات، تقارير شهرية، ولوحة مطوّر — بواجهة عربية كاملة.',
     viewProject: 'عرض المشروع',
     githubProject: 'جيت هاب',
     changeProject: 'تغيير المشروع',
@@ -244,8 +244,12 @@ const translations = {
     aiThinking: '...جاري التفكير',
     aiWaiting: 'الإجابة ستظهر هنا...',
     aiEmpty: 'من فضلك اكتب سؤال أولًا.',
-    aiError: 'تعذر الاتصال بالمساعد، تحقق من اتصال الإنترنت وحاول تاني.',
-    aiOffline: 'المساعد غير متاح حاليًا.',
+    aiFallback: 'مش متأكد إني فهمت السؤال 🙈 جرّب تسألني عن: معتز، المشاريع، مدار، المهارات، الخبرات، أو طرق التواصل.',
+    aiSuggestLabel: 'أسئلة سريعة',
+    aiSuggestAbout: 'مين معتز؟',
+    aiSuggestProjects: 'اعرض المشاريع',
+    aiSuggestMadar: 'إيه هو مدار؟',
+    aiSuggestContact: 'إزاي أتواصل؟',
 
     /* الإعدادات */
     primaryMode: 'الوضع الأساسي',
@@ -382,9 +386,9 @@ const translations = {
     /* Portfolio section */
     portfolioKicker: 'Featured Project',
     portfolioTitle: 'Projects',
-    projectTag: 'First Project',
-    projectName: 'Portfolio Website',
-    projectDescription: 'A modern personal portfolio with a responsive interface, language switcher, and certificate display section.',
+    projectTag: 'Latest Project',
+    projectName: 'Madar — Team Management',
+    projectDescription: 'A multi-tenant cloud platform for team operations: daily tasks with timers, departments and permissions, monthly reports, and a developer panel — with a fully Arabic interface.',
     viewProject: 'View Project',
     githubProject: 'GitHub',
     changeProject: 'Change Project',
@@ -432,14 +436,26 @@ const translations = {
     aiThinking: 'Thinking...',
     aiWaiting: 'The answer will appear here...',
     aiEmpty: 'Please type a question first.',
-    aiError: 'Could not reach the assistant. Check your connection and try again.',
-    aiOffline: 'The assistant is unavailable right now.',
+    aiFallback: "I'm not sure I got that. Try asking about Moataz, the projects, Madar, skills, experience, or contact details.",
+    aiSuggestLabel: 'Quick questions',
+    aiSuggestAbout: 'Who is Moataz?',
+    aiSuggestProjects: 'Show projects',
+    aiSuggestMadar: 'What is Madar?',
+    aiSuggestContact: 'How to contact?',
 
     /* Settings */
     primaryMode: 'Primary Mode',
     whiteMode: 'White Mode'
   }
 };
+
+/* أسئلة المساعد السريعة: النص المعروض من القاموس، والسؤال اللي بيتبعت حسب اللغة */
+const aiSuggestionPrompts = [
+  { labelKey: 'aiSuggestAbout', question: { ar: 'مين معتز؟', en: 'Who is Moataz?' } },
+  { labelKey: 'aiSuggestProjects', question: { ar: 'اعرض المشاريع', en: 'Show projects' } },
+  { labelKey: 'aiSuggestMadar', question: { ar: 'إيه هو مدار؟', en: 'What is Madar?' } },
+  { labelKey: 'aiSuggestContact', question: { ar: 'إزاي أتواصل؟', en: 'How to contact?' } }
+];
 
 /* ============================================================================
    2) بيانات المشاريع (Project Data)
@@ -462,29 +478,47 @@ const translations = {
    عايز تضيف مشروع؟ انسخ أي عنصر هنا وعدّل قيمه والكود هياخد باله لوحده.
    ============================================================================ */
 const projectData = [
-  /* --- المشروع الأول: موقع الملف الشخصي --- */
+  /* --- الأحدث: مدار — منصة إدارة فرق العمل --- */
   {
-    tag: { ar: 'الأول', en: 'First' },
+    tag: { ar: 'أحدث مشروع', en: 'Latest Project' },
+    name: { ar: 'مدار — إدارة فريق العمل', en: 'Madar — Team Management' },
+    description: {
+      ar: 'منصة سحابية متعددة الشركات لإدارة فرق العمل: مهام يومية وتايمر، أقسام وصلاحيات، تقارير شهرية، ولوحة مطوّر — بواجهة عربية كاملة.',
+      en: 'A multi-tenant SaaS for team management: daily tasks and timers, departments and roles, monthly reports, and a developer console — with a full Arabic RTL interface.'
+    },
+    tech: ['React Native', 'Expo', 'TypeScript', 'Supabase', 'PostgreSQL', 'Vercel'],
+    primaryText: { ar: 'زيارة مدار', en: 'Visit Madar' },
+    primaryLink: 'https://madar-three-liart.vercel.app/login',
+    secondaryText: { ar: 'جيت هاب', en: 'GitHub' },
+    secondaryLink: 'https://github.com/mtzm2225-ship-it/madar',
+    previewImage: 'img/madar-login.png'
+  },
+
+  /* --- المشروع الثاني: موقع الملف الشخصي --- */
+  {
+    tag: { ar: 'مشروع شخصي', en: 'Personal Project' },
     name: { ar: 'موقع الملف الشخصي', en: 'Portfolio Website' },
     description: {
       ar: 'موقع شخصي حديث بتصميم متجاوب، إمكانية تبديل اللغة، وقسم عرض الشهادات.',
       en: 'A modern personal portfolio with a responsive interface, language switcher, and certificate display section.'
     },
+    tech: ['HTML5', 'CSS3', 'JavaScript', 'Responsive'],
     primaryText: { ar: 'عرض المشروع', en: 'View Project' },
     primaryLink: 'index.html',
     secondaryText: { ar: 'جيت هاب', en: 'GitHub' },
-    secondaryLink: 'https://github.com/',
+    secondaryLink: 'https://github.com/mtzm2225-ship-it/portfolio',
     previewImage: 'img/Screenshot 2026-10-19 165612.png'
   },
 
-  /* --- المشروع الثاني: تافرا (متجر أزياء) --- */
+  /* --- المشروع الثالث: تافرا (متجر أزياء) --- */
   {
-    tag: { ar: 'الثاني', en: 'Second' },
+    tag: { ar: 'متجر إلكتروني', en: 'E-commerce' },
     name: { ar: 'تافرا - متجر أزياء', en: 'TAFRA - Fashion Store' },
     description: {
       ar: 'متجر أزياء إلكتروني بهوية بصرية فاخرة، يعرض تشكيلة تافرا مع تصميم عصري ومتجاوب.',
       en: 'An e-commerce fashion store with a luxury visual identity, showcasing the TAFRA collection with a modern, responsive design.'
     },
+    tech: ['HTML5', 'CSS3', 'JavaScript', 'GitHub Pages'],
     primaryText: { ar: 'عرض المشروع', en: 'View Project' },
     primaryLink: 'https://mtzm2225-ship-it.github.io/12.tafra',
     secondaryText: { ar: 'جيت هاب', en: 'GitHub' },
@@ -492,11 +526,11 @@ const projectData = [
     previewImage: 'img/Screenshot 2026-09-16 164001.png'
   },
 
-  /* --- مشروع سيتم إضافته لاحقًا --- */
+  /* --- المشروع الرابع: MS Woodworks --- */
 {
   tag: { 
-    ar: 'أثاث خشبي وفاخر', 
-    en: 'Handcrafted Furniture' 
+    ar: 'موقع أعمال', 
+    en: 'Business Website' 
   },
   name: { 
     ar: 'مؤسسة محمد إشماعيل وأولاده (MS Woodworks)', 
@@ -506,6 +540,7 @@ const projectData = [
     ar: 'مؤسسة متخصصة في تصنيع الأثاث الخشبي الفاخر المخصص يدويًا من الجوز الداكن للتصاميم المنزلية والمكتبية بخبرة تتجاوز 25 عامًا.',
     en: 'Specialized in crafting bespoke luxury solid wood furniture, executive office desks, and custom hand-carved joinery with over 25 years of experience.'
   },
+  tech: ['HTML5', 'CSS3', 'JavaScript', 'Vercel'],
   primaryText: { 
     ar: 'زيارة الموقع', 
     en: 'Visit Website' 
@@ -655,6 +690,18 @@ const projectPrevButton = document.querySelector('.project-nav-btn.prev');
 const projectNextButton = document.querySelector('.project-nav-btn.next');
 const projectPreviewImage = document.querySelector('.project-preview-image');
 const previewWindow = document.querySelector('.preview-window');
+const projectTech = document.getElementById('projectTech');
+const projectDots = document.getElementById('projectDots');
+const projectIndexLabel = document.getElementById('projectIndex');
+
+/* --- المساعد الذكي --- */
+const aiInput = document.getElementById('userInput');
+const aiResponse = document.getElementById('aiResponse');
+const aiSendButton = document.getElementById('aiSendButton');
+const aiToggle = document.getElementById('aiToggle');
+const aiPanel = document.getElementById('aiPanel');
+const aiCloseButton = document.querySelector('.ai-close');
+const aiSuggestions = document.getElementById('aiSuggestions');
 
 /* --- سلايدر الشهادات --- */
 const certificatesList = document.querySelector('.certificates-list');
@@ -1026,6 +1073,10 @@ function updateProjectCard(language) {
   projectName.textContent = project.name[currentLanguage] || project.name.en;
   projectDescription.textContent = project.description[currentLanguage] || project.description.en;
 
+  renderProjectTech(project);
+  renderProjectIndex();
+  renderProjectDots(currentLanguage);
+
   /* تحديث صورة المعاينة حسب المشروع الحالي (لو المشروع له صورة) */
   if (projectPreviewImage) {
     if (project.previewImage) {
@@ -1058,24 +1109,152 @@ function updateProjectCard(language) {
   }
 }
 
+/** عدّاد المشروع الحالي: 01 / 06 */
+function renderProjectIndex() {
+  if (!projectIndexLabel) {
+    return;
+  }
+
+  const total = projectData.length;
+  const position = String(currentProjectIndex + 1).padStart(2, '0');
+  projectIndexLabel.textContent = position + ' / ' + String(total).padStart(2, '0');
+}
+
+/** شرائح التقنيات المستخدمة في المشروع الحالي */
+function renderProjectTech(project) {
+  if (!projectTech) {
+    return;
+  }
+
+  const tech = Array.isArray(project.tech) ? project.tech : [];
+  projectTech.innerHTML = '';
+  projectTech.hidden = tech.length === 0;
+
+  tech.forEach(function (label) {
+    const item = document.createElement('li');
+    item.textContent = label;
+    projectTech.appendChild(item);
+  });
+}
+
+/** نقط التنقل: كل نقطة بتفتح مشروع معيّن */
+function renderProjectDots(language) {
+  if (!projectDots) {
+    return;
+  }
+
+  projectDots.innerHTML = '';
+
+  projectData.forEach(function (project, index) {
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'project-dot';
+    dot.setAttribute('aria-label', project.name[language] || project.name.en);
+    dot.setAttribute('aria-current', index === currentProjectIndex ? 'true' : 'false');
+    dot.addEventListener('click', function () {
+      goToProject(index);
+    });
+    projectDots.appendChild(dot);
+  });
+}
+
+/** الانتقال لمشروع معيّن بالترتيب الدائري */
+function goToProject(index) {
+  const total = projectData.length;
+  if (!total) {
+    return;
+  }
+
+  currentProjectIndex = ((index % total) + total) % total;
+  updateProjectCard();
+}
+
+/** التالي (+1) أو السابق (-1) */
+function stepProject(direction) {
+  goToProject(currentProjectIndex + direction);
+}
+
 /* زر "تغيير المشروع" — بينقل للمشروع اللي بعده */
 if (projectChangeButton) {
   projectChangeButton.addEventListener('click', function () {
-    currentProjectIndex = (currentProjectIndex + 1) % projectData.length;
-    updateProjectCard();
+    stepProject(1);
   });
 }
 
 /* أسهم التنقل بين المشاريع (السابق / التالي) */
-if (projectPrevButton && projectNextButton) {
+if (projectPrevButton) {
   projectPrevButton.addEventListener('click', function () {
-    currentProjectIndex = (currentProjectIndex - 1 + projectData.length) % projectData.length;
-    updateProjectCard();
+    stepProject(-1);
   });
+}
 
+if (projectNextButton) {
   projectNextButton.addEventListener('click', function () {
-    currentProjectIndex = (currentProjectIndex + 1) % projectData.length;
-    updateProjectCard();
+    stepProject(1);
+  });
+}
+
+/* السحب باللمس: يمين/شمال بيتنقل بين المشاريع (مع مراعاة اتجاه RTL) */
+(function initProjectSwipe() {
+  if (!projectCard) {
+    return;
+  }
+
+  let startX = null;
+  let startY = null;
+  let tracking = false;
+
+  projectCard.addEventListener('pointerdown', function (event) {
+    if (event.pointerType === 'mouse' || event.target.closest('a, button')) {
+      return;
+    }
+
+    startX = event.clientX;
+    startY = event.clientY;
+    tracking = true;
+  }, { passive: true });
+
+  projectCard.addEventListener('pointercancel', function () {
+    tracking = false;
+    startX = null;
+  }, { passive: true });
+
+  projectCard.addEventListener('pointerup', function (event) {
+    if (!tracking || startX === null) {
+      return;
+    }
+
+    const deltaX = event.clientX - startX;
+    const deltaY = event.clientY - startY;
+    tracking = false;
+    startX = null;
+
+    /* لازم سحبة أفقية واضحة — عشان التمرير الرأسي ما يتأثرش */
+    if (Math.abs(deltaX) < 45 || Math.abs(deltaX) < Math.abs(deltaY)) {
+      return;
+    }
+
+    const rtl = document.documentElement.dir === 'rtl';
+    const forward = rtl ? deltaX > 0 : deltaX < 0;
+    stepProject(forward ? 1 : -1);
+  }, { passive: true });
+})();
+
+/* أسهم الكيبورد: بيمين/شمال (مع مراعاة اتجاه RTL) */
+if (projectCard) {
+  projectCard.addEventListener('keydown', function (event) {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') {
+      return;
+    }
+
+    if (event.target.closest('input, textarea, select')) {
+      return;
+    }
+
+    event.preventDefault();
+    const rtl = document.documentElement.dir === 'rtl';
+    const forward = (event.key === 'ArrowRight') !== rtl;
+    stepProject(forward ? 1 : -1);
   });
 }
 
@@ -1130,6 +1309,7 @@ function applyLanguage(language) {
 
   /* تحديث كارت المشروع + لغة الصفحة + نص زر الوضع */
   updateProjectCard(language);
+  renderAiSuggestions(language);
   document.documentElement.lang = language;
 
   /* العربي بيتكتب من اليمين للشمال — الزر العائم واللوحة بيتقلبوا للجنب التاني */
@@ -2117,32 +2297,151 @@ applyTheme(savedTheme === 'light');
    ----------------------------------------------------------------------------
    فيه حاجتين هنا:
      1) الزر العائم (.ai-fab) اللي بيفتح ويقفل لوحة الشات (#aiPanel)
-     2) إرسال السؤال للـ Cloudflare Worker (الملف worker.js في نفس المجلد)
-        والـ Worker هو اللي بيمسك مفتاح الـ AI وبيكلم Gemini.
-        السبب: لو المفتاح اتحط هنا في script.js هيبقى مكشوف لأي زائر.
+     2) محرك إجابات محلي بالكامل — مفيش أي سيرفر أو مفتاح API.
 
-   الـ Worker لازم يرجّع JSON بالشكل:  { "reply": "..." }  أو  { "error": "..." }
+   ليه محلي؟
+     الـ Cloudflare Worker القديم بقى مش شغال (بيرجّع 405)، وأي مفتاح
+     لو اتحط هنا هيبقى مكشوف لأي زائر. فالمساعد بيجاوب من قاعدة معرفة
+     مكتوبة جوه الملف ده (assistantKnowledge) وبتغطي: معتز، المشاريع،
+     مدار، المهارات، الخبرات، الشهادات، السيرة، والتواصل.
+
+   طريقة الفهم:
+     • بنطبّع النص العربي (تشكيل، همزات، ة/ه، ى/ي) ونعمل lowercase للإنجليزي
+     • بنقارن بكلمات مفتاحية لكل موضوع، والأطول والأدق بيكسب
+     • لو مفيش تطابق بنرجّع رد لطيف بيقترح مواضيع
    ============================================================================ */
 
-/* رابط الـ Worker (نفس الـ Worker المفروض يكون منشور من ملف worker.js) */
-const AI_WORKER_URL = 'https://restless-frog-eb20.mtzm2225.workers.dev';
-
-/* أقصى مدة نستنى فيها رد السيرفر (40 ثانية) */
-const AI_REQUEST_TIMEOUT = 40000;
-
-/* أقصى عدد رسائل نحتفظ بيها كسياق عشان المساعد يفتكر المحادثة */
-const AI_MAX_HISTORY = 6;
-
-/* تاريخ المحادثة — بيتبعت مع كل سؤال */
-const aiConversationHistory = [];
-
-/* --- مراجع عناصر واجهة المساعد --- */
-const aiInput = document.getElementById('userInput');
-const aiResponse = document.getElementById('aiResponse');
-const aiSendButton = document.getElementById('aiSendButton');
-const aiToggle = document.getElementById('aiToggle');
-const aiPanel = document.getElementById('aiPanel');
-const aiCloseButton = document.querySelector('.ai-close');
+/* قاعدة المعرفة: كل موضوع له كلمات مفتاحية وإجابة بالعربي والإنجليزي */
+const assistantKnowledge = [
+  {
+    id: 'greeting',
+    keywords: ['اهلا', 'مرحبا', 'السلام عليكم', 'ازيك', 'هاي', 'hello', 'hi', 'hey'],
+    answer: {
+      ar: 'أهلاً بيك 👋 أنا مساعد معتز. أقدر أعرّفك عليه، على مشاريعه (زي مدار)، مهاراته، خبراته، أو إزاي تتواصل معاه.',
+      en: "Hi there 👋 I'm Moataz's assistant. I can tell you about him, his projects (like Madar), skills, experience, or how to get in touch."
+    }
+  },
+  {
+    id: 'about',
+    keywords: ['مين معتز', 'من هو معتز', 'عن معتز', 'عرفني بمعتز', 'حدثني عن معتز', 'من انت', 'مين انت', 'who is moataz', 'about moataz', 'about you', 'introduce yourself', 'yourself'],
+    answer: {
+      ar: 'معتز محمد — Frontend Developer وطالب تكنولوجيا معلومات في جامعة برج العرب التكنولوجية، ومن الإسكندرية 🇪🇬.\nخلفيته بتجمع بين الإدارة والعمل التقني، وبيبني تطبيقات ويب وموبايل كاملة. بيدور حاليًا على تدريب أو وظيفة مبتدئة كـ Frontend Developer.',
+      en: 'Moataz Mohamed is a frontend developer and IT student at Borg El Arab Technological University, based in Alexandria, Egypt.\nHis background mixes management with hands-on technical work, and he builds complete web and mobile apps. He is currently looking for an internship or a junior frontend role.'
+    }
+  },
+  {
+    id: 'skills',
+    keywords: ['مهار', 'بتعرف', 'تعرف ايه', 'تقنيات', 'skills', 'skill', 'stack', 'tech', 'technologies'],
+    answer: {
+      ar: 'أهم مهارات معتز:\n• الويب: HTML5، CSS3، JavaScript (ES6+)، تصميم متجاوب.\n• برمجة وأساسيات: C، منطق البيانات، Arduino Nano، ESP32.\n• أدوات: Git، GitHub، VS Code، Canva، Prompt Engineering.\n• وفي مشاريعه الحديثة استخدم React Native (Expo)، TypeScript، وSupabase.',
+      en: 'Key skills:\n• Web: HTML5, CSS3, JavaScript (ES6+), responsive design.\n• Programming & core: C, data logic, Arduino Nano, ESP32.\n• Tools: Git, GitHub, VS Code, Canva, prompt engineering.\n• Recent projects also use React Native (Expo), TypeScript and Supabase.'
+    }
+  },
+  {
+    id: 'projects',
+    keywords: ['مشاريع', 'مشروع', 'اعمال', 'بورتفوليو', 'projects', 'project', 'work', 'portfolio'],
+    answer: {
+      ar: 'المشاريع الرئيسية:\n• مدار — منصة إدارة فرق عمل متعددة الشركات (الأحدث).\n• MS Woodworks — موقع مؤسسة أثاث خشبي فاخر.\n• TAFRA — متجر أزياء إلكتروني.\n• البورتفوليو ده — الموقع اللي إنت فيه.\nاسألني عن أي مشروع منهم وأقولك تفاصيله.',
+      en: 'Main projects:\n• Madar — a multi-tenant team management platform (latest).\n• MS Woodworks — a luxury handcrafted furniture website.\n• TAFRA — an online fashion store.\n• This portfolio — the site you are on.\nAsk me about any of them for details.'
+    }
+  },
+  {
+    id: 'madar',
+    keywords: ['مدار', 'madar', 'saas', 'اداره فريق', 'team management'],
+    answer: {
+      ar: 'مدار منصة سحابية متعددة الشركات لإدارة فرق العمل:\n• مهام يومية مع تايمر ومتابعة إنجاز.\n• أقسام وصلاحيات (مدير، مدير قسم، مشرف، موظف).\n• تقارير شهرية ونسب إنجاز وأرشيف.\n• لوحة مطوّر تدخل أي شركة بصلاحيات مديرها.\nمبنية بـ React Native (Expo) وTypeScript وSupabase، ومستضافة على Vercel.\nجرّبها: https://madar-three-liart.vercel.app/login',
+      en: 'Madar is a multi-tenant cloud platform for team management:\n• Daily tasks with timers and completion tracking.\n• Departments and roles (admin, manager, supervisor, employee).\n• Monthly reports, completion percentages and archives.\n• A developer console that can enter any company with admin powers.\nBuilt with React Native (Expo), TypeScript and Supabase, hosted on Vercel.\nTry it: https://madar-three-liart.vercel.app/login'
+    }
+  },
+  {
+    id: 'mswood',
+    keywords: ['ms wood', 'mswood', 'wood', 'خشب', 'اثاث', 'furniture'],
+    answer: {
+      ar: 'MS Woodworks موقع لمؤسسة محمد إشماعيل وأولاده للأثاث الخشبي الفاخر، بخبرة تتجاوز 25 سنة في الأثاث المخصص والأثاث المكتبي.\nالموقع فيه معرض أعمال، تفاصيل الخامات، ووسيلة تواصل — وتقدر تزوره من قسم المشاريع.',
+      en: 'MS Woodworks is the website of Mohamed Ismail & Sons, a luxury handcrafted furniture house with over 25 years of experience in bespoke and executive office furniture.\nIt includes a gallery, materials details and contact options — you can open it from the projects section.'
+    }
+  },
+  {
+    id: 'tafra',
+    keywords: ['تافرا', 'tafra', 'fashion', 'ازياء', 'متجر'],
+    answer: {
+      ar: 'TAFRA متجر أزياء إلكتروني بهوية بصرية فاخرة وتصميم عصري متجاوب، بيعرض تشكيلة تافرا. تقدر تفتحه من زرار «عرض المشروع» في كارت TAFRA.',
+      en: 'TAFRA is an online fashion store with a luxury visual identity and a modern responsive design, showcasing the TAFRA collection. Open it from the “View Project” button on the TAFRA card.'
+    }
+  },
+  {
+    id: 'contact',
+    keywords: ['تواصل', 'اتواصل', 'كلمني', 'رقم', 'ايميل', 'واتساب', 'whatsapp', 'email', 'phone', 'contact', 'reach'],
+    answer: {
+      ar: 'تقدر تتواصل مع معتز من:\n• واتساب: https://wa.me/201280090726\n• إيميل: mtzm2225@gmail.com\n• تليفون: +20 1035712862\n• لينكدإن: https://www.linkedin.com/in/moataz-mohamed-342b32399\nوهو منفتح على التدريب، الشغل المبتدئ، والتعاون في المشاريع.',
+      en: 'You can reach Moataz via:\n• WhatsApp: https://wa.me/201280090726\n• Email: mtzm2225@gmail.com\n• Phone: +20 1035712862\n• LinkedIn: https://www.linkedin.com/in/moataz-mohamed-342b32399\nHe is open to internships, junior roles and project collaborations.'
+    }
+  },
+  {
+    id: 'cv',
+    keywords: ['سيره', 'cv', 'resume'],
+    answer: {
+      ar: 'السيرة الذاتية متاحة للتحميل من زرار «تحميل السيرة الذاتية» في أول الصفحة، أو من اللينك ده: img/Moataz_Mohamed_CV_Clean.pdf',
+      en: 'The CV is available from the “Download CV” button at the top of the page, or directly here: img/Moataz_Mohamed_CV_Clean.pdf'
+    }
+  },
+  {
+    id: 'education',
+    keywords: ['جامعه', 'دراسه', 'تعليم', 'education', 'university', 'college'],
+    answer: {
+      ar: 'معتز طالب تكنولوجيا معلومات في جامعة برج العرب التكنولوجية، ودرس أساسيات الشبكات وأمن المعلومات (Cisco)، وكمان مسارات في تطوير الواجهات الأمامية (HTML/CSS/JavaScript).',
+      en: 'Moataz studies Information Technology at Borg El Arab Technological University, with Cisco networking and cybersecurity fundamentals, plus frontend development tracks (HTML/CSS/JavaScript).'
+    }
+  },
+  {
+    id: 'experience',
+    keywords: ['خبر', 'experience', 'career', 'عملت فين', 'شغل قبل'],
+    answer: {
+      ar: 'خبرات معتز:\n• مشرف منصات رقمية ومتخصص محتوى (عن بُعد) — إدارة التفاعل وإنشاء محتوى تقني.\n• مدير فرع / قائد عمليات — إدارة العمليات اليومية وقيادة الفريق.\n• مساعد عمليات مخازن — تتبع المخزون وتنظيم التوزيع.\nوالخبرات دي بتديه حس عملي في الإدارة والتقنية مع بعض.',
+      en: 'Experience:\n• Online moderator & content specialist (remote) — community engagement and technical content.\n• Branch manager / operational lead — daily operations and team leadership.\n• Warehouse operations assistant — inventory tracking and distribution.\nThis mix gives him practical management plus technical perspective.'
+    }
+  },
+  {
+    id: 'certificates',
+    keywords: ['شهاد', 'كورس', 'دورات', 'certificate', 'certificates', 'courses', 'course'],
+    answer: {
+      ar: 'من الشهادات والدورات: شهادات HTML وCSS وJavaScript، وحدث Before Brand من أكاديمية العربية (الإسكندرية 2026)، وأساسيات شبكات وأمن المعلومات من Cisco. كلها معروضة في قسم الشهادات.',
+      en: 'Certificates and courses include HTML, CSS and JavaScript certificates, the Before Brand event by the Arab Academy (Alexandria 2026), and Cisco networking & cybersecurity fundamentals — all shown in the certificates section.'
+    }
+  },
+  {
+    id: 'availability',
+    keywords: ['متاح', 'توظيف', 'تدريب', 'internship', 'hire', 'available', 'freelance', 'junior', 'وظيفه'],
+    answer: {
+      ar: 'أيوه، معتز متاح لتدريب (Internship) أو وظيفة مبتدئة كـ Frontend Developer، ومنفتح على المشاريع الحرة والتعاون. أفضل طريقة للتواصل واتساب أو الإيميل: mtzm2225@gmail.com',
+      en: 'Yes — Moataz is available for an internship or a junior frontend role, and open to freelance work and collaborations. Best way to reach him is WhatsApp or email: mtzm2225@gmail.com'
+    }
+  },
+  {
+    id: 'languages',
+    keywords: ['لغات', 'لغه', 'انجليزي', 'english', 'arabic'],
+    answer: {
+      ar: 'العربي لغته الأم، وبيستخدم الإنجليزي في دراسته التقنية وشغله على أدوات وتوثيق البرمجة.',
+      en: 'Arabic is his native language, and he uses English for his technical studies and for programming tools and documentation.'
+    }
+  },
+  {
+    id: 'site',
+    keywords: ['الموقع ده', 'الموقع دا', 'what can you do', 'help', 'مساعده'],
+    answer: {
+      ar: 'الموقع ده فيه: نبذة عن معتز، خبراته، مهاراته، الشهادات، المشاريع، وطرق التواصل — وكمان المساعد ده اللي بيرد على أسئلتك. جرّب تسألني عن أي حاجة منهم.',
+      en: 'This site includes his bio, experience, skills, certificates, projects and contact details — plus this assistant that answers your questions. Ask me about any of them.'
+    }
+  },
+  {
+    id: 'thanks',
+    keywords: ['شكرا', 'تسلم', 'thanks', 'thank you'],
+    answer: {
+      ar: 'العفو! لو عايز تعرف أي حاجة تانية عن معتز أو مشاريعه، أنا هنا 😊',
+      en: "You're welcome! If you want to know anything else about Moataz or his projects, I'm here 😊"
+    }
+  }
+];
 
 /** فتح لوحة المساعد والتركيز على خانة السؤال */
 function openAiPanel() {
@@ -2205,65 +2504,113 @@ document.addEventListener('keydown', function (event) {
   }
 });
 
-/** التحقق إن الرد جاي من الـ Worker بالشكل المتفق عليه */
-function isAiPayload(data) {
-  return data && typeof data === 'object' && typeof data.reply === 'string' && data.reply.trim();
+/** تطبيع النص العربي/الإنجليزي قبل المقارنة (همزات، تشكيل، ة/ه، ى/ي) */
+function normalizeAssistantText(value) {
+  return String(value || '')
+    .toLowerCase()
+    .replace(/[\u064B-\u0652\u0670\u0640]/g, '')
+    .replace(/[أإآٱ]/g, 'ا')
+    .replace(/ى/g, 'ي')
+    .replace(/ؤ/g, 'و')
+    .replace(/ئ/g, 'ي')
+    .replace(/ة/g, 'ه')
+    .replace(/[^\w\u0600-\u06FF\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/** أعلى درجة تطابق لموضوع واحد: الكلمات الأطول والأدق بتاخد أولوية */
+function scoreAssistantTopic(topic, query, tokens) {
+  let best = 0;
+
+  topic.keywords.forEach(function (rawKeyword) {
+    const keyword = normalizeAssistantText(rawKeyword);
+    if (!keyword) {
+      return;
+    }
+
+    let matched;
+
+    if (keyword.indexOf(' ') !== -1) {
+      /* عبارة كاملة (زي "who is moataz") */
+      matched = query.indexOf(keyword) !== -1;
+    } else if (keyword.length <= 3) {
+      /* كلمة قصيرة (زي hi) لازم تكون كلمة مستقلة */
+      matched = tokens.indexOf(keyword) !== -1;
+    } else {
+      matched = query.indexOf(keyword) !== -1;
+    }
+
+    if (matched && keyword.length > best) {
+      best = keyword.length;
+    }
+  });
+
+  return best;
+}
+
+/** اختيار أفضل موضوع للرسالة أو رد افتراضي */
+function findAssistantAnswer(message, language) {
+  const query = normalizeAssistantText(message);
+  const tokens = query ? query.split(' ') : [];
+  let bestTopic = null;
+  let bestScore = 0;
+
+  assistantKnowledge.forEach(function (topic) {
+    const score = scoreAssistantTopic(topic, query, tokens);
+    if (score > bestScore) {
+      bestScore = score;
+      bestTopic = topic;
+    }
+  });
+
+  if (bestTopic) {
+    return bestTopic.answer[language] || bestTopic.answer.en;
+  }
+
+  return getDictionary(language).aiFallback;
 }
 
 /**
- * إرسال سؤال للـ Worker وإرجاع الإجابة
+ * إجابة المساعد محليًا (من غير أي سيرفر)
  * @param {string} userMessage - سؤال المستخدم
- * @returns {Promise<string>} إجابة الذكاء الاصطناعي
+ * @returns {Promise<string>} الإجابة حسب اللغة الحالية
  */
-async function askAI(userMessage) {
-  const dictionary = getDictionary(getCurrentLanguage());
+function askAI(userMessage) {
+  const language = getCurrentLanguage();
+  const answer = findAssistantAnswer(userMessage, language);
 
-  /* لو الجهاز مش متصل بالنت من الأساس مش محتاجين نستنى */
-  if (navigator.onLine === false) {
-    return dictionary.aiError;
+  /* تأخير بسيط عشان حالة "جاري التفكير" تبان طبيعية */
+  return new Promise(function (resolve) {
+    setTimeout(function () {
+      resolve(answer);
+    }, 550);
+  });
+}
+
+/** أزرار الأسئلة السريعة جوه لوحة المساعد */
+function renderAiSuggestions(language) {
+  if (!aiSuggestions) {
+    return;
   }
 
-  /* مؤقت لإلغاء الطلب لو أخد وقت طويل */
-  const controller = new AbortController();
-  const timeoutId = setTimeout(function () {
-    controller.abort();
-  }, AI_REQUEST_TIMEOUT);
+  const dictionary = getDictionary(language || getCurrentLanguage());
+  aiSuggestions.innerHTML = '';
+  aiSuggestions.setAttribute('aria-label', dictionary.aiSuggestLabel || 'Suggested questions');
 
-  try {
-    const response = await fetch(AI_WORKER_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        message: userMessage,
-        history: aiConversationHistory.slice(-AI_MAX_HISTORY)
-      }),
-      signal: controller.signal
+  aiSuggestionPrompts.forEach(function (prompt) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'ai-suggestion';
+    button.textContent = dictionary[prompt.labelKey] || prompt.labelKey;
+    button.addEventListener('click', function () {
+      if (aiInput) {
+        aiInput.value = prompt.question[getCurrentLanguage()] || prompt.question.en;
+      }
+      handleAskAI();
     });
-
-    /* بنقرا JSON حتى مع ردود الأخطاء عشان الـ Worker بيرجّع { error: "..." } */
-    let data = null;
-    try {
-      data = await response.json();
-    } catch (parseError) {
-      data = null;
-    }
-
-    if (response.ok && isAiPayload(data)) {
-      return data.reply.trim();
-    }
-
-    /* رسالة الخطأ الآتية من السيرفر */
-    if (data && typeof data.error === 'string' && data.error.trim()) {
-      return data.error.trim();
-    }
-
-    return dictionary.aiOffline;
-  } catch (error) {
-    console.error('[AI] فشل الاتصال بالـ Worker:', error);
-    return dictionary.aiError;
-  } finally {
-    clearTimeout(timeoutId);
-  }
+    aiSuggestions.appendChild(button);
+  });
 }
 
 /** تثبيت حالة واجهة المساعد (جاري التفكير / خطأ) */
@@ -2314,25 +2661,9 @@ async function handleAskAI() {
   aiResponse.classList.remove('is-error');
   aiResponse.textContent = dictionary.aiThinking;
 
-  /* نحفظ سؤال المستخدم في تاريخ المحادثة قبل ما نبعته */
-  aiConversationHistory.push({ role: 'user', content: userText });
-
   const aiReply = await askAI(userText);
 
-  /* لو رجع أي رسالة خطأ معروفة نعتبرها خطأ */
-  const isError = aiReply === dictionary.aiError || aiReply === dictionary.aiOffline;
-
-  /* نحفظ رد المساعد لو كان رد حقي */
-  if (!isError) {
-    aiConversationHistory.push({ role: 'assistant', content: aiReply });
-
-    /* نقلّم التاريخ لو كبر عن الحد */
-    if (aiConversationHistory.length > AI_MAX_HISTORY) {
-      aiConversationHistory.splice(0, aiConversationHistory.length - AI_MAX_HISTORY);
-    }
-  }
-
-  showAiReply(aiReply, isError);
+  showAiReply(aiReply, false);
   setAiBusy(false);
 
   aiInput.value = '';

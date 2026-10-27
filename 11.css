@@ -1979,6 +1979,91 @@ body.light-mode .search-match {
     font-size: 1rem;
 }
 
+/* صف التصنيف + عدّاد المشروع (01 / 06) */
+.project-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.project-index {
+    color: rgba(247, 215, 116, 0.72);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    font-variant-numeric: tabular-nums;
+}
+
+/* شرائح التقنيات المستخدمة في المشروع */
+.project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 14px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.project-tech[hidden] {
+    display: none;
+}
+
+.project-tech li {
+    padding: 5px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(212, 175, 55, 0.28);
+    background: rgba(212, 175, 55, 0.08);
+    color: #d9c98f;
+    font-size: 0.72rem;
+    line-height: 1.2;
+}
+
+/* نقط التنقل بين المشاريع */
+.project-dots {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.project-dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: none;
+    border-radius: 999px;
+    background: rgba(212, 175, 55, 0.28);
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.project-dot:hover {
+    background: rgba(247, 215, 116, 0.6);
+}
+
+.project-dot[aria-current="true"] {
+    width: 22px;
+    background: linear-gradient(135deg, #f7d774, #d4af37);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+.project-dot:focus-visible {
+    outline: 2px solid #f7d774;
+    outline-offset: 3px;
+}
+
+.project-card:focus-visible {
+    outline: 2px solid rgba(247, 215, 116, 0.75);
+    outline-offset: 4px;
+}
+
+/* السحب الأفقي للتنقل من غير ما نعطّل التمرير الرأسي */
+.project-card {
+    touch-action: pan-y;
+}
+
 .project-actions {
     display: flex;
     flex-wrap: wrap;
@@ -4672,6 +4757,39 @@ body.light-mode .name-intro-kicker {
     line-height: 1.5;
 }
 
+/* --- أزرار الأسئلة السريعة --- */
+.ai-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 14px;
+}
+
+.ai-suggestion {
+    padding: 7px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 242, 254, 0.28);
+    background: rgba(0, 242, 254, 0.06);
+    color: #a5f3fc;
+    font-family: inherit;
+    font-size: 0.78rem;
+    line-height: 1.2;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.ai-suggestion:hover {
+    background: rgba(0, 242, 254, 0.16);
+    border-color: rgba(0, 242, 254, 0.55);
+    color: #ecfeff;
+    transform: translateY(-1px);
+}
+
+.ai-suggestion:focus-visible {
+    outline: 2px solid #67e8f9;
+    outline-offset: 2px;
+}
+
 /* --- صف الإدخال والزر --- */
 .ai-box {
     display: flex;
@@ -4749,6 +4867,8 @@ body.light-mode .name-intro-kicker {
     margin-top: 16px;
     padding: 16px;
     min-height: 60px;
+    max-height: 260px;
+    overflow-y: auto;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-left: 3px solid #00f2fe;
@@ -4760,6 +4880,8 @@ body.light-mode .name-intro-kicker {
     white-space: pre-wrap;
     word-wrap: break-word;
     overflow-wrap: anywhere;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 242, 254, 0.45) transparent;
 }
 
 /* حالة الخطأ */
@@ -4783,6 +4905,17 @@ body.light-mode .whatsapp-fab {
 body.light-mode .ai-fab {
     border-color: rgba(2, 132, 199, 0.4);
     box-shadow: 0 12px 28px rgba(2, 132, 199, 0.28), 0 4px 12px rgba(15, 23, 42, 0.14);
+}
+
+body.light-mode .ai-suggestion {
+    background: rgba(2, 132, 199, 0.06);
+    border-color: rgba(2, 132, 199, 0.25);
+    color: #0369a1;
+}
+
+body.light-mode .ai-suggestion:hover {
+    background: rgba(2, 132, 199, 0.14);
+    color: #075985;
 }
 
 body.light-mode .ai-fab-dot {
@@ -7333,6 +7466,33 @@ body.light-mode .project-btn.change {
     background: rgba(203, 168, 100, 0.16);
     border-color: var(--lm-border-strong);
     color: var(--lm-bronze-ink);
+}
+
+body.light-mode .project-index {
+    color: var(--lm-bronze-ink);
+}
+
+body.light-mode .project-tech li {
+    background: rgba(255, 255, 255, 0.78);
+    border-color: var(--lm-border);
+    color: var(--lm-ink-soft);
+}
+
+body.light-mode .project-dot {
+    background: rgba(156, 111, 28, 0.24);
+}
+
+body.light-mode .project-dot:hover {
+    background: rgba(156, 111, 28, 0.45);
+}
+
+body.light-mode .project-dot[aria-current="true"] {
+    background: linear-gradient(135deg, #c39a4d, #a97c26);
+    box-shadow: 0 0 10px rgba(156, 111, 28, 0.35);
+}
+
+body.light-mode .project-card:focus-visible {
+    outline-color: rgba(156, 111, 28, 0.7);
 }
 
 body.light-mode .preview-window {
