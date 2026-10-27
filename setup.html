@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<!-- ============================================================================
+     PORTFOLIO — صفحة الإعداد (setup.html)
+     صفحة مساعدة ليك أنت: بتعرض سكريبت قاعدة بيانات الرسائل بزرار نسخ، وبتقولي
+     الخطوة بخطوة، وفيها زرار يفحص هل الدوال اتعملت في Supabase ولا لأ.
+     مش متلينكاهاش في الموقع وممنوعة من الفهرسة.
+     ============================================================================ -->
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <title>إعداد صندوق الرسائل — Moataz Mohamed</title>
+    <link rel="icon" type="image/png" sizes="32x2" href="img/favicon-32.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0b0a08; --panel: #16130e; --panel-2: #1e1a13; --border: #2c2519;
+            --gold: #d4af37; --gold-soft: #f7d774; --text: #f3ead6; --muted: #a2977f;
+            --ok: #6ee7b7; --err: #f87171; --radius: 14px;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0; background: radial-gradient(1200px 600px at 80% -10%, rgba(212,175,55,.12), transparent 60%), var(--bg);
+            color: var(--text); font-family: 'Cairo', 'Inter', system-ui, sans-serif; line-height: 1.7;
+        }
+        .wrap { max-width: 900px; margin: 0 auto; padding: 24px 16px 70px; }
+        h1 { font-size: 1.35rem; margin: 0 0 4px; }
+        .sub { color: var(--muted); font-size: .92rem; margin: 0 0 22px; }
+        .card { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 16px; }
+        .card h2 { font-size: 1rem; margin: 0 0 12px; color: var(--gold-soft); }
+        ol.steps { margin: 0; padding-inline-start: 22px; }
+        ol.steps li { margin-bottom: 9px; }
+        kbd { background: var(--panel-2); border: 1px solid var(--border); border-radius: 6px; padding: 1px 7px; font-size: .82rem; }
+        .btn {
+            font: inherit; font-size: .9rem; padding: 9px 15px; border-radius: 10px; cursor: pointer;
+            border: 1px solid var(--border); background: var(--panel-2); color: var(--text);
+            text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: .2s;
+        }
+        .btn:hover { border-color: var(--gold); color: var(--gold-soft); }
+        .btn.gold { background: linear-gradient(135deg, var(--gold-soft), var(--gold)); color: #1a1305; border: none; font-weight: 600; }
+        .btn:disabled { opacity: .55; cursor: wait; }
+        .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+        pre {
+            direction: ltr; text-align: left; overflow: auto; max-height: 380px; margin: 0;
+            background: #100e0b; border: 1px solid var(--border); border-radius: 10px;
+            padding: 14px; font-size: .78rem; line-height: 1.5; white-space: pre;
+            font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+        }
+        .status { min-height: 26px; margin-top: 12px; font-size: .9rem; }
+        .status.ok { color: var(--ok); }
+        .status.err { color: var(--err); }
+        a { color: var(--gold-soft); }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <h1>إعداد صندوق رسائل العملاء</h1>
+    <p class="sub">بتتعمل مرة واحدة بس في Supabase. لو اتعملت صح، الفورم وصندوق الرسائل هيشتغلوا على طول.</p>
+
+    <div class="card">
+        <h2>الخطوات</h2>
+        <ol class="steps">
+            <li>دوس <strong>«نسخ السكريبت»</strong> تحت.</li>
+            <li>افتح محرر SQL على مشروع مدار: <a href="https://supabase.com/dashboard/project/ppihzxabbysozbdmweje/sql/new" target="_blank" rel="noopener">ppihzxabbysozbdmweje → SQL Editor</a> (لو طلب دخول، ادخل).</li>
+            <li>جوه المحرر اعمل <kbd>Ctrl</kbd>+<kbd>A</kbd> ثم <kbd>Delete</kbd> — المحرر بيشغّل <em>المحدّد فقط</em> فلازم يبقى فاضي.</li>
+            <li><kbd>Ctrl</kbd>+<kbd>V</kbd> ثم دوس <strong>Run</strong>.</li>
+            <li>آخر نتيجة لازم تطلّع <strong>OK — الدوال الستة اتعملت</strong>. ارجع هنا ودوس <strong>«افحص»</strong> للتأكيد.</li>
+        </ol>
+    </div>
+
+    <div class="card">
+        <div class="row">
+            <button class="btn gold" id="copyBtn" type="button">نسخ السكريبت</button>
+            <button class="btn" id="checkBtn" type="button">افحص</button>
+            <span class="sub" id="sizeNote">بيتحمل…</span>
+        </div>
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+        <pre id="sql" aria-label="محتوى سكريبت الإعداد"></pre>
+    </div>
+</div>
+
+<script>
+    const SUPABASE_URL = 'https://ppihzxabbysozbdmweje.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_7Re-MNRopMsOjopgV2YNjg_fN0yUDiL';
+    const copyBtn = document.getElementById('copyBtn');
+    const checkBtn = document.getElementById('checkBtn');
+    const statusLine = document.getElementById('status');
+    const sizeNote = document.getElementById('sizeNote');
+    const sqlBox = document.getElementById('sql');
+    let sqlText = '';
+
+    function say(text, tone) {
+        statusLine.textContent = text;
+        statusLine.className = tone ? 'status ' + tone : 'status';
+    }
+
+    fetch('sql/portfolio-leads.sql')
+        .then(function (r) {
+            if (!r.ok) {
+                throw new Error('HTTP ' + r.status);
+            }
+            return r.text();
+        })
+        .then(function (text) {
+            sqlText = text;
+            sqlBox.textContent = text;
+            sizeNote.textContent = text.split('\n').length + ' سطر';
+        })
+        .catch(function () {
+            sizeNote.textContent = 'مقدرتش أحمّل الملف من السيرفر ده';
+        });
+
+    // النسخ بيحتاج صلاحية؛ لو مرفوضة بنحدّد النص عشان يكمّل بـ Ctrl+C من غير ما يلمس حاجة.
+    function selectScript() {
+        const range = document.createRange();
+        range.selectNodeContents(sqlBox);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+    }
+
+    function copyNow() {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(sqlText).then(function () {
+                say('اتنسخ — افتح المحرر وكمّل الخطوات.', 'ok');
+            }).catch(function () {
+                const area = document.createElement('textarea');
+                area.value = sqlText;
+                area.setAttribute('readonly', '');
+                area.style.position = 'fixed';
+                area.style.top = '0';
+                area.style.left = '0';
+                area.style.opacity = '0';
+                document.body.appendChild(area);
+                area.select();
+                let done = false;
+                try {
+                    done = document.execCommand('copy');
+                } catch (error) {
+                    done = false;
+                }
+                document.body.removeChild(area);
+                if (done) {
+                    say('اتنسخ — افتح المحرر وكمّل الخطوات.', 'ok');
+                } else {
+                    selectScript();
+                    say('النص اتحدّد هنا — دوس Ctrl+C للنسخ.', 'err');
+                }
+            });
+        } else {
+            selectScript();
+            say('النص اتحدّد هنا — دوس Ctrl+C للنسخ.', 'err');
+        }
+    }
+
+    copyBtn.addEventListener('click', function () {
+        if (!sqlText) {
+            say('استنى السكريبت يتحمّل الأول.', 'err');
+            return;
+        }
+        copyNow();
+    });
+
+    // فحص من غير ما نكتب أي سطر: خانة الطُعم مليانة، فالدالة بترد نجاح ومابيسجلش حاجة.
+    checkBtn.addEventListener('click', function () {
+        checkBtn.disabled = true;
+        say('بتفحص…');
+        fetch(SUPABASE_URL + '/rest/v1/rpc/portfolio_submit_lead', {
+            method: 'POST',
+            headers: {
+                apikey: SUPABASE_KEY,
+                Authorization: 'Bearer ' + SUPABASE_KEY,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                p_full_name: 'فحص', p_email: 'check@example.invalid', p_phone: null,
+                p_message: 'فحص', p_lang: 'ar', p_page: '/setup.html', p_honeypot: 'filled'
+            })
+        })
+            .then(function (r) { return r.text().then(function (t) { return { ok: r.ok, t: t }; }); })
+            .then(function (res) {
+                if (res.ok && res.t.indexOf('filtered') !== -1) {
+                    say('✅ الدوال شغالة — الفورم وصندوق الرسائل جاهزين.', 'ok');
+                } else {
+                    say('الدوال لسه مش في المشروع ده: ' + res.t.slice(0, 120), 'err');
+                }
+            })
+            .catch(function (error) {
+                say('مقدرتش أوصل لـ Supabase: ' + error.message, 'err');
+            })
+            .then(function () { checkBtn.disabled = false; });
+    });
+</script>
+</body>
+</html>

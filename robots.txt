@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /admin.html
+Disallow: /setup.html
+Disallow: /sql/
 
 Sitemap: https://portfolio-moataz.vercel.app/sitemap.xml
