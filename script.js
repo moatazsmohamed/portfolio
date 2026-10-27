@@ -3145,6 +3145,7 @@ document.addEventListener('keydown', function (event) {
         addVisits(stored, passed);
         stored.at = now;
       }
+      addVisits(stored, 1 + Math.floor(Math.random() * 2));
       return stored;
     }
     const visits = 1200 + Math.floor(Math.random() * 800);
@@ -3164,7 +3165,7 @@ document.addEventListener('keydown', function (event) {
     return value + '+';
   }
 
-  function countUp(element, target, from) {
+  function countUp(element, target, from, duration) {
     if (!element) {
       return;
     }
@@ -3177,10 +3178,10 @@ document.addEventListener('keydown', function (event) {
       element.textContent = formatCount(target);
       return;
     }
-    const duration = 850;
+    const ms = typeof duration === 'number' ? duration : 850;
     const startedAt = window.performance.now();
     function tick(now) {
-      const progress = Math.min((now - startedAt) / duration, 1);
+      const progress = Math.min(Math.max((now - startedAt) / ms, 0), 1);
       const eased = 1 - Math.pow(1 - progress, 3);
       element.textContent = formatCount(Math.round(start + (target - start) * eased));
       if (progress < 1) {
@@ -3221,8 +3222,10 @@ document.addEventListener('keydown', function (event) {
   schedule();
 
   function reveal() {
-    countUp(visitsEl, state.visits, 0);
-    countUp(visitorsEl, state.visitors, 0);
+    countUp(visitsEl, state.visits, 0, 1500);
+    countUp(visitorsEl, state.visitors, 0, 1500);
+    countUp(clientsEl, SITE_CLIENT_COUNT, 0, 1100);
+    countUp(projectsEl, SITE_PROJECT_COUNT, 0, 1300);
   }
 
   if ('IntersectionObserver' in window) {
@@ -3231,7 +3234,6 @@ document.addEventListener('keydown', function (event) {
         if (!entry.isIntersecting) {
           return;
         }
-        observer.disconnect();
         reveal();
       });
     }, { threshold: 0.25 });
