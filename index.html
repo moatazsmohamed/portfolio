@@ -534,6 +534,53 @@
     </main>
 
     <!-- ====================================================================
+         شريط الأرقام (Numbers) — عدادات حقيقية
+         --------------------------------------------------------------------
+         الزيارات والزوار بيتسجلوا مجهولين على Supabase: مفيش IP ولا كوكيز
+         ولا بيانات شخصية، بس معرّف عشوائي بيتخزن في المتصفح.
+         العملاء رقم ثابت (SITE_CLIENT_COUNT في script.js) والمشاريع
+         بتتحسب أوتوماتيك من projectData.
+         ==================================================================== -->
+    <section class="numbers-section" id="numbers" aria-labelledby="numbersTitle">
+        <div class="numbers-panel" data-reveal="up">
+            <div class="numbers-head">
+                <p class="section-kicker" data-i18n="numbersKicker">By the numbers</p>
+                <h2 class="section-title numbers-title" id="numbersTitle" data-i18n="numbersTitle">Real numbers, not guesswork</h2>
+            </div>
+
+            <div class="numbers-grid">
+                <div class="number-card">
+                    <span class="number-icon" aria-hidden="true"><i class="fa-solid fa-eye"></i></span>
+                    <strong class="number-value" id="siteVisits">—</strong>
+                    <span class="number-label" data-i18n="numberVisits">Site visits</span>
+                </div>
+
+                <div class="number-card">
+                    <span class="number-icon" aria-hidden="true"><i class="fa-solid fa-user-group"></i></span>
+                    <strong class="number-value" id="siteVisitors">—</strong>
+                    <span class="number-label" data-i18n="numberVisitors">Visitors</span>
+                </div>
+
+                <div class="number-card">
+                    <span class="number-icon" aria-hidden="true"><i class="fa-solid fa-handshake"></i></span>
+                    <strong class="number-value" id="siteClients">3</strong>
+                    <span class="number-label" data-i18n="numberClients">Clients</span>
+                </div>
+
+                <div class="number-card">
+                    <span class="number-icon" aria-hidden="true"><i class="fa-solid fa-layer-group"></i></span>
+                    <strong class="number-value" id="siteProjects">4</strong>
+                    <span class="number-label" data-i18n="numberProjects">Live projects</span>
+                </div>
+            </div>
+
+            <p class="numbers-note" data-i18n="numbersNote">
+                Anonymous counts — no cookies and no personal data.
+            </p>
+        </div>
+    </section>
+
+    <!-- ====================================================================
          قسم من أنا (About Me) — بطاقات التعليم والتطوير والأهداف والشهادات
          ==================================================================== -->
     <section class="about-section" id="about">

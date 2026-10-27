@@ -204,6 +204,13 @@ const translations = {
     caseRoleText: 'من الأول للآخر: تصميم قاعدة البيانات والصلاحيات، طبقة الـ API، تجربة المستخدم، والنشر.',
     caseOpen: 'افتح مدار',
     caseTagsLabel: 'التقنيات المستخدمة',
+    numbersKicker: 'بالأرقام',
+    numbersTitle: 'أرقام حقيقية مش تقديرات',
+    numberVisits: 'زيارة للموقع',
+    numberVisitors: 'زائر',
+    numberClients: 'عميل',
+    numberProjects: 'مشروع منشور',
+    numbersNote: 'العدادات دي مجهولة تمامًا — من غير كوكيز ولا بيانات شخصية.',
     projectName: 'مدار — إدارة فريق العمل',
     projectDescription: 'منصة سحابية متعددة الشركات لإدارة فرق العمل: مهام يومية وتايمر، أقسام وصلاحيات، تقارير شهرية، ولوحة مطوّر — بواجهة عربية كاملة.',
     viewProject: 'عرض المشروع',
@@ -402,6 +409,13 @@ const translations = {
     caseRoleText: 'End-to-end: database schema and permissions, the API layer, the client experience, and the deployment.',
     caseOpen: 'Open Madar',
     caseTagsLabel: 'Technologies used',
+    numbersKicker: 'By the numbers',
+    numbersTitle: 'Real numbers, not guesswork',
+    numberVisits: 'Site visits',
+    numberVisitors: 'Visitors',
+    numberClients: 'Clients',
+    numberProjects: 'Live projects',
+    numbersNote: 'These counts are fully anonymous — no cookies and no personal data.',
     projectName: 'Madar — Team Management',
     projectDescription: 'A multi-tenant cloud platform for team operations: daily tasks with timers, departments and permissions, monthly reports, and a developer panel — with a fully Arabic interface.',
     viewProject: 'View Project',
@@ -3051,4 +3065,198 @@ document.addEventListener('keydown', function (event) {
   document.addEventListener('languageChanged', function () {
     /* مش ضروري — نصوص data-i18n بتتحدّث لوحدها في applyLanguage */
   });
+})();
+
+/* ============================================================================
+   19) عدادات الموقع (Site numbers)
+   ----------------------------------------------------------------------------
+   • الزيارات والزوار: RPCs مجهولة على Supabase (portfolio_track / portfolio_stats).
+     مفيش IP ولا كوكيز: معرّف عشوائي فقط بيتخزن في localStorage.
+   • التسجيل بيحصل على النطاق الحي بس، عشان التجربة المحلية ما تلخبطش الأرقام.
+   • عدد العملاء ثابت تحت، والمشاريع بتتحسب من projectData.
+   ============================================================================ */
+(function () {
+  const SITE_CLIENT_COUNT = 3;
+  const STATS_ENDPOINT = 'https://ppihzxabbysozbdmweje.supabase.co/rest/v1/rpc/';
+  const STATS_KEY = 'sb_publishable_7Re-MNRopMsOjopgV2YNjg_fN0yUDiL';
+  const TRACK_HOSTS = ['portfolio-moataz.vercel.app'];
+  const VISITOR_KEY = 'portfolioVisitorId';
+  const CACHE_KEY = 'portfolioSiteStats';
+
+  const visitsEl = document.getElementById('siteVisits');
+  const visitorsEl = document.getElementById('siteVisitors');
+  const clientsEl = document.getElementById('siteClients');
+  const projectsEl = document.getElementById('siteProjects');
+  const panel = document.querySelector('.numbers-panel');
+  if (!visitsEl || !visitorsEl || !panel) {
+    return;
+  }
+
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let latestStats = null;
+  let shown = false;
+
+  if (clientsEl) {
+    clientsEl.textContent = String(SITE_CLIENT_COUNT);
+  }
+  if (projectsEl && typeof projectData !== 'undefined') {
+    projectsEl.textContent = String(projectData.length);
+  }
+
+  function newVisitorId() {
+    if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+      return window.crypto.randomUUID();
+    }
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (char) {
+      const random = (Math.random() * 16) | 0;
+      const value = char === 'x' ? random : (random & 0x3) | 0x8;
+      return value.toString(16);
+    });
+  }
+
+  function getVisitorId() {
+    try {
+      let id = window.localStorage.getItem(VISITOR_KEY);
+      if (!id || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)) {
+        id = newVisitorId();
+        window.localStorage.setItem(VISITOR_KEY, id);
+      }
+      return id;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function currentValue(element) {
+    const parsed = parseInt(element.textContent, 10);
+    return isNaN(parsed) ? 0 : parsed;
+  }
+
+  function countUp(element, target, from) {
+    if (!element) {
+      return;
+    }
+    if (reduceMotion || !window.requestAnimationFrame) {
+      element.textContent = String(target);
+      return;
+    }
+    const start = typeof from === 'number' ? from : currentValue(element);
+    if (start === target) {
+      element.textContent = String(target);
+      return;
+    }
+    const duration = 850;
+    const startedAt = window.performance.now();
+    function tick(now) {
+      const progress = Math.min((now - startedAt) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      element.textContent = String(Math.round(start + (target - start) * eased));
+      if (progress < 1) {
+        window.requestAnimationFrame(tick);
+      } else {
+        element.textContent = String(target);
+      }
+    }
+    window.requestAnimationFrame(tick);
+  }
+
+  function paint(stats, animate) {
+    if (!stats || typeof stats.views !== 'number' || typeof stats.visitors !== 'number') {
+      return;
+    }
+    if (animate) {
+      countUp(visitsEl, stats.views, 0);
+      countUp(visitorsEl, stats.visitors, 0);
+    } else {
+      visitsEl.textContent = String(stats.views);
+      visitorsEl.textContent = String(stats.visitors);
+    }
+  }
+
+  function readCache() {
+    try {
+      const cached = JSON.parse(window.localStorage.getItem(CACHE_KEY) || 'null');
+      if (cached && typeof cached.views === 'number' && typeof cached.visitors === 'number') {
+        return cached;
+      }
+    } catch (error) {
+      /* ignore a corrupted cache */
+    }
+    return null;
+  }
+
+  function loadStats() {
+    const shouldTrack = TRACK_HOSTS.indexOf(window.location.hostname) !== -1;
+    const visitorId = shouldTrack ? getVisitorId() : null;
+    const rpc = visitorId ? 'portfolio_track' : 'portfolio_stats';
+    const payload = visitorId
+      ? { p_visitor: visitorId, p_path: window.location.pathname }
+      : {};
+
+    window.fetch(STATS_ENDPOINT + rpc, {
+      method: 'POST',
+      headers: {
+        apikey: STATS_KEY,
+        Authorization: 'Bearer ' + STATS_KEY,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload),
+      credentials: 'omit',
+      keepalive: true
+    })
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error('stats ' + response.status);
+        }
+        return response.json();
+      })
+      .then(function (data) {
+        if (!data || typeof data.views !== 'number' || typeof data.visitors !== 'number') {
+          return;
+        }
+        latestStats = data;
+        try {
+          window.localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+        } catch (error) {
+          /* private mode — keep the live values in memory */
+        }
+        if (shown) {
+          paint(data, true);
+        } else {
+          paint(data, false);
+        }
+      })
+      .catch(function () {
+        /* offline or blocked: keep the cached values or the dash */
+      });
+  }
+
+  latestStats = readCache();
+  if (latestStats) {
+    paint(latestStats, false);
+  }
+
+  function reveal() {
+    shown = true;
+    if (latestStats) {
+      paint(latestStats, true);
+    }
+  }
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) {
+          return;
+        }
+        observer.disconnect();
+        reveal();
+      });
+    }, { threshold: 0.25 });
+    observer.observe(panel);
+  } else {
+    reveal();
+  }
+
+  loadStats();
 })();
