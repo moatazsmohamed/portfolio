@@ -9,7 +9,7 @@
    فهرس الأقسام (بالترتيب جوه الملف)
    ----------------------------------------------------------------------------
      1)  الترجمة (Translations)            — قاموس عربي/إنجليزي
-     2)  بيانات المشاريع (Project Data)     — مصفوفة المشاريع الأربعة
+     2)  بيانات المشاريع (Project Data)     — مصفوفة كل المشاريع
      3)  مراجع عناصر الصفحة (DOM Refs)      — بنمسك العناصر مرة واحدة
      4)  أدوات مساعدة (Helpers)            — دوال صغيرة بيستخدمها الباقي
      5)  الهيدر (Header Scroll State)      — تغيير شكل الشريط عند النزول
@@ -625,6 +625,22 @@ const projectData = [
   secondaryLink: 'https://ms-wood-works.vercel.app/#portfolio',
   previewImage: 'img/mswood-preview.webp'
 },
+
+  /* --- المشروع الخامس: WebVault (خزنة المواقع) --- */
+  {
+    tag: { ar: 'تطبيق ويب آمن', en: 'Secure Web App' },
+    name: { ar: 'WebVault — خزنة مواقعك', en: 'WebVault — Your Site Vault' },
+    description: {
+      ar: 'لوحة خاصة لإدارة كل مواقعك: غرف ومواقع وخمس فتحات لينك لكل موقع، مع بيانات دخول مشفّرة بـ AES-256-GCM جوه قاعدة البيانات، وخزنة مقفولة تطلب كلمة السر قبل كل كشف، وسجل نشاط، وتصدير JSON/CSV من غير أي كلمة سر — عربي/إنجليزي.',
+      en: 'A private dashboard for every site you build: rooms, sites and five link slots each, with credentials sealed by AES-256-GCM inside the database, a vault that asks for the password before any reveal, an activity log, and secret-free JSON/CSV exports — Arabic/English.'
+    },
+    tech: ['Next.js 15', 'TypeScript', 'Supabase', 'AES-256-GCM', 'Tailwind', 'Vercel'],
+    primaryText: { ar: 'افتح الخزنة', en: 'Open the Vault' },
+    primaryLink: 'https://webvault-app.vercel.app',
+    secondaryText: { ar: 'جيت هاب', en: 'GitHub' },
+    secondaryLink: 'https://github.com/moatazsmohamed/webvault',
+    previewImage: 'img/webvault-preview.webp'
+  },
 ];
 
 /* ============================================================================
@@ -2090,8 +2106,8 @@ const assistantKnowledge = [
     id: 'projects',
     keywords: ['مشاريع', 'مشروع', 'اعمال', 'بورتفوليو', 'projects', 'project', 'work', 'portfolio'],
     answer: {
-      ar: 'المشاريع الرئيسية:\n• مدار — منصة إدارة فرق عمل متعددة الشركات (الأحدث).\n• MS Woodworks — موقع مؤسسة أثاث خشبي فاخر.\n• TAFRA — متجر أزياء إلكتروني.\n• البورتفوليو ده — الموقع اللي إنت فيه.\nاسألني عن أي مشروع منهم وأقولك تفاصيله.',
-      en: 'Main projects:\n• Madar — a multi-tenant team management platform (latest).\n• MS Woodworks — a luxury handcrafted furniture website.\n• TAFRA — an online fashion store.\n• This portfolio — the site you are on.\nAsk me about any of them for details.'
+      ar: 'المشاريع الرئيسية:\n• مدار — منصة إدارة فرق عمل متعددة الشركات (الأحدث).\n• WebVault — خزنة خاصة لإدارة المواقع وبيانات دخولها.\n• MS Woodworks — موقع مؤسسة أثاث خشبي فاخر.\n• TAFRA — متجر أزياء إلكتروني.\n• البورتفوليو ده — الموقع اللي إنت فيه.\nاسألني عن أي مشروع منهم وأقولك تفاصيله.',
+      en: 'Main projects:\n• Madar — a multi-tenant team management platform (latest).\n• WebVault — a private vault for websites and their logins.\n• MS Woodworks — a luxury handcrafted furniture website.\n• TAFRA — an online fashion store.\n• This portfolio — the site you are on.\nAsk me about any of them for details.'
     }
   },
   {
@@ -2116,6 +2132,14 @@ const assistantKnowledge = [
     answer: {
       ar: 'TAFRA متجر أزياء إلكتروني بهوية بصرية فاخرة: 16 قطعة في 6 مجموعات (أوفرسايز، هوديز، بناطيل، إكسسوارات، عطور، هدايا)، مع بحث وفرز وسلة طلبات تتبعت على واتساب، وواجهة عربي/إنجليزي.\nتقدر تفتحه من زرار «زيارة المتجر» في كارت TAFRA.',
       en: 'TAFRA is an online fashion store with a luxury identity: 16 pieces across 6 collections (oversized tees, hoodies, bottoms, accessories, fragrance, gifts), with search, sorting and a cart that sends the order over WhatsApp, in Arabic/English.\nOpen it from the “Visit Store” button on the TAFRA card.'
+    }
+  },
+  {
+    id: 'webvault',
+    keywords: ['webvault', 'خزنه', 'خزنة', 'باسورد', 'كلمه سر', 'password', 'vault', 'أمان', 'امان', 'security', 'كريديانشل', 'credential'],
+    answer: {
+      ar: 'WebVault خزنة خاصة لإدارة المواقع وبيانات دخولها:\n• غرف لكل عميل/مشروع، وكل موقع فيه خمس فتحات لينك (مباشر، لوحة تحكم، مطوّر، سكود، استضافة).\n• كلمات السر بتتشفّر AES-256-GCM بمفاتيح متعددة الإصدارات قبل ما توصل قاعدة البيانات، وصلاحيات RLS مقفولة بالكامل.\n• الخزنة مقفولة: كل كشف لكلمة سر يحتاج قفل بـ token صالح ٥ دقايق، مع حد ٢٠ كشف في ١٠ دقايق وسجل نشاط كامل.\n• بحث وفلترة وتصدير JSON/CSV من غير أي كلمة سر، وواجهة عربي/إنجليزي RTL.\nمبني بـ Next.js 15 وTypeScript وSupabase على Vercel، ومعاياه ٢٩ اختبار أمان و٢٩ سيناريو end-to-end.\nافتحه من زرار «افتح الخزنة» في كارت WebVault: https://webvault-app.vercel.app',
+      en: 'WebVault is a private vault for websites and their logins:\n• A room per client or project, and five link slots per site (live, admin, developer, source, hosting).\n• Passwords are sealed with AES-256-GCM using versioned keys before they reach the database, and RLS denies everything by default.\n• The vault stays locked: every reveal needs a 5-minute unlock token, capped at 20 reveals per 10 minutes, with a full activity log.\n• Search, filters and JSON/CSV exports that never carry a password, in an Arabic/English RTL interface.\nBuilt with Next.js 15, TypeScript and Supabase on Vercel, covered by 29 security self-tests and 29 end-to-end workflows.\nOpen it from the “Open the Vault” button on the WebVault card: https://webvault-app.vercel.app'
     }
   },
   {
