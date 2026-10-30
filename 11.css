@@ -8833,3 +8833,29 @@ body.light-mode .numbers-note {
     color: #6f6250;
 }
 
+
+/* ----------------------------------------------------------------------------
+   🖼️ توجيه طلبات المشاريع → معرض الأعمال (شريط تحت كارت المشاريع)
+   الشريط بياخد تنسيق .contact-strip زي ما هو، وده بس المسافة والنوتة.
+   ---------------------------------------------------------------------------- */
+.gallery-request {
+    margin-top: 26px;
+}
+
+.gallery-note {
+    margin: 8px 0 0;
+    max-width: 62ch;
+    color: #a9a49b;
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
+body.light-mode .gallery-note {
+    color: #5d5648;
+}
+
+@media (max-width: 768px) {
+    .gallery-request {
+        margin-top: 18px;
+    }
+}

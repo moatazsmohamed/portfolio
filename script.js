@@ -218,6 +218,12 @@ const translations = {
     githubProject: 'جيت هاب',
     changeProject: 'تغيير المشروع',
 
+    /* توجيه طلبات المشاريع للمعرض */
+    galleryKicker: 'طلب مشروع',
+    galleryTitle: 'عندك فكرة مشروع؟ ابعتلي تفاصيلها من معرض الأعمال',
+    galleryNote: 'الفورم موجود جوه المعرض، والرسالة بتوصلني على نفس صندوق رسائل البورتفوليو وتافرا.',
+    galleryButton: 'افتح فورم الطلب',
+
     /* التواصل */
     contactKicker: 'دعنا نتواصل',
     contactTitle: 'هل تحتاج إلى مشروع أو تعاون أو مجرد دردشة سريعة؟',
@@ -444,6 +450,12 @@ const translations = {
     githubProject: 'GitHub',
     changeProject: 'Change Project',
 
+    /* Project requests → showcase */
+    galleryKicker: 'Project request',
+    galleryTitle: 'Have a project idea? Send the details through the showcase',
+    galleryNote: 'The request form lives inside the showcase — messages land in the same inbox as this portfolio and TAFRA.',
+    galleryButton: 'Open the request form',
+
     /* Contact */
     contactKicker: "Let's Connect",
     contactTitle: 'Need a project, collaboration, or just a quick chat?',
@@ -550,6 +562,22 @@ const aiSuggestionPrompts = [
    عايز تضيف مشروع؟ انسخ أي عنصر هنا وعدّل قيمه والكود هياخد باله لوحده.
    ============================================================================ */
 const projectData = [
+  /* --- معرض الأعمال: بوسترات المشاريع + فورم طلب مشروع جديد --- */
+  {
+    tag: { ar: 'معرض الأعمال', en: 'Showcase' },
+    name: { ar: 'معرض الأعمال — اطلب مشروعك', en: 'Project Showcase — Request a Build' },
+    description: {
+      ar: 'مساحة لعرض المشاريع على هيئة بوسترات، وجواها فورم لطلب المشاريع: تكتب الفكرة والاسم والإيميل، والرسالة بتوصلني على نفس صندوق رسائل البورتفوليو وتافرا.',
+      en: 'A showroom for my work built as posters, with a built-in request form: send the idea, your name and email, and it lands in the same inbox as this portfolio and TAFRA.'
+    },
+    tech: ['HTML5', 'CSS3', 'JavaScript', 'Supabase', 'Vercel'],
+    primaryText: { ar: 'زور المعرض', en: 'Visit the showcase' },
+    primaryLink: 'https://moataz-portfolio-v3.vercel.app',
+    secondaryText: { ar: 'اطلب فكرة', en: 'Send an idea' },
+    secondaryLink: 'https://moataz-portfolio-v3.vercel.app/#contact',
+    previewImage: 'img/gallery-v3.webp'
+  },
+
   /* --- الأحدث: مدار — منصة إدارة فرق العمل --- */
   {
     tag: { ar: 'أحدث مشروع', en: 'Latest Project' },
