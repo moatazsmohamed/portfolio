@@ -65,7 +65,10 @@ const adminTranslations = {
     justNow: 'دلوقتي',
     minutesAgo: 'من @n@ دقيقة',
     hoursAgo: 'من @n@ ساعة',
-    daysAgo: 'من @n@ يوم'
+    daysAgo: 'من @n@ يوم',
+    sourceMotryx: 'موتريكس',
+    sourceTafra: 'تافرا',
+    sourcePortfolio: 'البورتفوليو'
   },
   en: {
     loginTitle: 'Client messages',
@@ -108,7 +111,10 @@ const adminTranslations = {
     justNow: 'just now',
     minutesAgo: '@n@ min ago',
     hoursAgo: '@n@ h ago',
-    daysAgo: '@n@ d ago'
+    daysAgo: '@n@ d ago',
+    sourceMotryx: 'MOTRYX',
+    sourceTafra: 'TAFRA',
+    sourcePortfolio: 'Portfolio'
   }
 };
 
@@ -339,6 +345,14 @@ function whatsappHref(phone) {
   return 'https://wa.me/' + international;
 }
 
+function leadSource(page) {
+  const value = String(page || '').toLowerCase();
+  if (value.indexOf('motryx') !== -1) return t('sourceMotryx');
+  if (value.indexOf('tafra') !== -1) return t('sourceTafra');
+  if (value === '' || value === '/' || value.indexOf('index') !== -1) return t('sourcePortfolio');
+  return '';
+}
+
 /**
  * رسم كارت رسالة واحدة، مع التفاصيل لما تكون مفتوحة.
  * @param {Object} lead
@@ -370,7 +384,7 @@ function leadCard(lead) {
   right.style.textAlign = 'end';
   const statusKey = lead.status === 'new' ? 'statusNew' : lead.status === 'read' ? 'statusRead' : 'statusArchived';
   right.appendChild(make('span', 'pill ' + lead.status, t(statusKey)));
-  right.appendChild(make('div', 'lead-date', [relativeTime(lead.created_at), String(lead.lang || '').toUpperCase()].filter(Boolean).join(' · ')));
+  right.appendChild(make('div', 'lead-date', [relativeTime(lead.created_at), String(lead.lang || '').toUpperCase(), leadSource(lead.page)].filter(Boolean).join(' · ')));
   head.appendChild(left);
   head.appendChild(right);
   card.appendChild(head);
