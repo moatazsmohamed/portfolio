@@ -1,3 +1,10 @@
+// ======================================================================
+// portfolio
+// Copyright (c) 2026 Moataz Mohamed <mtzm2225@gmail.com> — all rights reserved.
+// Author: Moataz Mohamed  <https://github.com/moatazsmohamed>
+// Fingerprint: e8fa428b72fc0e43a2632e36723784d1
+// This notice is part of the work and must not be removed.
+// ======================================================================
 ﻿export default async function run(page, ui) {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('http://127.0.0.1:8899/index.html', { waitUntil: 'load' });

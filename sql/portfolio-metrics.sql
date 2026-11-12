@@ -1,3 +1,10 @@
+-- ======================================================================
+-- portfolio
+-- Copyright (c) 2026 Moataz Mohamed <mtzm2225@gmail.com> — all rights reserved.
+-- Author: Moataz Mohamed  <https://github.com/moatazsmohamed>
+-- Fingerprint: e8fa428b72fc0e43a2632e36723784d1
+-- This notice is part of the work and must not be removed.
+-- ======================================================================
 -- Anonymous visit counter for the portfolio site.
 -- No IP addresses, cookies or personal data: each browser stores a random UUID locally
 -- and the database only keeps that id, the path, and timestamps.
