@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2026 Moataz Mohamed (@moatazsmohamed). All rights reserved.
+ * Unauthorized copying, redistribution or reuse is prohibited. See LICENSE.
+ * Authorship marker: mm-bbca6a388ea8f7cc
+ */
 // ======================================================================
 // portfolio
 // Copyright (c) 2026 Moataz Mohamed <mtzm2225@gmail.com> — all rights reserved.
